@@ -40,8 +40,20 @@ namespace AshtonBro.CodeBlog._1
             string striengTwo = "str " + integer.ToString();
 
 
+            // преобразование bool тип
+            bool boolian = true;
+            string str = boolian.ToString();
+            string secontStr = "false";
+            bool secondBoolian = Convert.ToBoolean(secontStr);
 
-            Console.WriteLine(strieng);
+            // tryParse
+            if (int.TryParse("555555555", out int result))
+            {
+                Console.WriteLine(result);
+            }
+
+            Console.WriteLine(str);
+            Console.WriteLine(secondBoolian);
             Console.WriteLine(jojo);
             Console.WriteLine(b);
             Console.WriteLine(bb);
