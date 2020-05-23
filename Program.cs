@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace AshtonBro.CodeBlog._1
 {
@@ -8,19 +7,14 @@ namespace AshtonBro.CodeBlog._1
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine("Wake up, Neo...");
-            Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine("The Matrix has you.");
-            Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine("Follow the white rabbit.");
-            Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine("Knock, knock, Neo.");
-            Console.ReadLine();
-            
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+
+            string UpperCamelCase; // PascalCase, first letter uppercase. (C#)
+            string lowerCameCase; // PascalCase, first letter lowercase. (C#)
+            string snake_case; // Snake style (JS)
+            string FAT_SNAKE_CASE; // Fat snake style, usually use for constant's
+            string kebab-case; // -#-#-#-#-- Kebab
+            string sHungarianCase; // Hungarian notation (C++)
         }
     }
 }
