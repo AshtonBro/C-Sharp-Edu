@@ -9,7 +9,15 @@ namespace AshtonBro.CodeBlog._1
             Console.ForegroundColor = ConsoleColor.Green;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
 
-                  
+            int inter = 6;
+            double dob = 4.2;
+            bool booll = true;
+            decimal dec = 7;
+            decimal res = dec / 2;
+            decimal dividend = Decimal.One;
+            decimal divisor = 3;
+
+            Console.WriteLine(dividend / divisor * dividend);
 
 
         }
