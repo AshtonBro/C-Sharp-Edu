@@ -32,6 +32,8 @@ namespace AshtonBro.CodeBlog._2
 
             int[] array1d = { 1, 2, 3, 4, 5, 6, 7};
 
+            int[] arrayInit = new int[] { 0, 2, 3, 4, 5 };
+
             array[0] = 5;
             array[1] = 12;
             array[2] = 17;
@@ -55,14 +57,40 @@ namespace AshtonBro.CodeBlog._2
             Console.WriteLine(list[0]);
             Console.WriteLine(Days.Fri);
 
+            int[] arrayFor = new int[23];
+
+            for (int i = 0; i <= arrayFor.Length - 1; i++)
+            {
+                arrayFor[i] = i;
+            }
+            Console.WriteLine(string.Join(",", arrayFor));
+
+            List<int> listFor = new List<int>();
+            for (int j = 0; j <= arrayFor.Length - 1; j++)
+            {
+                listFor.Add(j * 5);
+            }
+
+            Console.WriteLine(string.Join(",", listFor));
+
+            // преобразование list в array
+            int[] arrayList = listFor.ToArray();
+
+            string[] arrayStr = new string[] {"a", "b", "c", "f", "c", "a", "hg", "as", "32s4", };
+            List<string> listStr = new List<string>();
+
+            for (int q = 0; q <= arrayStr.Length - 1; q++)
+            {
+                listStr.Add(arrayStr[q]);
+                
+            }
+
+            // string.Join сцепляет элементы созданной коллектции предварительно указав первым параметром сепаратор
+            Console.WriteLine(string.Join(",", listStr));
+            Console.WriteLine(string.Join(",", arrayStr));
             Console.ReadLine();
-
-            FirstClass[] cs = new FirstClass[10];
-            List<FirstClass> css = new List<FirstClass>();
-
         }
 
-        public class FirstClass { }
     }
 }
 
@@ -78,10 +106,13 @@ int[,] array2d = new int[10, 10];
 // Трёх мерный массив
 int[,,] array3d = new int[10, 10, 10];
 
+int[] array1d = { 1, 2, 3, 4, 5, 6, 7};
+
+int[] arrayInit = new int[] { 0, 2, 3, 4, 5 };
+
 array[0] = 5;
 array[1] = 12;
 array[2] = 17;
-            
 
 Console.WriteLine("{0}, {1}, {2}, {3}, {4}", array);
 Console.WriteLine();
@@ -91,20 +122,67 @@ Console.ReadLine();
 
 чтобы объявить список, пишем list, a в кадратный скобках <> тип переменных которые будут находится в list
 
-// Список list <тип переменных внутри списка> имя списка = обьявляем как новый список с интами внутри
-
+ // Список list <тип переменных внутри списка> имя списка = обьявляем как новый список с интами внутри
 List<int> list = new List<int>();
 list.Add(0);
 list.Add(1);
 list.Add(2);
 list.Add(3);
 
+List<int> ListTwo = new List<int>()
+{
+    1, 2, 3, 4, 5, 6, 7, 8
+};
+
+ListTwo.AddRange(array);
+
 
 Console.WriteLine(array[0]);
 Console.WriteLine(list[0]);
 Console.WriteLine(Days.Fri);
 
-Console.ReadLine();              
+int[] arrayFor = new int[23];
+
+for (int i = 0; i <= arrayFor.Length - 1; i++)
+{
+    arrayFor[i] = i;
+}
+Console.WriteLine(string.Join(",", arrayFor));
+
+List<int> listFor = new List<int>();
+for (int j = 0; j <= arrayFor.Length - 1; j++)
+{
+    listFor.Add(j * 5);
+}
+
+Console.WriteLine(string.Join(",", listFor));
+
+// преобразование list в array
+int[] arrayList = listFor.ToArray();
+
+string[] arrayStr = new string[] {"a", "b", "c", "f", "c", "a", "hg", "as", "32s4", };
+List<string> listStr = new List<string>();
+
+for (int q = 0; q <= arrayStr.Length - 1; q++)
+{
+    listStr.Add(arrayStr[q]);
+                
+}
+
+// string.Join(",", array) сцепляет элементы созданной коллектции предварительно указав первым параметром сепаратор.
+Console.WriteLine(string.Join(",", listStr));
+Console.WriteLine(string.Join(",", arrayStr));
+Console.ReadLine();
+
+
+Console.WriteLine(array[0]);
+Console.WriteLine(list[0]);
+Console.WriteLine(Days.Fri);
+
+Console.ReadLine();
+
+FirstClass[] cs = new FirstClass[10];
+List<FirstClass> css = new List<FirstClass>();           
 
  enum Days
 {
