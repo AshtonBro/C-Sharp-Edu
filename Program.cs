@@ -1,45 +1,84 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace AshtonBro.CodeBlog._2
 {
     class Program
     {
+        enum Days
+        {
+            Mon = 14,
+            Tru = 23,
+            Wen = 17,
+            Tro = 96,
+            Fri = 84,
+            Sut = 35,
+            Sun = 53
+
+        }
+
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.BackgroundColor = ConsoleColor.Black;
 
-            int inter = 5;
-            double dob = 4.2;
-            bool booll = true;
-            decimal dec = 7;
-            decimal res = dec / 2;
-            decimal dividend = Decimal.Multiply(dec, res);
-            decimal divisor = 3;
-            double convertVar = Convert.ToDouble(booll);
-            string str = Convert.ToString(booll).ToUpper();
+            // Одномерный массив
+            int[] array = new int[10];
+            // Двумерный массив
+            int[,] array2d = new int[10, 10];
+            // Трёх мерный массив
+            int[,,] array3d = new int[10, 10, 10];
+
+            array[0] = 5;
+            array[1] = 12;
+            array[2] = 17;
+
+            // Список list <тип переменных внутри списка> имя списка = обьявляем как новый список с интами внутри
+            List<int> list = new List<int>();
+            list.Add(0);
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
 
 
-
-            Console.WriteLine(convertVar);
-            Console.WriteLine(str);
-            Console.WriteLine(booll);
-            Console.WriteLine(dividend);
+            Console.WriteLine(array[0]);
+            Console.WriteLine(list[0]);
+            Console.WriteLine(Days.Fri);
             Console.ReadLine();
+
 
         }
     }
 }
 
 /*
- * 
-string UpperCamelCase; // PascalCase, first letter uppercase. (C#)
-string lowerCameCase; // PascalCase, first letter lowercase. (C#)
-string snake_case; // Snake style (JS)
-string FAT_SNAKE_CASE; // Fat snake style, usually use for constant's
-string kebab-case; // -#-#-#-#-- Kebab
-string sHungarianCase; // Hungarian notation (C++)
+ 
+<------------------------------Коллекции C#: массивы (array) и списки (list). Перечисления (enum)--------------------->
+
+
+// Одномерный массив
+int[] array = new int[10];
+// Двумерный массив
+int[,] array2d = new int[10, 10];
+// Трёх мерный массив
+int[,,] array3d = new int[10, 10, 10];
+
+array[1] = 12;
+array[2] = 17;
+            
+
+Console.WriteLine("{0}, {1}, {2}, {3}, {4}", array);
+Console.WriteLine();
+Console.ReadLine();
+
+Если у нас массив динамический и постоянно меняетются, изменяются или добавляются значения, то лучше использовать список - list <>
+
+чтобы объявить список, пишем list, a в кадратный скобках <> тип переменных которые будут находится в list
+
                             
+
+
                                      Приведение и преобразование типов C# 
 <------------------------------------- Type casting and conversion C#------------------------>
 
@@ -102,7 +141,7 @@ if (int.TryParse(Console.ReadLine(), out int result))
     Console.WriteLine(result);
 } else
 {
-    Console.WriteLine("Input only% integer");
+    Console.WriteLine("Input only integer");
 }
 
 Console.WriteLine(str);
@@ -110,5 +149,28 @@ Console.WriteLine(secondBoolian);
 Console.WriteLine(jojo);
 Console.WriteLine(b);
 Console.WriteLine(bb);
+
+int inter = 5;
+string strOne = "1";
+bool booll = true;
+decimal dec = 7;
+decimal res = dec / 2;
+decimal dividend = Decimal.Multiply(dec, res);
+double convertVar = Convert.ToDouble(booll);
+string str = Convert.ToString(booll).ToUpper();
+int mix = Int32.Parse(convertVar + strOne) * inter;
+
+Console.WriteLine(mix);
+Console.WriteLine(str);
+Console.WriteLine(booll);
+Console.WriteLine(dividend);
+Console.ReadLine();
+
+string UpperCamelCase; // PascalCase, first letter uppercase. (C#)
+string lowerCameCase; // PascalCase, first letter lowercase. (C#)
+string snake_case; // Snake style (JS)
+string FAT_SNAKE_CASE; // Fat snake style, usually use for constant's
+string kebab-case; // -#-#-#-#-- Kebab
+string sHungarianCase; // Hungarian notation (C++)
 */
 
