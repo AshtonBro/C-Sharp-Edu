@@ -30,6 +30,8 @@ namespace AshtonBro.CodeBlog._2
             // Трёх мерный массив
             int[,,] array3d = new int[10, 10, 10];
 
+            int[] array1d = { 1, 2, 3, 4, 5, 6, 7};
+
             array[0] = 5;
             array[1] = 12;
             array[2] = 17;
@@ -41,14 +43,26 @@ namespace AshtonBro.CodeBlog._2
             list.Add(2);
             list.Add(3);
 
+            List<int> ListTwo = new List<int>()
+            {
+                1, 2, 3, 4, 5, 6, 7, 8
+            };
+
+            ListTwo.AddRange(array);
+
 
             Console.WriteLine(array[0]);
             Console.WriteLine(list[0]);
             Console.WriteLine(Days.Fri);
+
             Console.ReadLine();
 
+            FirstClass[] cs = new FirstClass[10];
+            List<FirstClass> css = new List<FirstClass>();
 
         }
+
+        public class FirstClass { }
     }
 }
 
@@ -57,13 +71,14 @@ namespace AshtonBro.CodeBlog._2
 <------------------------------Коллекции C#: массивы (array) и списки (list). Перечисления (enum)--------------------->
 
 
-// Одномерный массив
+ // Одномерный массив
 int[] array = new int[10];
 // Двумерный массив
 int[,] array2d = new int[10, 10];
 // Трёх мерный массив
 int[,,] array3d = new int[10, 10, 10];
 
+array[0] = 5;
 array[1] = 12;
 array[2] = 17;
             
@@ -76,8 +91,45 @@ Console.ReadLine();
 
 чтобы объявить список, пишем list, a в кадратный скобках <> тип переменных которые будут находится в list
 
-                            
+// Список list <тип переменных внутри списка> имя списка = обьявляем как новый список с интами внутри
 
+List<int> list = new List<int>();
+list.Add(0);
+list.Add(1);
+list.Add(2);
+list.Add(3);
+
+
+Console.WriteLine(array[0]);
+Console.WriteLine(list[0]);
+Console.WriteLine(Days.Fri);
+
+Console.ReadLine();              
+
+ enum Days
+{
+    Mon = 14,
+    Tru = 23,
+    Wen = 17,
+    Tro = 96,
+    Fri = 84,
+    Sut = 35,
+    Sun = 53
+}
+
+Советы по кментариям:
+На начальном этапе писать коментарии практически ко всему, чтобы выучить и при повторном просмотре кода понять что мы тут написали, 
+конечно с практикой стараться писать комментарий все меньше, но при не стардартном поведении кода или функции всегда указывать комментарий
+
+Console.WriteLine(); // Вывод текста на консоль.
+/*
+* Много 
+* строчный
+* коментарий 
+*
+*/
+
+/*
 
                                      Приведение и преобразование типов C# 
 <------------------------------------- Type casting and conversion C#------------------------>
