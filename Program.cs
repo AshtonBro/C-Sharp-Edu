@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AshtonBro.CodeBlog._1
+namespace AshtonBro.CodeBlog._2
 {
     class Program
     {
@@ -9,15 +9,22 @@ namespace AshtonBro.CodeBlog._1
             Console.ForegroundColor = ConsoleColor.Green;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
 
-            int inter = 6;
+            int inter = 5;
             double dob = 4.2;
             bool booll = true;
             decimal dec = 7;
             decimal res = dec / 2;
-            decimal dividend = Decimal.MinusOne;
+            decimal dividend = Decimal.Multiply(dec, res);
             decimal divisor = 3;
+            double convertVar = Convert.ToDouble(booll);
+            string str = Convert.ToString(booll).ToUpper();
 
-            Console.WriteLine(dividend / divisor * 2 * dividend);
+
+
+            Console.WriteLine(convertVar);
+            Console.WriteLine(str);
+            Console.WriteLine(booll);
+            Console.WriteLine(dividend);
             Console.ReadLine();
 
         }
