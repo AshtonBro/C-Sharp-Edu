@@ -8,98 +8,13 @@ using System.Diagnostics;
 
 namespace AshtonBro.CodeBlog._2
 {
-    class Customer // Reference Type
-    {
-        public int id;
-        public double GetBalance()
-        {
-            AshtonBro.CodeBlog._2.Program.myFunc(null);
-            return 3.14;
-        }
-    }
-    struct Order
-    {
-        public int amount;
-    }
-    class Product
-    {
-        public double Price;
-    }
-
+  
     class Program
     {
-        public bool XFunc()
-        {
-            //Exception ex = new Exception("my error");
-            //if (1 == 1)
-            //throw ex;
-            return false;
-        }
-
-        public bool XFunc2()
-        {
-            //Exception ex = new Exception("my error");
-            //if (1 == 1)
-            //throw ex;
-            return false;
-        }
-
-        static void myFunc(Order or) // Global func with name with name space
-        {
-            or.amount = 100;
-        }
-
-        public static string myFunc(Customer cc, int z = 333)
-        {
-            cc.id = -335;
-            return "Hello";
-        }
-        static void TestParam(ref int x, out int y)
-        {
-            y = 163;
-            x++;
-        }
+      
         static void Main(string[] args)
         {
-            int testVariable = new int();
-            testVariable = 333;
-            int yOut;
-            TestParam(ref testVariable, out yOut);
-            Console.WriteLine(testVariable);
-
-            Program pX = new Program();
-
-            try
-            {
-                pX.XFunc();
-            }
-            catch (OutOfMemoryException ex)
-            {
-                Console.WriteLine(ex.Message);
-                EventLog.WriteEvent("Application", new EventInstance(333, 555));
-            }
-
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                EventLog.WriteEvent("Application", new EventInstance(333, 555));
-                Debug.WriteLine("This is debug error");
-                Trace.WriteLine("This is debug error");
-            }
-
-            AshtonBro.CodeBlog._2.Program.myFunc(null);
-            
-            Order o2 = new Order();
-            o2.amount = 0;
-            myFunc(o2);
-            Console.WriteLine(o2.amount);
-
-            Customer cc = new Customer();
-            cc.id = 555;
-            myFunc(cc);
-            Console.WriteLine(cc.id);
-
-
+           
             Console.ReadLine();
         }
     }
@@ -317,132 +232,226 @@ string sHungarianCase; // Hungarian notation (C++)
 <==================================== MS DAY 1 ==========================================>
 
   Order or = new Order();
-            or.amount = 0;
-            myFunc(or);
-            Console.WriteLine(or.amount);
+or.amount = 0;
+myFunc(or);
+Console.WriteLine(or.amount);
 
-            Customer sd = new Customer();
-            sd.id = 555;
-            myFunc2(sd);
-            Console.WriteLine(sd.id);
+Customer sd = new Customer();
+sd.id = 555;
+myFunc2(sd);
+Console.WriteLine(sd.id);
 
-            {
-                Product pr = new Product();
-                pr.Price = 3.13;
-            }
+{
+    Product pr = new Product();
+    pr.Price = 3.13;
+}
 
-            // Common language specification
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.BackgroundColor = ConsoleColor.Black;
+// Common language specification
+Console.ForegroundColor = ConsoleColor.Green;
+Console.BackgroundColor = ConsoleColor.Black;
 
-            var q = 333;
-            var j = "bla";
+var q = 333;
+var j = "bla";
 
-            Int32 x = (int)3.14;
-            Int64 x2 = 650;
-            int i = 444;
-            Double dd2 = 3.13;
-            double dd = 3.14;
+Int32 x = (int)3.14;
+Int64 x2 = 650;
+int i = 444;
+Double dd2 = 3.13;
+double dd = 3.14;
 
-            x2 = Int64.MaxValue;
-            DateTime z = DateTime.Now;
+x2 = Int64.MaxValue;
+DateTime z = DateTime.Now;
 
-            Int64 abc = int.Parse("123");
+Int64 abc = int.Parse("123");
 
-            Console.WriteLine(x);
-            Console.WriteLine(x2);
-            Console.WriteLine(dd);
-            Console.WriteLine(z.ToUniversalTime());
-            Console.WriteLine(z.ToString("dd-MMM-yyyy"));
+Console.WriteLine(x);
+Console.WriteLine(x2);
+Console.WriteLine(dd);
+Console.WriteLine(z.ToUniversalTime());
+Console.WriteLine(z.ToString("dd-MMM-yyyy"));
 
-            String str = "Hello!"; // EMMUTABLE
-            var str2 = "Hello!";
-            var str3 = "Hi";
-            str3 += "bla"; // BAD!!
+String str = "Hello!"; // EMMUTABLE
+var str2 = "Hello!";
+var str3 = "Hi";
+str3 += "bla"; // BAD!!
 
-            str3 = String.Intern(str3);
+str3 = String.Intern(str3);
 
-            if (Object.ReferenceEquals(str, str3))
-            {
-                Console.WriteLine("Equal!!");
-            }
+if (Object.ReferenceEquals(str, str3))
+{
+    Console.WriteLine("Equal!!");
+}
 
-            // Optimization work with  memory ise StringBuilder
-            StringBuilder sb = new StringBuilder("He", 100);
-            sb.Append("l");
-            sb.Append("l");
-            sb.Append("o");
-            sb.Append("!");
-            var str4 = sb.ToString();
+// Optimization work with  memory ise StringBuilder
+StringBuilder sb = new StringBuilder("He", 100);
+sb.Append("l");
+sb.Append("l");
+sb.Append("o");
+sb.Append("!");
+var str4 = sb.ToString();
 
-            if (Object.ReferenceEquals(str, str4))
-            {
-                Console.WriteLine("Equal!!");
-            }
-            Console.WriteLine(str4);
-            // IMMUTABEL ARRAY  мы не можем поменять размер массива
-            // 1 int = 4byte //select.count
-            int[] myArray = new int[10] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; // При случае если мы знаем колличество массива заранее 
-            myArray[0] = 333;
-            myArray[1] = 555;
+if (Object.ReferenceEquals(str, str4))
+{
+    Console.WriteLine("Equal!!");
+}
+Console.WriteLine(str4);
+// IMMUTABEL ARRAY  мы не можем поменять размер массива
+// 1 int = 4byte //select.count
+int[] myArray = new int[10] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; // При случае если мы знаем колличество массива заранее 
+myArray[0] = 333;
+myArray[1] = 555;
 
-            foreach (var elem in myArray)
-            {
-                Console.WriteLine(elem);
-            }
+foreach (var elem in myArray)
+{
+    Console.WriteLine(elem);
+}
 
-            int[, ,] array3d = new int[3, 5, 10]; // EMMUTABLE
-            array3d[1, 3, 7] = 777;
+int[, ,] array3d = new int[3, 5, 10]; // EMMUTABLE
+array3d[1, 3, 7] = 777;
 
-            foreach (var elem in array3d)
-            {
-                Console.WriteLine(string.Join(", ",elem));
-            }
+foreach (var elem in array3d)
+{
+    Console.WriteLine(string.Join(", ",elem));
+}
 
-            int[,] array2d = new int[3, 5]; // EMMUTABLE 
-            array2d[1, 3] = 777;
+int[,] array2d = new int[3, 5]; // EMMUTABLE 
+array2d[1, 3] = 777;
 
-            foreach (var elem in array2d)
-            {
-                Console.WriteLine(elem);
-            }
+foreach (var elem in array2d)
+{
+    Console.WriteLine(elem);
+}
 
-            // Обьявляем квадратный масив
-            int[][] arrayQ = new int[3][]; // EMMUTABLE
-            arrayQ[0] = new int[5];
-            arrayQ[1] = new int[7];
-            arrayQ[2] = new int[7];
+// Обьявляем квадратный масив
+int[][] arrayQ = new int[3][]; // EMMUTABLE
+arrayQ[0] = new int[5];
+arrayQ[1] = new int[7];
+arrayQ[2] = new int[7];
 
-            foreach (var elem in arrayQ)
-            {
-                Console.WriteLine(elem);
-            }
+foreach (var elem in arrayQ)
+{
+    Console.WriteLine(elem);
+}
 
-            // namespace колизия имен, если делать библиотеку то будет конфликт функции которые называется по дефолту
-            // Неоднозначность убераем namespace
-            AshtonBro.CodeBlog._2.Program p = new AshtonBro.CodeBlog._2.Program();
-            Program p2 = new Program();
-            AshtonBro.CodeBlog._2.Program p3 = new Program();
+// namespace колизия имен, если делать библиотеку то будет конфликт функции которые называется по дефолту
+// Неоднозначность убераем namespace
+AshtonBro.CodeBlog._2.Program p = new AshtonBro.CodeBlog._2.Program();
+Program p2 = new Program();
+AshtonBro.CodeBlog._2.Program p3 = new Program();
 
-            // В операционной системе есть 2 типа операционной памяти Hit и Stack
-            // Virtual Memory Manager
-            // Thread (поток) -> ~ 05mb => 1.5mb quick - stack
-            // 8Tb -> slow
-            {
-                Customer с = new Customer();
-            }
+// В операционной системе есть 2 типа операционной памяти Hit и Stack
+// Virtual Memory Manager
+// Thread (поток) -> ~ 05mb => 1.5mb quick - stack
+// 8Tb -> slow
+{
+    Customer с = new Customer();
+}
 
-            {
-                Order o = new Order(); // будет существовать до скобок потом очищается. или выхода из функции
-            } // Clear stack
+{
+    Order o = new Order(); // будет существовать до скобок потом очищается. или выхода из функции
+} // Clear stack
 
-            {
-                Order o = new Order();
-            }
+{
+    Order o = new Order();
+}
 
-            {
-                int xx = 333; //automatic variable
-            }
+{
+    int xx = 333; //automatic variable
+}
+
+
+
+int testVariable = new int();
+testVariable = 333;
+int yOut;
+TestParam(ref testVariable, out yOut);
+Console.WriteLine(testVariable);
+
+Program pX = new Program();
+
+try
+{
+    pX.XFunc();
+}
+catch (OutOfMemoryException ex)
+{
+    Console.WriteLine(ex.Message);
+    EventLog.WriteEvent("Application", new EventInstance(333, 555));
+}
+
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+    EventLog.WriteEvent("Application", new EventInstance(333, 555));
+    Debug.WriteLine("This is debug error");
+    Trace.WriteLine("This is debug error");
+}
+
+AshtonBro.CodeBlog._2.Program.myFunc(null);
+            
+Order o2 = new Order();
+o2.amount = 0;
+myFunc(o2);
+Console.WriteLine(o2.amount);
+
+Customer cc = new Customer();
+cc.id = 555;
+myFunc(cc);
+Console.WriteLine(cc.id);
+
+
+FUNCTIONS -------------------------------->
+class Customer // Reference Type
+{
+    public int id;
+    public double GetBalance()
+    {
+        AshtonBro.CodeBlog._2.Program.myFunc(null);
+        return 3.14;
+    }
+}
+struct Order
+{
+    public int amount;
+}
+class Product
+{
+    public double Price;
+}
+
+
+public bool XFunc()
+{
+    //Exception ex = new Exception("my error");
+    //if (1 == 1)
+    //throw ex;
+    return false;
+}
+
+public bool XFunc2()
+{
+    //Exception ex = new Exception("my error");
+    //if (1 == 1)
+    //throw ex;
+    return false;
+}
+
+static void myFunc(Order or) // Global func with name with name space
+{
+    or.amount = 100;
+}
+
+public static string myFunc(Customer cc, int z = 333)
+{
+    cc.id = -335;
+    return "Hello";
+}
+static void TestParam(ref int x, out int y)
+{
+    y = 163;
+    x++;
+}
+
 
 
 */
