@@ -25,136 +25,18 @@ namespace AshtonBro.CodeBlog._2
         // csc.exe => IL -> compile taget CPU + OS
 
        
-        static void myFunc(Order o)
+        static void myFunc (Order or)
         {
-            o.amount = 100;
+            or.amount = 100;
+        }
+
+        static void myFunc2 (Customer cc)
+        {
+            cc.id = -335;
         }
         static void Main(string[] args)
         {
-            Order or = new Order();
-            or.amount = 0;
-            myFunc(or);
-            Console.WriteLine(or.amount);
-
-            {
-                Product pr = new Product();
-                pr.Price = 3.13;
-            }
-
-            // Common language specification
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.BackgroundColor = ConsoleColor.Black;
-
-            var q = 333;
-            var j = "bla";
-
-            Int32 x = (int)3.14;
-            Int64 x2 = 650;
-            int i = 444;
-            Double dd2 = 3.13;
-            double dd = 3.14;
-
-            x2 = Int64.MaxValue;
-            DateTime z = DateTime.Now;
-
-            Int64 abc = int.Parse("123");
-
-            Console.WriteLine(x);
-            Console.WriteLine(x2);
-            Console.WriteLine(dd);
-            Console.WriteLine(z.ToUniversalTime());
-            Console.WriteLine(z.ToString("dd-MMM-yyyy"));
-
-            String str = "Hello!"; // EMMUTABLE
-            var str2 = "Hello!";
-            var str3 = "Hi";
-            str3 += "bla"; // BAD!!
-
-            str3 = String.Intern(str3);
-
-            if (Object.ReferenceEquals(str, str3))
-            {
-                Console.WriteLine("Equal!!");
-            }
-
-            // Optimization work with  memory ise StringBuilder
-            StringBuilder sb = new StringBuilder("He", 100);
-            sb.Append("l");
-            sb.Append("l");
-            sb.Append("o");
-            sb.Append("!");
-            var str4 = sb.ToString();
-
-            if (Object.ReferenceEquals(str, str4))
-            {
-                Console.WriteLine("Equal!!");
-            }
-            Console.WriteLine(str4);
-            // IMMUTABEL ARRAY  мы не можем поменять размер массива
-            // 1 int = 4byte //select.count
-            int[] myArray = new int[10] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; // При случае если мы знаем колличество массива заранее 
-            myArray[0] = 333;
-            myArray[1] = 555;
-
-            foreach (var elem in myArray)
-            {
-                Console.WriteLine(elem);
-            }
-
-            int[, ,] array3d = new int[3, 5, 10]; // EMMUTABLE
-            array3d[1, 3, 7] = 777;
-
-            foreach (var elem in array3d)
-            {
-                Console.WriteLine(string.Join(", ",elem));
-            }
-
-            int[,] array2d = new int[3, 5]; // EMMUTABLE 
-            array2d[1, 3] = 777;
-
-            foreach (var elem in array2d)
-            {
-                Console.WriteLine(elem);
-            }
-
-            // Обьявляем квадратный масив
-            int[][] arrayQ = new int[3][]; // EMMUTABLE
-            arrayQ[0] = new int[5];
-            arrayQ[1] = new int[7];
-            arrayQ[2] = new int[7];
-
-            foreach (var elem in arrayQ)
-            {
-                Console.WriteLine(elem);
-            }
-
-            // namespace колизия имен, если делать библиотеку то будет конфликт функции которые называется по дефолту
-            // Неоднозначность убераем namespace
-            AshtonBro.CodeBlog._2.Program p = new AshtonBro.CodeBlog._2.Program();
-            Program p2 = new Program();
-            AshtonBro.CodeBlog._2.Program p3 = new Program();
-
-            // В операционной системе есть 2 типа операционной памяти Hit и Stack
-            // Virtual Memory Manager
-            // Thread (поток) -> ~ 05mb => 1.5mb quick - stack
-            // 8Tb -> slow
-            {
-                Customer с = new Customer();
-            }
-
-            {
-                Order o = new Order(); // будет существовать до скобок потом очищается. или выхода из функции
-            } // Clear stack
-
-            {
-                Order o = new Order();
-            }
-
-            {
-                int xx = 333; //automatic variable
-            }
-
-
+          
 
             Console.ReadLine();
         }
@@ -370,5 +252,137 @@ string snake_case; // Snake style (JS)
 string FAT_SNAKE_CASE; // Fat snake style, usually use for constant's
 string kebab-case; // -#-#-#-#-- Kebab
 string sHungarianCase; // Hungarian notation (C++)
+
+<==================================== MS DAY 1 ==========================================>
+
+  Order or = new Order();
+            or.amount = 0;
+            myFunc(or);
+            Console.WriteLine(or.amount);
+
+            Customer sd = new Customer();
+            sd.id = 555;
+            myFunc2(sd);
+            Console.WriteLine(sd.id);
+
+            {
+                Product pr = new Product();
+                pr.Price = 3.13;
+            }
+
+            // Common language specification
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.BackgroundColor = ConsoleColor.Black;
+
+            var q = 333;
+            var j = "bla";
+
+            Int32 x = (int)3.14;
+            Int64 x2 = 650;
+            int i = 444;
+            Double dd2 = 3.13;
+            double dd = 3.14;
+
+            x2 = Int64.MaxValue;
+            DateTime z = DateTime.Now;
+
+            Int64 abc = int.Parse("123");
+
+            Console.WriteLine(x);
+            Console.WriteLine(x2);
+            Console.WriteLine(dd);
+            Console.WriteLine(z.ToUniversalTime());
+            Console.WriteLine(z.ToString("dd-MMM-yyyy"));
+
+            String str = "Hello!"; // EMMUTABLE
+            var str2 = "Hello!";
+            var str3 = "Hi";
+            str3 += "bla"; // BAD!!
+
+            str3 = String.Intern(str3);
+
+            if (Object.ReferenceEquals(str, str3))
+            {
+                Console.WriteLine("Equal!!");
+            }
+
+            // Optimization work with  memory ise StringBuilder
+            StringBuilder sb = new StringBuilder("He", 100);
+            sb.Append("l");
+            sb.Append("l");
+            sb.Append("o");
+            sb.Append("!");
+            var str4 = sb.ToString();
+
+            if (Object.ReferenceEquals(str, str4))
+            {
+                Console.WriteLine("Equal!!");
+            }
+            Console.WriteLine(str4);
+            // IMMUTABEL ARRAY  мы не можем поменять размер массива
+            // 1 int = 4byte //select.count
+            int[] myArray = new int[10] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; // При случае если мы знаем колличество массива заранее 
+            myArray[0] = 333;
+            myArray[1] = 555;
+
+            foreach (var elem in myArray)
+            {
+                Console.WriteLine(elem);
+            }
+
+            int[, ,] array3d = new int[3, 5, 10]; // EMMUTABLE
+            array3d[1, 3, 7] = 777;
+
+            foreach (var elem in array3d)
+            {
+                Console.WriteLine(string.Join(", ",elem));
+            }
+
+            int[,] array2d = new int[3, 5]; // EMMUTABLE 
+            array2d[1, 3] = 777;
+
+            foreach (var elem in array2d)
+            {
+                Console.WriteLine(elem);
+            }
+
+            // Обьявляем квадратный масив
+            int[][] arrayQ = new int[3][]; // EMMUTABLE
+            arrayQ[0] = new int[5];
+            arrayQ[1] = new int[7];
+            arrayQ[2] = new int[7];
+
+            foreach (var elem in arrayQ)
+            {
+                Console.WriteLine(elem);
+            }
+
+            // namespace колизия имен, если делать библиотеку то будет конфликт функции которые называется по дефолту
+            // Неоднозначность убераем namespace
+            AshtonBro.CodeBlog._2.Program p = new AshtonBro.CodeBlog._2.Program();
+            Program p2 = new Program();
+            AshtonBro.CodeBlog._2.Program p3 = new Program();
+
+            // В операционной системе есть 2 типа операционной памяти Hit и Stack
+            // Virtual Memory Manager
+            // Thread (поток) -> ~ 05mb => 1.5mb quick - stack
+            // 8Tb -> slow
+            {
+                Customer с = new Customer();
+            }
+
+            {
+                Order o = new Order(); // будет существовать до скобок потом очищается. или выхода из функции
+            } // Clear stack
+
+            {
+                Order o = new Order();
+            }
+
+            {
+                int xx = 333; //automatic variable
+            }
+
+
 */
 
