@@ -4,13 +4,18 @@ using System.Text;
 using System.Collections.Generic;
 using System.Windows.Documents;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace AshtonBro.CodeBlog._2
 {
     class Customer // Reference Type
     {
         public int id;
-
+        public double GetBalance()
+        {
+            AshtonBro.CodeBlog._2.Program.myFunc(null);
+            return 3.14;
+        }
     }
     struct Order
     {
@@ -20,27 +25,83 @@ namespace AshtonBro.CodeBlog._2
     {
         public double Price;
     }
+
     class Program
     {
-        // csc.exe => IL -> compile taget CPU + OS
+        public bool XFunc()
+        {
+            //Exception ex = new Exception("my error");
+            //if (1 == 1)
+            //throw ex;
+            return false;
+        }
 
-       
-        static void myFunc (Order or)
+        public bool XFunc2()
+        {
+            //Exception ex = new Exception("my error");
+            //if (1 == 1)
+            //throw ex;
+            return false;
+        }
+
+        static void myFunc(Order or) // Global func with name with name space
         {
             or.amount = 100;
         }
 
-        static void myFunc2 (Customer cc)
+        public static string myFunc(Customer cc, int z = 333)
         {
             cc.id = -335;
+            return "Hello";
+        }
+        static void TestParam(ref int x, out int y)
+        {
+            y = 163;
+            x++;
         }
         static void Main(string[] args)
         {
-          
+            int testVariable = new int();
+            testVariable = 333;
+            int yOut;
+            TestParam(ref testVariable, out yOut);
+            Console.WriteLine(testVariable);
+
+            Program pX = new Program();
+
+            try
+            {
+                pX.XFunc();
+            }
+            catch (OutOfMemoryException ex)
+            {
+                Console.WriteLine(ex.Message);
+                EventLog.WriteEvent("Application", new EventInstance(333, 555));
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                EventLog.WriteEvent("Application", new EventInstance(333, 555));
+                Debug.WriteLine("This is debug error");
+                Trace.WriteLine("This is debug error");
+            }
+
+            AshtonBro.CodeBlog._2.Program.myFunc(null);
+            
+            Order o2 = new Order();
+            o2.amount = 0;
+            myFunc(o2);
+            Console.WriteLine(o2.amount);
+
+            Customer cc = new Customer();
+            cc.id = 555;
+            myFunc(cc);
+            Console.WriteLine(cc.id);
+
 
             Console.ReadLine();
         }
-
     }
 }
 
