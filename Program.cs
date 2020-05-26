@@ -12,19 +12,16 @@ using System.Collections;
 namespace AshtonBro.CodeBlog._2
 {
    // Inheritance наследование
-   class BankAccount
+    abstract class BankAccount // Чисто абстрактный класс - abstract
     {
-        int _id; // приватное поле, маленький регистр или нижнее подчёркивани
-        protected double _amount;
-
-        public virtual double GetBalance()
-        {
-            return _amount + 1;
-        }
+        // абстрактный класс создаём шаблон для дальнейшей модификации
+        public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
     }
 
     class ChildAccount : BankAccount
     {
+        int _id; // приватное поле, маленький регистр или нижнее подчёркивани
+        protected double _amount;
         public override double GetBalance()
         {
             return _amount + 3;
@@ -39,10 +36,9 @@ namespace AshtonBro.CodeBlog._2
         }
        static void Main(string[] args)
         {
-            BankAccount newAcc = new BankAccount();
+
             ChildAccount newChild = new ChildAccount();
 
-            CalculateBalance(newAcc);
             CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
 
             Console.ReadLine();
