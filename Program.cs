@@ -28,12 +28,32 @@ namespace AshtonBro.CodeBlog._2
     class ChildAccount : IBankAccount
     {
         int _id; // приватное поле, маленький регистр или нижнее подчёркивани
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         protected double _amount;
+
+        public double Amount
+        {
+            get { return _amount; }
+            set { _amount = value; }
+        }
+      
         public double GetBalance()
         {
             return _amount + 3;
         }
         // при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
+        
+        // Глобальные функция, можно вызвать на примую обращаяст к child
+        public static string GetStatic()
+        {
+            return "Static Func";
+        }
+        
     }
     class Program
     {
@@ -44,7 +64,10 @@ namespace AshtonBro.CodeBlog._2
        static void Main(string[] args)
         {
 
-            ChildAccount newChild = new ChildAccount();
+            var result = ChildAccount.GetStatic();
+            Console.WriteLine(result);
+
+            ChildAccount newChild = new ChildAccount() { Id = 333, Amount = 3.14 };
 
             CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
 
@@ -661,5 +684,116 @@ enum myColor : int
            // p. = -3.14;
         }
     }
+
+
+// Inheritance наследование
+    //abstract class BankAccount // Чисто абстрактный класс - abstract
+    //{
+    //    // абстрактный класс создаём шаблон для дальнейшей модификации
+    //    public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
+    //}
+
+    interface IBankAccount
+    {
+       // Интерфейс шаблон и прототипы функции 
+       // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
+        double GetBalance();
+    }
+
+    class ChildAccount : IBankAccount
+    {
+        int _id; // приватное поле, маленький регистр или нижнее подчёркивани
+        protected double _amount;
+        public double GetBalance()
+        {
+            return _amount + 3;
+        }
+        // при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
+    }
+    class Program
+    {
+        static void CalculateBalance(IBankAccount b)
+        {
+            Console.WriteLine(b.GetBalance());
+        }
+       static void Main(string[] args)
+        {
+
+            ChildAccount newChild = new ChildAccount();
+
+            CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
+
+            Console.ReadLine();
+        }
+    }
+
+// REFERENCE TYPES AND VALUE TYPES
+ Reference types = class
+ Value types = struct
+
+// Inheritance наследование
+    //abstract class BankAccount // Чисто абстрактный класс - abstract
+    //{
+    //    // абстрактный класс создаём шаблон для дальнейшей модификации
+    //    public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
+    //}
+
+    interface IBankAccount
+    {
+       // Интерфейс шаблон и прототипы функции 
+       // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
+        double GetBalance();
+    }
+
+    class ChildAccount : IBankAccount
+    {
+        int _id; // приватное поле, маленький регистр или нижнее подчёркивани
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        protected double _amount;
+
+        public double Amount
+        {
+            get { return _amount; }
+            set { _amount = value; }
+        }
+      
+        public double GetBalance()
+        {
+            return _amount + 3;
+        }
+        // при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
+        
+        // Глобальные функция, можно вызвать на примую обращаяст к child
+        public static string GetStatic()
+        {
+            return "Static Func";
+        }
+        
+    }
+    class Program
+    {
+        static void CalculateBalance(IBankAccount b)
+        {
+            Console.WriteLine(b.GetBalance());
+        }
+       static void Main(string[] args)
+        {
+
+            var result = ChildAccount.GetStatic();
+            Console.WriteLine(result);
+
+            ChildAccount newChild = new ChildAccount() { Id = 333, Amount = 3.14 };
+
+            CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
+
+            Console.ReadLine();
+        }
+    }
+
 */
 
