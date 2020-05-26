@@ -5,16 +5,74 @@ using System.Collections.Generic;
 using System.Windows.Documents;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Windows;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AshtonBro.CodeBlog._2
 {
-  
+    enum myColor : int
+    {
+        Red = 255,
+        Green = 65535,
+        Blue = 481246
+    }
+
+    // Конструктор
+    struct Order
+    {
+        int id;
+        int CustID;
+        int Amount;
+        public Order(int _id, int _CustId, int _Amount)
+        {
+            id = _id;
+            CustID = _CustId;
+            Amount = _Amount;
+        }
+        public Order(string _id, int _CustId)
+        {
+            id = int.Parse(_id);
+            CustID = _CustId;
+            Amount = 0;
+        }
+        // функции доступа данных
+        public void setID(int i)
+        {
+            if(i > 0)
+            {
+                id = i;
+            } else {
+                MessageBox.Show("Id не может быть меньше нуля");
+            }
+        }
+        public int getID()
+        {
+            return id;
+        }
+        public int ID { get { return id; } set { id = value; } }
+    }
     class Program
     {
-      
+        static void myFunction(myColor color)
+        {
+            Order bla = new Order();
+        }
         static void Main(string[] args)
         {
-           Console.ReadLine();
+            Order or2 = new Order();
+            or2.ID = 3333;
+            Console.WriteLine(or2.ID);
+            Order or = new Order(163, 72, 73);
+
+            Console.WriteLine(or);
+
+            // иногда необходимо контролировать тип ввода данных, например я принимаю только 3 цвета и всё.
+            myFunction(myColor.Blue);
+            Console.WriteLine(myColor.Blue);
+            // чтобы получить чисто нужно переконвертировать в int
+            int x = (int)myColor.Blue;
+            Console.WriteLine(x);
+            Console.ReadLine();
         }
     }
 }
@@ -452,7 +510,7 @@ static void TestParam(ref int x, out int y)
 }
 
 <==================================== MS DAY 2 ==========================================>
-
+Необходимо понимать какой тип данных принимать в свой проект
 
 
 */
