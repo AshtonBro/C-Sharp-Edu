@@ -42,14 +42,29 @@ namespace AshtonBro.CodeBlog._2
             {
                 id = i;
             } else {
-                MessageBox.Show("Id не может быть меньше нуля");
+                Exception ex = new Exception("ID must be above zero");
+                throw ex;
             }
         }
         public int getID()
         {
             return id;
         }
-        public int ID { get { return id; } set { id = value; } }
+        
+       // public int MyID { get; set; }
+        public string this[string Name]
+        {
+            get { return "Hello" + Name; }
+            set { }
+        }
+        public int ID { get { return id; } set {
+                if (value < 0)
+                {
+                    Exception ex = new Exception("ID must be above zero");
+                    throw ex;
+                }
+                id = value; } 
+        }
     }
     class Program
     {
@@ -60,7 +75,10 @@ namespace AshtonBro.CodeBlog._2
         static void Main(string[] args)
         {
             Order or2 = new Order();
-            or2.ID = 3333;
+
+            var s = or2["Bob"];
+
+            or2.ID = 3333; // Get
             Console.WriteLine(or2.ID);
             Order or = new Order(163, 72, 73);
 
