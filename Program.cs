@@ -7,89 +7,42 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows;
 using System.Security.Cryptography.X509Certificates;
+using System.Collections;
 
 namespace AshtonBro.CodeBlog._2
 {
-    enum myColor : int
+    // DELEGATE -> string Invoke (string)
+    delegate string MyServerEvent(int id);
+    class Server
     {
-        Red = 255,
-        Green = 65535,
-        Blue = 481246
-    }
-
-    // Конструктор
-    struct Order
-    {
-        int id;
-        int CustID;
-        int Amount;
-        public Order(int _id, int _CustId, int _Amount)
+        public MyServerEvent srvEvent;
+        public void FireEvent()
         {
-            id = _id;
-            CustID = _CustId;
-            Amount = _Amount;
-        }
-        public Order(string _id, int _CustId)
-        {
-            id = int.Parse(_id);
-            CustID = _CustId;
-            Amount = 0;
-        }
-        // функции доступа данных
-        public void setID(int i)
-        {
-            if(i > 0)
+            if(srvEvent != null)
             {
-                id = i;
-            } else {
-                Exception ex = new Exception("ID must be above zero");
-                throw ex;
+                var result = srvEvent.Invoke(333);
             }
         }
-        public int getID()
+    }
+    class MyClient
+    {
+        public string MyFunction(int xInt)
         {
-            return id;
-        }
-        
-       // public int MyID { get; set; }
-        public string this[string Name]
-        {
-            get { return "Hello" + Name; }
-            set { }
-        }
-        public int ID { get { return id; } set {
-                if (value < 0)
-                {
-                    Exception ex = new Exception("ID must be above zero");
-                    throw ex;
-                }
-                id = value; } 
+            Console.WriteLine("Event resived " + xInt.ToString());
+            return "Hello from client!";
         }
     }
     class Program
     {
-        static void myFunction(myColor color)
-        {
-            Order bla = new Order();
-        }
         static void Main(string[] args)
         {
-            Order or2 = new Order();
+            Server srv = new Server();
+            MyClient newCl = new MyClient();
+            MyServerEvent mSerEv = new MyServerEvent(newCl.MyFunction);
+            srv.srvEvent = mSerEv;
+            srv.FireEvent();
 
-            var s = or2["Bob"];
 
-            or2.ID = 3333; // Get
-            Console.WriteLine(or2.ID);
-            Order or = new Order(163, 72, 73);
-
-            Console.WriteLine(or);
-
-            // иногда необходимо контролировать тип ввода данных, например я принимаю только 3 цвета и всё.
-            myFunction(myColor.Blue);
-            Console.WriteLine(myColor.Blue);
-            // чтобы получить чисто нужно переконвертировать в int
-            int x = (int)myColor.Blue;
-            Console.WriteLine(x);
             Console.ReadLine();
         }
     }
@@ -530,6 +483,101 @@ static void TestParam(ref int x, out int y)
 <==================================== MS DAY 2 ==========================================>
 Необходимо понимать какой тип данных принимать в свой проект
 
+enum myColor : int
+    {
+        Red = 255,
+        Green = 65535,
+        Blue = 481246
+    }
 
+    // Конструктор
+    struct Order
+    {
+        int id;
+        int CustID;
+        int Amount;
+        public Order(int _id, int _CustId, int _Amount)
+        {
+            id = _id;
+            CustID = _CustId;
+            Amount = _Amount;
+        }
+        public Order(string _id, int _CustId)
+        {
+            id = int.Parse(_id);
+            CustID = _CustId;
+            Amount = 0;
+        }
+        // функции доступа данных
+        public void setID(int i)
+        {
+            if(i > 0)
+            {
+                id = i;
+            } else {
+                Exception ex = new Exception("ID must be above zero");
+                throw ex;
+            }
+        }
+        public int getID()
+        {
+            return id;
+        }
+        
+       // public int MyID { get; set; }
+        public string this[string Name]
+        {
+            get { return "Hello" + Name; }
+            set { }
+        }
+        public int ID { get { return id; } set {
+                if (value < 0)
+                {
+                    Exception ex = new Exception("ID must be above zero");
+                    throw ex;
+                }
+                id = value; } 
+        }
+    }
+    class Program
+    {
+        static void myFunction(myColor color)
+        {
+            Order bla = new Order();
+        }
+        static void Main(string[] args)
+        {
+            Order or2 = new Order();
+
+            var s = or2["Bob"];
+
+            or2.ID = 3333; // Get
+            Console.WriteLine(or2.ID);
+            Order or = new Order(163, 72, 73);
+
+            Console.WriteLine(or);
+
+            // иногда необходимо контролировать тип ввода данных, например я принимаю только 3 цвета и всё.
+            myFunction(myColor.Blue);
+            Console.WriteLine(myColor.Blue);
+            // чтобы получить чисто нужно переконвертировать в int
+            int x = (int)myColor.Blue;
+            Console.WriteLine(x);
+            Console.ReadLine();
+
+            // Коллекции ----------------------------------------------
+            ArrayList lst = new ArrayList(100); // прожерливая функция наъодиться в System.Collection - лучше избегать
+            int i = 333;
+            // boxing -> unboxind
+            lst.Add(i); // для работы требуют согласовать вызов перед обработкой данных 4 byte -> 4 byte <- и того 8 byte на обратобку
+            Stack sS = new Stack();
+            sS.Push(i);  // всё что System.collections обходить
+            // SortedList // боллее менее хороший вариант, но есть и лучше
+
+            object obj = lst[0];
+            int xIn = (int)obj;
+
+        }
+    }
 */
 
