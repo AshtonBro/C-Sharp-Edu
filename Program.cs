@@ -12,17 +12,24 @@ using System.Collections;
 namespace AshtonBro.CodeBlog._2
 {
    // Inheritance наследование
-    abstract class BankAccount // Чисто абстрактный класс - abstract
+    //abstract class BankAccount // Чисто абстрактный класс - abstract
+    //{
+    //    // абстрактный класс создаём шаблон для дальнейшей модификации
+    //    public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
+    //}
+
+    interface IBankAccount
     {
-        // абстрактный класс создаём шаблон для дальнейшей модификации
-        public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
+       // Интерфейс шаблон и прототипы функции 
+       // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
+        double GetBalance();
     }
 
-    class ChildAccount : BankAccount
+    class ChildAccount : IBankAccount
     {
         int _id; // приватное поле, маленький регистр или нижнее подчёркивани
         protected double _amount;
-        public override double GetBalance()
+        public double GetBalance()
         {
             return _amount + 3;
         }
@@ -30,7 +37,7 @@ namespace AshtonBro.CodeBlog._2
     }
     class Program
     {
-        static void CalculateBalance(BankAccount b)
+        static void CalculateBalance(IBankAccount b)
         {
             Console.WriteLine(b.GetBalance());
         }
