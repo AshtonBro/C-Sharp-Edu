@@ -14,8 +14,7 @@ namespace AshtonBro.CodeBlog._2
       
         static void Main(string[] args)
         {
-           
-            Console.ReadLine();
+           Console.ReadLine();
         }
     }
 }
@@ -451,6 +450,8 @@ static void TestParam(ref int x, out int y)
     y = 163;
     x++;
 }
+
+<==================================== MS DAY 2 ==========================================>
 
 
 
