@@ -11,37 +11,39 @@ using System.Collections;
 
 namespace AshtonBro.CodeBlog._2
 {
-    // DELEGATE -> string Invoke (string)
-    delegate string MyServerEvent(int id);
-    class Server
+   // Inheritance наследование
+   class BankAccount
     {
-        public MyServerEvent srvEvent;
-        public void FireEvent()
+        int _id; // приватное поле, маленький регистр или нижнее подчёркивани
+        protected double _amount;
+
+        public virtual double GetBalance()
         {
-            if(srvEvent != null)
-            {
-                var result = srvEvent.Invoke(333);
-            }
+            return _amount + 1;
         }
     }
-    class MyClient
+
+    class ChildAccount : BankAccount
     {
-        public string MyFunction(int xInt)
+        public override double GetBalance()
         {
-            Console.WriteLine("Event resived " + xInt.ToString());
-            return "Hello from client!";
+            return _amount + 3;
         }
+        // при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
     }
     class Program
     {
-        static void Main(string[] args)
+        static void CalculateBalance(BankAccount b)
         {
-            Server srv = new Server();
-            MyClient newCl = new MyClient();
-            MyServerEvent mSerEv = new MyServerEvent(newCl.MyFunction);
-            srv.srvEvent = mSerEv;
-            srv.FireEvent();
+            Console.WriteLine(b.GetBalance());
+        }
+       static void Main(string[] args)
+        {
+            BankAccount newAcc = new BankAccount();
+            ChildAccount newChild = new ChildAccount();
 
+            CalculateBalance(newAcc);
+            CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
 
             Console.ReadLine();
         }
@@ -577,6 +579,83 @@ enum myColor : int
             object obj = lst[0];
             int xIn = (int)obj;
 
+        }
+    }
+
+ // DELEGATE -> string Invoke (string)
+    delegate string MyServerEvent(int id);
+    class Server
+    {
+        public MyServerEvent srvEvent;
+        public void FireEvent()
+        {
+            if(srvEvent != null)
+            {
+                var result = srvEvent.Invoke(333);
+            }
+        }
+    }
+    class MyClient
+    {
+        public string MyFunction(int xInt)
+        {
+            Console.WriteLine("Event resived " + xInt.ToString());
+            return "Hello from client!";
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Server srv = new Server();
+            MyClient newCl = new MyClient();
+            MyServerEvent mSerEv = new MyServerEvent(newCl.MyFunction);
+            MyClient newCl2 = new MyClient();
+            MyServerEvent mSerEv2 = new MyServerEvent(newCl.MyFunction);
+            srv.srvEvent = mSerEv + mSerEv2;
+            srv.srvEvent -= mSerEv2;
+            srv.FireEvent();
+
+            Console.ReadLine();
+        }
+    }
+
+// Creating Class
+
+    // Encapculation, все данные должны подконтрольно защищены.
+   class Product
+    {
+        // 1 правило ООП - Все данные ООП должны быть защищены от сторонних вмешательство
+        // если данные не доступны и с наружи не доступны, указываем их с нижнем подчёркиванием
+        int Id;
+        string _name;
+        double _price;
+
+        public double Price
+        {
+            get;
+            set;
+        }
+
+        public double GetPrice()
+        {
+            if (1 == 1)
+                return _price;
+            else
+                return 0.0;
+        }
+        public void SetPrice(double price)
+        {
+            if (price > 0)
+                _price = price;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Product p = new Product();
+           // p. = -3.14;
         }
     }
 */
