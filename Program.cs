@@ -11,13 +11,11 @@ using System.Collections;
 
 namespace AshtonBro.CodeBlog._2
 {
-    // Introducing Generics (Template)
-  
     class Program
     {
         static void Main(string[] args)
-       {
-            
+        {
+           
         }
 
     }
