@@ -12,25 +12,13 @@ using System.Collections;
 namespace AshtonBro.CodeBlog._2
 {
     // Introducing Generics (Template)
-
+  
     class Program
     {
         static void Main(string[] args)
        {
-            //ArrayList lst = new ArrayList();
-            //lst.Add(333);
-
-            List<int> lst = new List<int>();
-            lst.Add(163); // добавляем int 
-            var result = lst[0]; // выдаём int
-
-
-
-            Console.WriteLine(result);
-            Console.ReadLine();
+            
         }
-
-        
 
     }
 }
@@ -803,5 +791,39 @@ enum myColor : int
 
     }
 
+
+ // Introducing Generics (Template)
+    class MyClass<T> where T : struct
+    {
+        T _unknown;
+        public T GetUnknown()
+        {
+            return _unknown;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+       {
+            //ArrayList lst = new ArrayList();
+            //lst.Add(333);
+
+            List<int> lst = new List<int>();
+            lst.Add(163); // добавляем int 
+            var result = lst[0]; // выдаём int
+
+            MyClass<int> cls1 = new MyClass<int>();
+            Console.WriteLine(cls1.GetUnknown());
+
+            MyClass<DateTime> cls2 = new MyClass<DateTime>();
+            Console.WriteLine(cls2.GetUnknown());
+
+            MyClass<double> cls3 = new MyClass<double>();
+
+            Console.WriteLine(result);
+            Console.ReadLine();
+        }
+
+    }
 */
 
