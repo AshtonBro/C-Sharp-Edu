@@ -15,25 +15,23 @@ namespace AshtonBro.CodeBlog._2
 
     class Program
     {
-        //static void MyFunction(object obj)
-        //{
-        //    Console.WriteLine(obj);
-        //}
-        // функция заточена забирать данные из стека, функция с неизвестным параметрам, при разных
-        // типах даных сама подставляет необходимый тип и забирает и при это работает без box и unbox
-        static void MyFunction<UnknownDataЕype>(UnknownDataЕype obj)
-        {
-            Console.WriteLine(obj);
-        }
-
         static void Main(string[] args)
        {
-            int x = 333;
-            MyFunction(x);
-            MyFunction("Я и это сьел");
-            MyFunction(DateTime.Now);
+            //ArrayList lst = new ArrayList();
+            //lst.Add(333);
+
+            List<int> lst = new List<int>();
+            lst.Add(163); // добавляем int 
+            var result = lst[0]; // выдаём int
+
+
+
+            Console.WriteLine(result);
             Console.ReadLine();
-       }
+        }
+
+        
+
     }
 }
 
@@ -754,6 +752,55 @@ enum myColor : int
 
             Console.ReadLine();
         }
+    }
+
+
+  // Introducing Generics (Template)
+
+    class myGenericClass<T>
+    {
+        T _unknown;
+        public T GetUnknown()
+        {
+            return _unknown;
+        }
+    }
+
+    class Program
+    {
+        //static void MyFunction(object obj)
+        //{
+        //    Console.WriteLine(obj);
+        //}
+        // функция заточена забирать данные из стека, функция с неизвестным параметрам, при разных
+        // типах даных сама подставляет необходимый тип и забирает и при это работает без box и unbox
+        // настройка типа на ходу.
+        static void MyFunction<UnknownDataType>(UnknownDataType obj)
+        {
+            Console.WriteLine(obj);
+        }
+
+        static void Main(string[] args)
+       {
+            int x = 333;
+            MyFunction(x);
+            MyFunction("Я и это сьел");
+            MyFunction(DateTime.Now);
+
+
+            myGenericClass<int> cls1 = new myGenericClass<int>();
+            Console.WriteLine(cls1.GetUnknown());
+
+            myGenericClass<DateTime> cls2 = new myGenericClass<DateTime>();
+            Console.WriteLine(cls2.GetUnknown());
+
+
+
+            Console.ReadLine();
+        }
+
+        
+
     }
 
 */
