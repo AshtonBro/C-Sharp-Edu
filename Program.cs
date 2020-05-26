@@ -11,68 +11,29 @@ using System.Collections;
 
 namespace AshtonBro.CodeBlog._2
 {
-   // Inheritance наследование
-    //abstract class BankAccount // Чисто абстрактный класс - abstract
-    //{
-    //    // абстрактный класс создаём шаблон для дальнейшей модификации
-    //    public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
-    //}
+    // Introducing Generics (Template)
 
-    interface IBankAccount
-    {
-       // Интерфейс шаблон и прототипы функции 
-       // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
-        double GetBalance();
-    }
-
-    class ChildAccount : IBankAccount
-    {
-        int _id; // приватное поле, маленький регистр или нижнее подчёркивани
-        public int Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-
-        protected double _amount;
-
-        public double Amount
-        {
-            get { return _amount; }
-            set { _amount = value; }
-        }
-      
-        public double GetBalance()
-        {
-            return _amount + 3;
-        }
-        // при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
-        
-        // Глобальные функция, можно вызвать на примую обращаяст к child
-        public static string GetStatic()
-        {
-            return "Static Func";
-        }
-        
-    }
     class Program
     {
-        static void CalculateBalance(IBankAccount b)
+        //static void MyFunction(object obj)
+        //{
+        //    Console.WriteLine(obj);
+        //}
+        // функция заточена забирать данные из стека, функция с неизвестным параметрам, при разных
+        // типах даных сама подставляет необходимый тип и забирает и при это работает без box и unbox
+        static void MyFunction<UnknownDataЕype>(UnknownDataЕype obj)
         {
-            Console.WriteLine(b.GetBalance());
+            Console.WriteLine(obj);
         }
-       static void Main(string[] args)
-        {
 
-            var result = ChildAccount.GetStatic();
-            Console.WriteLine(result);
-
-            ChildAccount newChild = new ChildAccount() { Id = 333, Amount = 3.14 };
-
-            CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
-
+        static void Main(string[] args)
+       {
+            int x = 333;
+            MyFunction(x);
+            MyFunction("Я и это сьел");
+            MyFunction(DateTime.Now);
             Console.ReadLine();
-        }
+       }
     }
 }
 
