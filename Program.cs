@@ -11,13 +11,41 @@ using System.Collections;
 
 namespace AshtonBro.CodeBlog._2
 {
+    // Virtual abstract
+  
+    class BankAccount
+    {
+        int _data = 555;
+
+        public int Data { get => _data; set => _data = value; }
+        public virtual int GetData() { return _data; } //vtbl virtual function table
+
+    }
+
+    // Также можно закрыть выводиться из CildAccount, сами сделали override а сами закрылись.
+    sealed class ChildAccount : BankAccount
+    {
+        // sealed закрыть выведение и наследование
+        // функции базового класса вызывается через ключит base.
+        // Из struct выводиться нельзя по default
+        public sealed override int GetData()
+        {
+            // отработала базовай функция и выводимая, если это нужно.
+            int rse = base.GetData();
+            Data = rse - 333;
+            return Data;
+        }
+    }
     class Program
     {
         static void Main(string[] args)
-        {
-           
-        }
 
+        {   // Member heen
+            BankAccount b = new ChildAccount();
+            var result = b.GetData();
+            Console.WriteLine(result);
+            Console.ReadLine();
+        }
     }
 }
 
@@ -822,6 +850,74 @@ enum myColor : int
             Console.ReadLine();
         }
 
+    }
+
+<==================================== MS DAY 3 ==========================================>
+
+ // Virtual abstract
+  
+    class BankAccount
+    {
+        int _data = 555;
+
+        public int Data { get => _data; set => _data = value; }
+        public virtual int GetData() { return _data; } //vtbl virtual function table
+
+    }
+
+    class ChildAccount : BankAccount
+    {
+        public override int GetData()
+        {
+            Data = -333;
+            return Data;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+
+        {   // Member heen
+            BankAccount b = new ChildAccount();
+            var result = b.GetData();
+            Console.WriteLine(result);
+            Console.ReadLine();
+        }
+    }
+
+ class BankAccount
+    {
+        int _data = 555;
+
+        public int Data { get => _data; set => _data = value; }
+        public virtual int GetData() { return _data; } //vtbl virtual function table
+
+    }
+
+    // Также можно закрыть выводиться из CildAccount, сами сделали override а сами закрылись.
+    sealed class ChildAccount : BankAccount
+    {
+        // sealed закрыть выведение и наследование
+        // функции базового класса вызывается через ключит base.
+        // Из struct выводиться нельзя по default
+        public sealed override int GetData()
+        {
+            // отработала базовай функция и выводимая, если это нужно.
+            int rse = base.GetData();
+            Data = rse - 333;
+            return Data;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+
+        {   // Member heen
+            BankAccount b = new ChildAccount();
+            var result = b.GetData();
+            Console.WriteLine(result);
+            Console.ReadLine();
+        }
     }
 */
 
