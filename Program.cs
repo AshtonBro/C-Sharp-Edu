@@ -12,19 +12,84 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Runtime.Remoting;
 
 namespace AshtonBro.CodeBlog._2
 {
 
-    
-   //Creating and Using Entity Data Models
 
+    //Creating and Using Entity Data Models
+
+    //Use the ADO.NET Entity Data Model Tools
+    /*
+     * ADO.NET includes three xml files
+     * CSDL => C# classes
+     * MSL
+     * SSDL => DATABASE
+
+      
+    
+    
+     */
     public class Program
     {
      
         static void Main(string[] args)
         {
+            Model1Container ctx = new Model1Container();
+            /*
+            Customer c1 = new Customer() { Id = 0, Name = "Bob", Address = "London" };
+            Product p1 = new Product() { Id = 0, Name = "Milk", Price = 3.14 };
+            Order o1 = new Order() { Customer = c1, Product = p1, Amount = 3 };
+
+            Customer c2 = new Customer() { Id = 0, Name = "Jane", Address = "Miami" };
+            Product p2 = new Product() { Id = 0, Name = "Bread", Price = 2.8 };
+            Order o2 = new Order() { Customer = c2, Product = p2, Amount = 3 };
+
+            Customer c3 = new Customer() { Id = 0, Name = "Jon", Address = "Tyumen" };
+            Order o3 = new Order() { Customer = c3, Product = p1, Amount = 5 };
+
+            ctx.Customers.Add(c1);
+            ctx.Customers.Add(c2);
+            ctx.Customers.Add(c3);
+
+            ctx.Products.Add(p1);
+            ctx.Products.Add(p2);
+
+            ctx.Orders.Add(o1);
+            ctx.Orders.Add(o2);
+            ctx.Orders.Add(o3);
+            */
             
+            var x = new { Id = 333, Data = "xx", Price = 3.14 }; // анонимные типы данных 
+
+            // LINQ = LAMBDA EXPRESSION
+            var query = from o in ctx.Orders
+                        where o.Product.Name == "Bread"
+                        orderby o.Id
+                        select new 
+                        { CustomerName = o.Customer.Name,
+                            ProductName = o.Product.Name,
+                            OrderAmount = o.Amount};
+
+            foreach (var item in query)
+            {
+                Console.WriteLine(item.CustomerName + "\t" + item.ProductName + "\t" + item.OrderAmount);
+            }
+
+            var query2 = ctx.Orders.Where( o=> o.Product.Name == "Bread").OrderBy( o=> o.Id ).Select( o=> o );
+
+            foreach (var item in query2)
+            {
+                Console.WriteLine(item.Customer.Name + "\t" + item.Customer.Address + "\t" + item.Product.Name + "\t" + item.Amount);
+            }
+
+            var orders = query2.ToList();
+
+            orders[0].Customer.Address = "London";
+
+            ctx.SaveChanges();
+
             Console.ReadLine();
         }
     }
@@ -1176,5 +1241,79 @@ public class Program
         Console.ReadLine();
     }
 }
+
+
+//Creating and Using Entity Data Models
+
+    //Use the ADO.NET Entity Data Model Tools
+    /*
+     * ADO.NET includes three xml files
+     * CSDL => C# classes
+     * MSL
+     * SSDL => DATABASE
+     * 
+     *   public class Program
+    {
+     
+        static void Main(string[] args)
+        {
+            ModelContainer ctx = new ModelContainer();
+
+            Customer c1 = new Customer() { Id = 0, Name = "Bob", Address = "London" };
+            Product p1 = new Product() { Id = 0, Name = "Mary", Price = 3.14 };
+            Order o1 = new Order() { Customer = c1, Product = p1, Amount = 3 };
+
+            Customer c2 = new Customer() { Id = 0, Name = "Milk", Address = "Miami" };
+            Product p2 = new Product() { Id = 0, Name = "Wayn", Price = 2.8 };
+            Order o2 = new Order() { Customer = c2, Product = p2, Amount = 3 };
+
+            Customer c3 = new Customer() { Id = 0, Name = "Jon", Address = "Tyumen" };
+            Order o3 = new Order() { Customer = c3, Product = p1, Amount = 5 };
+
+            ctx.Customers.Add(c1);
+            ctx.Customers.Add(c2);
+            ctx.Customers.Add(c3);
+
+            ctx.Product.Add(p1);
+            ctx.Product.Add(p2);
+
+            ctx.Orders.Add(o1);
+            ctx.Orders.Add(o2);
+            ctx.Orders.Add(o3);
+
+            
+            var x = new { Id = 333, Data = "xx", Price = 3.14 }; // анонимные типы данных 
+
+            // LINQ = LAMBDA EXPRESSION
+            var query = from o1 in ctx.Orders
+                        where o1.Product.Name == "Bread"
+                        orderby o1.Id
+                        select new 
+                        { CustomerName = o1.Customer.Name,
+                            ProductName = o1.Product.Name,
+                            OrderAmount = o1.Amount};
+
+            foreach (var item in query)
+            {
+                Console.WriteLine(item.CustomerName + "\t" + item.ProductName + "\t" + item.OrderAmount);
+            }
+
+            var query2 = ctx.Orders.Where(o1 => o1.Product.Name == "Bread").OrderBy( o1=> o1.Id).Select(o1 => o1);
+
+
+            foreach (var item in query2)
+            {
+                Console.WriteLine(item.Customer.Name + "\t" + item.Customer.Address + "\t" + item.Product.Name + "\t" + item.Amount);
+            }
+
+            var orders = query2.ToList();
+
+            orders[0].Customer.Address = "London";
+
+            ctx.SaveChanges();
+
+            Console.ReadLine()
+        }
+    }
 */
 
