@@ -12,14 +12,14 @@ using System.IO;
 
 namespace AshtonBro.CodeBlog._2
 {
-    // Reading and Writing local Data
+    // Serialization
     // Манипуляция файловой системой
    
     class Program
     {
         static void Main(string[] args)
         {
-            // Code Access Security
+            // Code Access Security 3.5 Net => 4.0 Net
             if(!Directory.Exists("MyDir"))
             Directory.CreateDirectory("MyDir");
             if (!File.Exists("MyDir\\My.txt"))
@@ -33,6 +33,18 @@ namespace AshtonBro.CodeBlog._2
             StreamReader sr = File.OpenText("MyDir\\My.txt"); // прочитываем текст
             Console.WriteLine(sr.ReadToEnd());
             sr.Close(); // закрывает файл очищаем буфер
+
+            // два симетричный класса
+            DirectoryInfo di = new DirectoryInfo("MyDir"); // выделяем память и обьявялем
+            foreach (FileInfo file in di.GetFiles())
+            {
+                FileStream fs = file.OpenRead(); // поток на чтение и у файла выбираем метод открыть для чтения
+                StreamReader s = new StreamReader(fs); // конвертируем
+                Console.WriteLine(s.ReadToEnd());
+                sr.Close(); // закрывает файл очищаем буфер
+            }
+
+
             Console.ReadLine();
         }
     }
@@ -993,6 +1005,43 @@ enum myColor : int
             res = "Test".MyFunction(); // даже так
 
             Console.WriteLine();
+        }
+    }
+
+  // Reading and Writing local Data
+    // Манипуляция файловой системой
+   
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Code Access Security 3.5 Net => 4.0 Net
+            if(!Directory.Exists("MyDir"))
+            Directory.CreateDirectory("MyDir");
+            if (!File.Exists("MyDir\\My.txt"))
+            {
+                StreamWriter sw = File.CreateText("MyDir\\My.txt");
+                sw.WriteLine("Hello! This my own file created with cmd");
+                sw.Flush(); // сделает сброс буфера и сохраняет на диск
+                sw.Close(); // делает сброс буфера и закрывает программу
+
+            }
+            StreamReader sr = File.OpenText("MyDir\\My.txt"); // прочитываем текст
+            Console.WriteLine(sr.ReadToEnd());
+            sr.Close(); // закрывает файл очищаем буфер
+
+            // два симетричный класса
+            DirectoryInfo di = new DirectoryInfo("MyDir"); // выделяем память и обьявялем
+            foreach (FileInfo file in di.GetFiles())
+            {
+                FileStream fs = file.OpenRead(); // поток на чтение и у файла выбираем метод открыть для чтения
+                StreamReader s = new StreamReader(fs); // конвертируем
+                Console.WriteLine(s.ReadToEnd());
+                sr.Close(); // закрывает файл очищаем буфер
+            }
+
+
+            Console.ReadLine();
         }
     }
 */
