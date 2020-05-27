@@ -13,86 +13,55 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using System.Xml;
 using System.Runtime.Remoting;
+using System.Net;
+using System.ServiceModel;
 
 namespace AshtonBro.CodeBlog._2
 {
 
+    // Accessong Remote Data
 
-    //Creating and Using Entity Data Models
-
-    //Use the ADO.NET Entity Data Model Tools
     /*
-     * ADO.NET includes three xml files
-     * CSDL => C# classes
-     * MSL
-     * SSDL => DATABASE
-
-      
-    
-    
+     *
+     * After completing this module, you will be able to:
+     * Send data to and receive data from web services and other remote data sources.
+     * Access data by using WCF Data Services.
+     * 
      */
     public class Program
     {
      
         static void Main(string[] args)
         {
-            Model1Container ctx = new Model1Container();
-            /*
-            Customer c1 = new Customer() { Id = 0, Name = "Bob", Address = "London" };
-            Product p1 = new Product() { Id = 0, Name = "Milk", Price = 3.14 };
-            Order o1 = new Order() { Customer = c1, Product = p1, Amount = 3 };
+            //WebRequest request = WebRequest.Create("http://www.rambler.ru"); // схема протокола, сомтри какой обработчик зарегистирован, должны уметь распоковывать упаковывать стандартным спосоом, должны отправлять принимать данные. 
+            //request.Method = "GET";
 
-            Customer c2 = new Customer() { Id = 0, Name = "Jane", Address = "Miami" };
-            Product p2 = new Product() { Id = 0, Name = "Bread", Price = 2.8 };
-            Order o2 = new Order() { Customer = c2, Product = p2, Amount = 3 };
+            //request.Credentials = new NetworkCredential("Bob", "{Pa$$w0rd");
+            //HttpWebRequest httpReq = request as HttpWebRequest;
 
-            Customer c3 = new Customer() { Id = 0, Name = "Jon", Address = "Tyumen" };
-            Order o3 = new Order() { Customer = c3, Product = p1, Amount = 5 };
+            //// httpReq.ClientCertificates.Add добавляем сертификаты, выбираем чем представидться
 
-            ctx.Customers.Add(c1);
-            ctx.Customers.Add(c2);
-            ctx.Customers.Add(c3);
+            //WebResponse response = request.GetResponse();
+            //var s = response.GetResponseStream(); // Байтовый поток, писать читатьб по байтно и конвертировать.
+            //StreamReader sf = new StreamReader(s); // Конвертация данных
+            //Console.WriteLine(sf.ReadToEnd());
+            //Console.ReadLine();
 
-            ctx.Products.Add(p1);
-            ctx.Products.Add(p2);
 
-            ctx.Orders.Add(o1);
-            ctx.Orders.Add(o2);
-            ctx.Orders.Add(o3);
-            */
-            
-            var x = new { Id = 333, Data = "xx", Price = 3.14 }; // анонимные типы данных 
+            // Server
+            ServiceHost svc = new ServiceHost(typeof(Service1));
+            svc.Open();
 
-            // LINQ = LAMBDA EXPRESSION
-            var query = from o in ctx.Orders
-                        where o.Product.Name == "Bread"
-                        orderby o.Id
-                        select new 
-                        { CustomerName = o.Customer.Name,
-                            ProductName = o.Product.Name,
-                            OrderAmount = o.Amount};
+            Console.WriteLine("Server is ready!!!");
 
-            foreach (var item in query)
-            {
-                Console.WriteLine(item.CustomerName + "\t" + item.ProductName + "\t" + item.OrderAmount);
-            }
+            Console.ReadLine();
 
-            var query2 = ctx.Orders.Where( o=> o.Product.Name == "Bread").OrderBy( o=> o.Id ).Select( o=> o );
-
-            foreach (var item in query2)
-            {
-                Console.WriteLine(item.Customer.Name + "\t" + item.Customer.Address + "\t" + item.Product.Name + "\t" + item.Amount);
-            }
-
-            var orders = query2.ToList();
-
-            orders[0].Customer.Address = "London";
-
-            ctx.SaveChanges();
+            svc.Close();
 
             Console.ReadLine();
         }
     }
+  
 }
 
 /*
@@ -1314,6 +1283,73 @@ public class Program
 
             Console.ReadLine()
         }
+    }v
+
+// Accessong Remote Data
+
+     *
+     * After completing this module, you will be able to:
+     * Send data to and receive data from web services and other remote data sources.
+     * Access data by using WCF Data Services.
+     * 
+     
+public class Program
+{
+
+    static void Main(string[] args)
+    {
+        WebRequest request = WebRequest.Create("http://www.rambler.ru"); // схема протокола, сомтри какой обработчик зарегистирован, должны уметь распоковывать упаковывать стандартным спосоом, должны отправлять принимать данные. 
+        request.Method = "GET";
+
+        request.Credentials = new NetworkCredential("Bob", "{Pa$$w0rd");
+        HttpWebRequest httpReq = request as HttpWebRequest;
+
+        // httpReq.ClientCertificates.Add добавляем сертификаты, выбираем чем представидться
+
+        WebResponse response = request.GetResponse();
+        var s = response.GetResponseStream(); // Байтовый поток, писать читатьб по байтно и конвертировать.
+        StreamReader sf = new StreamReader(s); // Конвертация данных
+        Console.WriteLine(sf.ReadToEnd());
+        Console.ReadLine();
     }
+}
+
+
+            // Server
+            ServiceHost svc = new ServiceHost(typeof(Service1));
+            svc.Open();
+
+            Console.WriteLine("Server is ready!!!");
+
+            Console.ReadLine();
+
+            svc.Close();
+
+            Client
+            MyServices.Service1Client svc = new MyServices.Service1Client();
+            var customers = svc.DoWork(333);
+            foreach (var item in customers)
+            {
+                Console.WriteLine(item.Name + "\t" + item.Address);
+            }
+
+            Console.ReadLine();
+
+    public interface Service1 : IService1
+    {
+        public List<Customer> DoWork(int id)
+        {
+            CustomerDBEntities ctx = new CustomerDBEntities();
+            ctx.Customers.ToList();
+            var customers = from с in ctx.Customers.Local
+                            select new Customer() { Id = c.Id, Name = c.Name, Address = c.Address };
+
+            //ctx.Orders.ToList();
+            //ctx.Orders.ToList();
+
+            return customers.ToList();
+        }
+    }
+
 */
 
