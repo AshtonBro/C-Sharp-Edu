@@ -11,40 +11,15 @@ using System.Collections;
 
 namespace AshtonBro.CodeBlog._2
 {
-    // Virtual abstract
-  
-    class BankAccount
-    {
-        int _data = 555;
-
-        public int Data { get => _data; set => _data = value; }
-        public virtual int GetData() { return _data; } //vtbl virtual function table
-
-    }
-
-    // Также можно закрыть выводиться из CildAccount, сами сделали override а сами закрылись.
-    sealed class ChildAccount : BankAccount
-    {
-        // sealed закрыть выведение и наследование
-        // функции базового класса вызывается через ключит base.
-        // Из struct выводиться нельзя по default
-        public sealed override int GetData()
-        {
-            // отработала базовай функция и выводимая, если это нужно.
-            int rse = base.GetData();
-            Data = rse - 333;
-            return Data;
-        }
-    }
+    // 
+   
     class Program
     {
         static void Main(string[] args)
+        {
+           
 
-        {   // Member heen
-            BankAccount b = new ChildAccount();
-            var result = b.GetData();
-            Console.WriteLine(result);
-            Console.ReadLine();
+            Console.WriteLine();
         }
     }
 }
@@ -917,6 +892,93 @@ enum myColor : int
             var result = b.GetData();
             Console.WriteLine(result);
             Console.ReadLine();
+        }
+    }
+
+// Exception and try catch
+  class LockOfMoney : Exception
+    {
+        public override string Message
+        {
+            get { return "LockOf Money"; }
+        }
+    }
+    class Program
+    {
+        static void Buy(int amount)
+        {
+            if(1 == 1)
+            {
+                LockOfMoney lom = new LockOfMoney();
+                throw lom;
+            }
+        }
+        static void Main(string[] args)
+        {
+            try
+            {
+                Buy(333);
+            }
+            catch (LockOfMoney ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                // отрабатывает всегда не зависимо был exception или нет.
+            }
+        }
+    }
+
+  // Exception method
+    static class MyLibary
+    {
+        // Если к переменной подставить this 
+        public static string MyFunction(this int x)
+        {
+            return "Hello from " + x;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int xx = 333;
+
+            var res = MyLibary.MyFunction(xx);
+            // то вызов функции можно представить ниже.
+            res = xx.MyFunction();
+
+            Console.WriteLine();
+        }
+    }
+
+// Exception method
+    static class MyLibary
+    {
+        // Если к переменной подставить this 
+        // Если подставить неявную передачу в качестве параметров то функцию можно вызвать у любого типа данных
+        public static string MyFunction<XXX>(this XXX x)
+        {
+            return "Hello from " + x;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int xx = 333;
+
+            var res = MyLibary.MyFunction(xx);
+            // то вызов функции можно представить ниже.
+            res = xx.MyFunction();
+            res = "Test".MyFunction(); // даже так
+
+            Console.WriteLine();
         }
     }
 */
