@@ -9,42 +9,22 @@ using System.Windows;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
+using System.Xml;
 
 namespace AshtonBro.CodeBlog._2
 {
-    // Serialization
-    // Манипуляция файловой системой
-   
-    class Program
+
+    
+   //Creating and Using Entity Data Models
+
+    public class Program
     {
+     
         static void Main(string[] args)
         {
-            // Code Access Security 3.5 Net => 4.0 Net
-            if(!Directory.Exists("MyDir"))
-            Directory.CreateDirectory("MyDir");
-            if (!File.Exists("MyDir\\My.txt"))
-            {
-                StreamWriter sw = File.CreateText("MyDir\\My.txt");
-                sw.WriteLine("Hello! This my own file created with cmd");
-                sw.Flush(); // сделает сброс буфера и сохраняет на диск
-                sw.Close(); // делает сброс буфера и закрывает программу
-
-            }
-            StreamReader sr = File.OpenText("MyDir\\My.txt"); // прочитываем текст
-            Console.WriteLine(sr.ReadToEnd());
-            sr.Close(); // закрывает файл очищаем буфер
-
-            // два симетричный класса
-            DirectoryInfo di = new DirectoryInfo("MyDir"); // выделяем память и обьявялем
-            foreach (FileInfo file in di.GetFiles())
-            {
-                FileStream fs = file.OpenRead(); // поток на чтение и у файла выбираем метод открыть для чтения
-                StreamReader s = new StreamReader(fs); // конвертируем
-                Console.WriteLine(s.ReadToEnd());
-                sr.Close(); // закрывает файл очищаем буфер
-            }
-
-
+            
             Console.ReadLine();
         }
     }
@@ -1044,5 +1024,157 @@ enum myColor : int
             Console.ReadLine();
         }
     }
+
+•
+
+    Serialize an object as binary.
+ class Program
+    {
+        [Serializable] // ключ разрешение слива данных
+        public class Customer
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public string Address { get; set; }
+        }
+        static void Main(string[] args)
+        {
+            List<Customer> tbl = new List<Customer>()
+            { 
+                new Customer() { ID = 333, Name="Bob", Address="London"},
+                new Customer() { ID = 365, Name="Mary", Address="London"},
+                new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
+            };
+
+            // Отправляем файл
+            FileStream fs = new FileStream("Custoners.bin", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
+            //fs.Write
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
+            fs.Close(); // сбрасывает буффер
+
+            // Читаем файл, другай сторогна
+            fs = new FileStream("Custoners.bin", FileMode.Open);
+            bf = new BinaryFormatter();
+            var customers = bf.Deserialize(fs) as List<Customer> ;
+            fs.Close();
+            foreach (var c in customers)
+            {
+            Console.WriteLine(c.Name + "\t" + c.Address);
+
+            }
+            Console.ReadLine();
+        }
+    }
+
+•
+
+    Serialize an object as XML.
+
+ public class Program
+    {
+        [Serializable] // ключ разрешение слива данных
+        public class Customer
+        {
+            [XmlAttribute("CustID")] public int ID { get; set; }
+            [XmlElement("C")] public string Name { get; set; }
+            public string Address { get; set; }
+        }
+        static void Main(string[] args)
+        {
+            List<Customer> tbl = new List<Customer>()
+            { 
+               new Customer() { ID = 333, Name="Bob", Address="London"},
+               new Customer() { ID = 365, Name="Mary", Address="London"},
+               new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
+            };
+
+            // Отправляем файл
+            FileStream fs = new FileStream("Custoners.xml", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
+            //fs.Write
+            //BinaryFormatter bf = new BinaryFormatter();
+            XmlSerializer bf = new XmlSerializer(typeof(List<Customer>));
+            bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
+            fs.Close(); // сбрасывает буффер
+
+            // Читаем файл, другай сторогна
+            fs = new FileStream("Custoners.xml", FileMode.Open);
+            //bf = new BinaryFormatter();
+            bf = new XmlSerializer(typeof(List<Customer>));
+            var customers = bf.Deserialize(fs) as List<Customer> ;
+            fs.Close();
+            foreach (var c in customers)
+            {
+            Console.WriteLine(c.Name + "\t" + c.Address);
+
+            }
+            Console.ReadLine();
+        }
+    }
+
+ // Serialization
+    // WCF Library
+    
+    •
+
+    Describe the purpose of serialization, and the formats that the .NET Framework supports.
+
+    •
+
+    Create a custom type that is serializable.
+
+    •
+
+    Serialize an object as binary.
+
+    •
+
+    Serialize an object as XML.
+
+    •
+
+    Serialize an object as JSON.
+     
+
+public class Program
+{
+    [Serializable] // ключ разрешение слива данных
+    public class Customer
+    {
+        [XmlAttribute("CustID")] public int ID { get; set; }
+        [XmlElement("C")] public string Name { get; set; }
+        public string Address { get; set; }
+    }
+    static void Main(string[] args)
+    {
+        List<Customer> tbl = new List<Customer>()
+            {
+               new Customer() { ID = 333, Name="Bob", Address="London"},
+               new Customer() { ID = 365, Name="Mary", Address="London"},
+               new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
+            };
+
+        // Отправляем файл
+        FileStream fs = new FileStream("Custoners.xml", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
+                                                                          //fs.Write
+                                                                          //BinaryFormatter bf = new BinaryFormatter();
+        XmlSerializer bf = new XmlSerializer(typeof(List<Customer>));
+        bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
+        fs.Close(); // сбрасывает буффер
+
+        // Читаем файл, другай сторогна
+        fs = new FileStream("Custoners.xml", FileMode.Open);
+        //bf = new BinaryFormatter();
+        bf = new XmlSerializer(typeof(List<Customer>));
+        var customers = bf.Deserialize(fs) as List<Customer>;
+        fs.Close();
+        foreach (var c in customers)
+        {
+            Console.WriteLine(c.Name + "\t" + c.Address);
+
+        }
+        Console.ReadLine();
+    }
+}
 */
 
