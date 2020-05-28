@@ -21,63 +21,38 @@ namespace AshtonBro.CodeBlog._2
 {
 
     // Performing Operations Asynchronously
-    // Parallel
+    // Parallel Многопоточность
 
     public class Program
     {
 
-        public static string MyFunction(int id)
+        static int count = 0;
+        static void MyFunctiony()
         {
-            Thread.Sleep(1);
-            return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
-        }
+            int tmp = count;
+            tmp++;
+            Thread.Sleep(1000);
+            count = tmp;
 
-        public static string MyFunction(int id, CancellationToken token)
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                if (token.IsCancellationRequested)
-                    throw new Exception("My Error");
-                token.ThrowIfCancellationRequested();
-                Thread.Sleep(2000);
-            }
-            return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
+
+            //count++;
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("Main " + Thread.CurrentThread.ManagedThreadId);
+            Task[] tsk = new Task[]
+            {
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony())
 
-            var task1 = Task.Run(() => MyFunction(333)).ContinueWith<string>((t) => MyFunction(888));
-
-            CancellationTokenSource ts = new CancellationTokenSource();
-
-            var task2 = Task.Run(() => MyFunction(555, ts.Token);
-
-            Console.ReadLine();
-            ts.Cancel(true);
-
-            Task[] tsk = new Task[2] {task1, task2 };
+            };
             Task.WaitAll(tsk);
 
-            int[] todo = new int[] { 333, 555, 888, 999, 222, 444, 644, 111 };
-
-            //Parallel.ForEach(todo, (t) => MyFunction(t));
-            // Parallel LINQ
-            var query = from t in todo.AsParallel().WithDegreeOfParallelism(4)
-                select MyFunction(t);
-
-            var result = query.ToList();
-
-            foreach (var r in result)
-            {
-                Console.WriteLine(r);
-            }
-
-            //Console.WriteLine(task1.Result);
-            //Console.WriteLine(task2.Result);
-            //Console.WriteLine(task3.Result);
-
-
+            Console.WriteLine(count);
             Console.ReadLine();
         }
     }
@@ -1549,6 +1524,66 @@ static void Main(string[] args)
     Console.ReadLine();
 }
  
+ // Parallel
+
+public class Program
+{
+
+    public static string MyFunction(int id)
+    {
+        Thread.Sleep(1);
+        return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
+    }
+
+    public static string MyFunction(int id, CancellationToken token)
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            if (token.IsCancellationRequested)
+                throw new Exception("My Error");
+            token.ThrowIfCancellationRequested();
+            Thread.Sleep(2000);
+        }
+        return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
+    }
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Main " + Thread.CurrentThread.ManagedThreadId);
+
+        var task1 = Task.Run(() => MyFunction(333)).ContinueWith<string>((t) => MyFunction(888));
+
+        CancellationTokenSource ts = new CancellationTokenSource();
+
+        var task2 = Task.Run(() => MyFunction(555, ts.Token);
+
+        Console.ReadLine();
+        ts.Cancel(true);
+
+        Task[] tsk = new Task[2] {task1, task2 };
+        Task.WaitAll(tsk);
+
+        int[] todo = new int[] { 333, 555, 888, 999, 222, 444, 644, 111 };
+
+        //Parallel.ForEach(todo, (t) => MyFunction(t));
+        // Parallel LINQ
+        var query = from t in todo.AsParallel().WithDegreeOfParallelism(4)
+            select MyFunction(t);
+
+        var result = query.ToList();
+
+        foreach (var r in result)
+        {
+            Console.WriteLine(r);
+        }
+
+        //Console.WriteLine(task1.Result);
+        //Console.WriteLine(task2.Result);
+        //Console.WriteLine(task3.Result);
+
+
+        Console.ReadLine();
+    }
+}
  
  
  */
