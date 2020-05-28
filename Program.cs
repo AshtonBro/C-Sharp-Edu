@@ -19,46 +19,21 @@ using System.ServiceModel;
 namespace AshtonBro.CodeBlog._2
 {
 
-    // Accessong Remote Data
+    // Designing the User Interface
+    // Introducing XML -> XAML
 
     /*
      *
-     * After completing this module, you will be able to:
-     * Send data to and receive data from web services and other remote data sources.
-     * Access data by using WCF Data Services.
+     * 
      * 
      */
+
     public class Program
     {
-     
         static void Main(string[] args)
         {
-            //WebRequest request = WebRequest.Create("http://www.rambler.ru"); // схема протокола, сомтри какой обработчик зарегистирован, должны уметь распоковывать упаковывать стандартным спосоом, должны отправлять принимать данные. 
-            //request.Method = "GET";
-
-            //request.Credentials = new NetworkCredential("Bob", "{Pa$$w0rd");
-            //HttpWebRequest httpReq = request as HttpWebRequest;
-
-            //// httpReq.ClientCertificates.Add добавляем сертификаты, выбираем чем представидться
-
-            //WebResponse response = request.GetResponse();
-            //var s = response.GetResponseStream(); // Байтовый поток, писать читатьб по байтно и конвертировать.
-            //StreamReader sf = new StreamReader(s); // Конвертация данных
-            //Console.WriteLine(sf.ReadToEnd());
-            //Console.ReadLine();
-
-
-            // Server
-            ServiceHost svc = new ServiceHost(typeof(Service1));
-            svc.Open();
-
-            Console.WriteLine("Server is ready!!!");
-
-            Console.ReadLine();
-
-            svc.Close();
-
-            Console.ReadLine();
+           
+            
         }
     }
   
@@ -1350,6 +1325,44 @@ public class Program
             return customers.ToList();
         }
     }
+
+<==================================== MS DAY 4 ==========================================>
+
+Designing the User Interface for a Graphical Applicatin
+
+Button btn = new Button();
+grd.AppenChild.Add(btn);
+btn.Content = "Hello!"
+
+namespace wpfApplication2
+{
+    public class MyControl : FrameworkElement / usercontrol / control
+    {
+        ovveride void OnRender(System.Windows.Media.DrawingContext drawingContext)
+        {
+            drawingContext.DrawEllipse(new SolidColorBrush(Color.FromRgb(0,255,0)), new Pen(Color.FromRgb(0,255,0), 2), new Point (this.Width / 2, this.Height / 2), Widht, Height)
+        }
+    }
+
+// 
+
+    public class MyControl : Control
+    {
+        ovveride void OnRender(System.Windows.Media.DrawingContext drawingContext)
+        {
+            drawingContext.DrawEllipse(new SolidColorBrush(Color.FromRgb(0,255,0)), new Pen(Color.FromRgb(0,255,0), 2), new Point (this.Width / 2, this.Height / 2), Widht, Height)
+        }
+    }
+
+    public Class MyDB
+    {
+        public MyDB()
+        {
+        
+        }
+        public string Date {get; set;}
+    }
+}
 
 */
 
