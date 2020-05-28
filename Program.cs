@@ -15,55 +15,73 @@ using System.Xml;
 using System.Runtime.Remoting;
 using System.Net;
 using System.ServiceModel;
+using System.Threading;
 
 namespace AshtonBro.CodeBlog._2
 {
 
     // Performing Operations Asynchronously
-
-    /*Asynchronous operations are closely related to tasks. The .NET Framework 4.5 includes some new features that make it easier to perform asynchronous operations. These operations transparently create new tasks and coordinate their actions, enabling you to concentrate on the business logic of your application. In particular, the async and await keywords enable you to invoke an asynchronous operation and wait for the result within a single method, without blocking the thread.
-     *
-     * 
-     * 
-     */
-    public delegate string MyDelegate (int id);
+    // Parallel
 
     public class Program
     {
-        public static string MyFunction(int x)
-        {
-            return "Hello!";
 
+        public static string MyFunction(int id)
+        {
+            Thread.Sleep(1);
+            return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
+        }
+
+        public static string MyFunction(int id, CancellationToken token)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (token.IsCancellationRequested)
+                    throw new Exception("My Error");
+                token.ThrowIfCancellationRequested();
+                Thread.Sleep(2000);
+            }
+            return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
         }
         static void Main(string[] args)
         {
-            MyDelegate d  = new MyDelegate(MyFunction);
-            var result = d.Invoke(323);
+            Console.WriteLine("Main " + Thread.CurrentThread.ManagedThreadId);
 
-            Func<int, string> d2 = new Func<int, string>(MyFunction);
-            result = d2.Invoke(323);
+            var task1 = Task.Run(() => MyFunction(333)).ContinueWith<string>((t) => MyFunction(888));
 
-            Func<int, string> d3 = MyFunction;
-            result = d3.Invoke(323);
+            CancellationTokenSource ts = new CancellationTokenSource();
 
-            Func<int, string> d4 = delegate(int x)
-            { // ANONIMOUSE FUNCTION
-                return "Hello!";
-            };
-            result = d4.Invoke(323);
+            var task2 = Task.Run(() => MyFunction(555, ts.Token);
 
-            Func<int, string> d5 = (x) =>
-            { // ANONIMOUSE FUNCTION
-                return "Hello!";
-            };
-            result = d5.Invoke(323);
+            Console.ReadLine();
+            ts.Cancel(true);
 
-            // LAMBDA EXPRESSION
-            Func<int, string> d6 = (x) => "Hello!" + x;
-            result = d6.Invoke(323);
+            Task[] tsk = new Task[2] {task1, task2 };
+            Task.WaitAll(tsk);
+
+            int[] todo = new int[] { 333, 555, 888, 999, 222, 444, 644, 111 };
+
+            //Parallel.ForEach(todo, (t) => MyFunction(t));
+            // Parallel LINQ
+            var query = from t in todo.AsParallel().WithDegreeOfParallelism(4)
+                select MyFunction(t);
+
+            var result = query.ToList();
+
+            foreach (var r in result)
+            {
+                Console.WriteLine(r);
+            }
+
+            //Console.WriteLine(task1.Result);
+            //Console.WriteLine(task2.Result);
+            //Console.WriteLine(task3.Result);
+
+
+            Console.ReadLine();
         }
     }
-    }
+    
   
 }
 
@@ -1392,5 +1410,146 @@ namespace wpfApplication2
     }
 }
 
-*/
+
+
+    // Performing Operations Asynchronously
+
+    Asynchronous operations are closely related to tasks. The .NET Framework 4.5 includes some new features that make it easier to perform asynchronous operations. These operations transparently create new tasks and coordinate their actions, enabling you to concentrate on the business logic of your application. In particular, the async and await keywords enable you to invoke an asynchronous operation and wait for the result within a single method, without blocking the thread.
+     *
+     * 
+     * 
+     
+    public delegate string MyDelegate(int id);
+
+public class Program
+{
+    public static string MyFunction(int x)
+    {
+        return "Hello!";
+
+    }
+    static void Main(string[] args)
+    {
+        MyDelegate d = new MyDelegate(MyFunction);
+        var result = d.Invoke(323);
+
+        Func<int, string> d2 = new Func<int, string>(MyFunction);
+        result = d2.Invoke(323);
+
+        Func<int, string> d3 = MyFunction;
+        result = d3.Invoke(323);
+
+        Func<int, string> d4 = delegate (int x)
+        { // ANONIMOUSE FUNCTION
+            return "Hello!";
+        };
+        result = d4.Invoke(323);
+
+        Func<int, string> d5 = (x) =>
+        { // ANONIMOUSE FUNCTION
+            return "Hello!";
+        };
+        result = d5.Invoke(323);
+
+        // LAMBDA EXPRESSION
+        Func<int, string> d6 = (x) => "Hello!" + x;
+        result = d6.Invoke(323);
+    }
+}
+ 
+ // Performing Operations Asynchronously
+
+   
+    public class Program
+    {
+    
+        public static string MyFunction(int id)
+        {
+            Thread.Sleep(10000);
+            return "Hello from id= " + id;
+        }
+        static void Main(string[] args)
+        {
+            //Console.WriteLine(myFunction(333));
+            //Console.WriteLine(myFunction(555));
+            //Console.WriteLine(myFunction(777));
+
+            var task1 = new Task<string>(() => MyFunction(333));
+            var task2 = new Task<string>(() => MyFunction(555));
+            var task3 = new Task<string>(() => MyFunction(777));
+            task1.Start();
+            task2.Start();
+            task3.Start();
+
+            Task[] tsk = new Task[3] {task1, task2, task3 };
+            Task.WaitAll(tsk);
+
+
+            Console.WriteLine(task1.Result);
+            Console.WriteLine(task2.Result);
+            Console.WriteLine(task3.Result);
+
+
+            Console.ReadLine();
+        }
+    }
+
+// тоже самое но короче 
+
+var task1 = Task.Run(() => MyFunction(333));
+var task2 = Task.Run(() => MyFunction(555));
+var task3 = Task.Run(() => MyFunction(888));
+
+Task[] tsk = new Task[3] {task1, task2, task3 };
+Task.WaitAll(tsk);
+
+
+Console.WriteLine(task1.Result);
+Console.WriteLine(task2.Result);
+Console.WriteLine(task3.Result);
+
+
+Console.ReadLine();
+    
+ public static string MyFunction(int id)
+{
+    Thread.Sleep(1);
+    return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
+}
+static void Main(string[] args)
+{
+    Console.WriteLine("Main " + Thread.CurrentThread.ManagedThreadId);
+
+    var task1 = Task.Run(() => MyFunction(333));
+    var task2 = Task.Run(() => MyFunction(555));
+    var task3 = Task.Run(() => MyFunction(888));
+
+    Task[] tsk = new Task[3] {task1, task2, task3 };
+    Task.WaitAll(tsk);
+
+    int[] todo = new int[] { 333, 555, 888, 999, 222, 444, 644, 111 };
+
+    //Parallel.ForEach(todo, (t) => MyFunction(t));
+    // Parallel LINQ
+    var query = from t in todo.AsParallel().WithDegreeOfParallelism(4)
+        select MyFunction(t);
+
+    var result = query.ToList();
+
+    foreach (var r in result)
+    {
+        Console.WriteLine(r);
+    }
+
+    //Console.WriteLine(task1.Result);
+    //Console.WriteLine(task2.Result);
+    //Console.WriteLine(task3.Result);
+
+
+    Console.ReadLine();
+}
+ 
+ 
+ 
+ */
 
