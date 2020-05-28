@@ -19,22 +19,50 @@ using System.ServiceModel;
 namespace AshtonBro.CodeBlog._2
 {
 
-    // Designing the User Interface
-    // Introducing XML -> XAML
+    // Performing Operations Asynchronously
 
-    /*
+    /*Asynchronous operations are closely related to tasks. The .NET Framework 4.5 includes some new features that make it easier to perform asynchronous operations. These operations transparently create new tasks and coordinate their actions, enabling you to concentrate on the business logic of your application. In particular, the async and await keywords enable you to invoke an asynchronous operation and wait for the result within a single method, without blocking the thread.
      *
      * 
      * 
      */
+    public delegate string MyDelegate (int id);
 
     public class Program
     {
+        public static string MyFunction(int x)
+        {
+            return "Hello!";
+
+        }
         static void Main(string[] args)
         {
-           
-            
+            MyDelegate d  = new MyDelegate(MyFunction);
+            var result = d.Invoke(323);
+
+            Func<int, string> d2 = new Func<int, string>(MyFunction);
+            result = d2.Invoke(323);
+
+            Func<int, string> d3 = MyFunction;
+            result = d3.Invoke(323);
+
+            Func<int, string> d4 = delegate(int x)
+            { // ANONIMOUSE FUNCTION
+                return "Hello!";
+            };
+            result = d4.Invoke(323);
+
+            Func<int, string> d5 = (x) =>
+            { // ANONIMOUSE FUNCTION
+                return "Hello!";
+            };
+            result = d5.Invoke(323);
+
+            // LAMBDA EXPRESSION
+            Func<int, string> d6 = (x) => "Hello!" + x;
+            result = d6.Invoke(323);
         }
+    }
     }
   
 }
