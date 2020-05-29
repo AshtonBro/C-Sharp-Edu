@@ -17,74 +17,42 @@ using System.Net;
 using System.ServiceModel;
 using System.Threading;
 using System.Runtime.InteropServices;
+using System.Reflection;
+using System.CodeDom.Compiler;
+using System.CodeDom;
+using Microsoft.CSharp;
 
 namespace AshtonBro.CodeBlog._2
 {
-    // Integrating with Unmanaged Code
-    // Managing the Lifetime of Objects and Controlling Unmanaged Resources
+    // Generating Managed Code
 
-    class MyClass : IDisposable
-    {
-        public int data;
-        ~MyClass()
-        {
-            Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
-            Save();
-        }
-
-        public void Save()
-        {
-            Marshal.ReleaseComObject
-            GC.SuppressFinalize(this);
-        }
-        public void Dispose()
-        {
-            Save();
-        }
-
-    }
-    struct MyStruct
-    {
-        public int data;
-    }
     public class Program
-    {   
+    {
         static void Main(string[] args)
         {
-            Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
+            var unit = new CodeCompileUnit();
+            var ns = new CodeNamespace("MyOrgGazprom"); // create namespace
+            unit.Namespaces.Add(ns); 
+            ns.Imports.Add(new CodeNamespaceImport("System")); // add using System;
+            var cls = new CodeTypeDeclaration("MyClass"); // Create new MyClass
+            ns.Types.Add(cls);
+            var main = new CodeEntryPointMethod(); // получили функцию static void Main
+            cls.Members.Add(main);
 
-            MyClass clsTest = null;
+            var cs = new CSharpCodeProvider();
 
-            try
-            {
-                { // stack
-                    MyClass cls;
-                    using cls = new MyClass(); // heap allocation
-                    {
-                        MyStruct strc = new MyStruct(); // stack allocation
-                        int i = 0; // stack allocation
+            var file = File.CreateText("MyProg.cs");
 
-                        i = 333 / i;
+            var writer = new IndentedTextWriter(file);
 
-                        clsTest = cls;
+            var options = new CodeGenerationOptions();
 
-                        cls.Save();
+            cs.GenerateCodeFromCompileUnit(unit, writer, options);
 
-                        Marshal.ReleaseComObject(cls);
-                    }
-                    
-                }// automatic clear stack
-            }
-            catch { }
-
-            clsTest = null;
-
-            GC.Collect(); // break app => stacks analys and clear 
+            writer.Close();
         }
-
     }
     
-  
 }
 
 /*
@@ -1650,6 +1618,8 @@ public class Program
     }
  
 <==================================== MS DAY 5 ==========================================>
+
+
  // Integrating with Unmanaged Code
     // Creating and Using Dynamic Objects
     //
@@ -1686,8 +1656,172 @@ public class Program
 
     }
     
+// Integrating with Unmanaged Code
+    // Managing the Lifetime of Objects and Controlling Unmanaged Resources
+
+    class MyClass : IDisposable
+    {
+        public int data;
+        ~MyClass()
+        {
+            Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
+            Save();
+        }
+
+        public void Save()
+        {
+            Marshal.ReleaseComObject
+            GC.SuppressFinalize(this);
+        }
+        public void Dispose()
+        {
+            Save();
+        }
+
+    }
+    struct MyStruct
+    {
+        public int data;
+    }
+    public class Program
+    {   
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
+
+            MyClass clsTest = null;
+
+            try
+            {
+                { // stack
+                    MyClass cls;
+                    using cls = new MyClass(); // heap allocation
+                    {
+                        MyStruct strc = new MyStruct(); // stack allocation
+                        int i = 0; // stack allocation
+
+                        i = 333 / i;
+
+                        clsTest = cls;
+
+                        cls.Save();
+
+                        Marshal.ReleaseComObject(cls);
+                    }
+                    
+                }// automatic clear stack
+            }
+            catch { }
+
+            clsTest = null;
+
+            GC.Collect(); // break app-> stacks analys and clear 
+        }
+
+    }
+
+ // Integrating with Unmanaged Code
+    // Examining Object Metadata
+    // для динамического взаимодействия с другими библиотеками
+    // Расширяемость серверов
+    // REFLECTION
+
+namespace myLib
+{
+    [MyInterfaces.My("This is my class")]
+    public class Class1 : MyInterfaces.IMyInterface
+    {
+        [MyInterfaces.My("This is MyFunction. Must be in transaction")]
+        public string MyFunction()
+        {
+            return "Hello MyLib";
+        }
+
+        [PrincipalPermission(SecurityAction.Demand,Role ="Managers")]
+        public string TestAttributeFunction()
+        {
+            return "Hello from myLib";
+        }
 
 
+    }
+}
 
+namespace AshtonBro.CodeBlog._2
+{
+	public class MyInterfaces
+	{
+		public interface IMyInterfaces
+		{
+			string MyFunction();
+
+			string TestAttributeFunction();
+		}
+
+		[AttributeUsage(AttributeTargets.All)]
+		public class MyAttribute : Attribute
+		{
+			public MyAttribute()
+			{
+			}
+			public MyAttribute(string data)
+			{
+				Data = data;
+			}
+			public string Data { get; set; }
+		}
+
+	}
+}
+
+   static void Main(string[] args)
+        {
+            Assembly asm = Assembly.LoadFile(Path.GetFullPath("myLib.dll"));
+
+            foreach (var item in asm.GetTypes())
+            {
+                Console.WriteLine(item.FullName);
+
+                foreach (var attr in item.GetCustomAttribute())
+                {
+                    MyInterfaces.MyAttribute a = attr as MyInterfaces.MyAttribute;
+                    if (a != null)
+                    {
+                        Console.WriteLine(a.Data);
+                    }
+
+                }
+
+                foreach (MethodInfo mi in item.GetMethods())
+                {
+                    Console.WriteLine(mi.Name);
+                }
+
+             
+            }
+
+            Type t = asm.GetType("MyLib.MyClass");
+
+            MethodInfo method = t.GetMethod("MyFunction");
+            //method.GetMethodBody();
+
+            //object o = Activator.CreateInstance(t);
+            //object result = method.Invoke(o, new object[]{ });
+
+            var o = Activator.CreateInstance(t) as MyInterfaces.IMyInterfaces;
+
+
+            Console.WriteLine(o.TestAttributeFunction());
+           // Console.WriteLine(o.MyFunction());
+            // Console.WriteLine(result.ToString());
+
+            Console.ReadLine();
+        }
+    }
+    
+
+PRIVATE ASSEMBLY --> NAME
+
+STRONG NAME ASSEMBLY -> NAME + CRYPTO HASH + Version
  */
 
