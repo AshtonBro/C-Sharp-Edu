@@ -16,45 +16,44 @@ using System.Runtime.Remoting;
 using System.Net;
 using System.ServiceModel;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace AshtonBro.CodeBlog._2
 {
-
-    // Performing Operations Asynchronously
-    // Parallel Многопоточность
-
+    // Integrating with Unmanaged Code
+    // Creating and Using Dynamic Objects
+    //
+    // COM -> precompiled to CPU code (x86)
+    // COM -> rigistry in OS -> GUID Global unity indentify -> ole32.dll
+    // COM -> metadata C++ *.h (прототипы функции) -> IDL -> dll(tlb)
+    // 
+    // Void* pointer -> vtbl
+    // Unknow size -> How to free memory ??
+    //
+    //Tlbimp.exe -> idl (*.h) -> idl => class(.Net wrapper)
+    // RCW class (RunTime Call Wrapper) 
+    // RCW лучше загружать готовые и не самопальные
+    
     public class Program
-    {
-
-        static int count = 0;
-        static void MyFunctiony()
+    {   [Guid("0002DF01-0000-0000-C000-000000000046")]
+        class MyIE
         {
-            int tmp = count;
-            tmp++;
-            Thread.Sleep(1000);
-            count = tmp;
 
-
-            //count++;
         }
         static void Main(string[] args)
         {
-            Task[] tsk = new Task[]
-            {
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony())
+           // SHDocVw.InternetExplorer ie = new SHDocVw.InternetExplorer(); // RCW
 
-            };
-            Task.WaitAll(tsk);
+            dynamic ie = new MyIE();
+            ie.Visible = true;
+            ie.Navigate("http://www.yandex.ru");
+            ie.MyFunction("Hello");
 
-            Console.WriteLine(count);
+            Marshal.ReleaseComObject(ie);
+
             Console.ReadLine();
         }
+
     }
     
   
@@ -1585,6 +1584,47 @@ public class Program
     }
 }
  
+ // Performing Operations Asynchronously
+    // Parallel Многопоточность
+
+    public class Program
+    {
+
+        static int count = 0;
+        static void MyFunctiony()
+        {
+            int tmp = count;
+            tmp++;
+            Thread.Sleep(1000);
+            count = tmp;
+
+
+            //count++;
+        }
+        static void Main(string[] args)
+        {
+            Task[] tsk = new Task[]
+            {
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony()),
+                Task.Run(() => MyFunctiony())
+
+            };
+            Task.WaitAll(tsk);
+
+            Console.WriteLine(count);
+            Console.ReadLine();
+        }
+    }
  
+<==================================== MS DAY 5 ==========================================>
+
+
+
+
  */
 
