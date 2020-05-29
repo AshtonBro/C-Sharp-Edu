@@ -21,38 +21,41 @@ using System.Reflection;
 using System.CodeDom.Compiler;
 using System.CodeDom;
 using Microsoft.CSharp;
+using System.Security.Cryptography;
 
 namespace AshtonBro.CodeBlog._2
 {
-    // Generating Managed Code
+	// Encrypting and Decrypting Data
+	// Implementing Symmetric Encryption
+	// Implementing Asymmetric Encryption
+	public class Program
+	{
+		static void Main(string[] args)
+		{
+			string data = "Hello RSA!";
 
-    public class Program
-    {
-        static void Main(string[] args)
-        {
-            var unit = new CodeCompileUnit();
-            var ns = new CodeNamespace("MyOrgGazprom"); // create namespace
-            unit.Namespaces.Add(ns); 
-            ns.Imports.Add(new CodeNamespaceImport("System")); // add using System;
-            var cls = new CodeTypeDeclaration("MyClass"); // Create new MyClass
-            ns.Types.Add(cls);
-            var main = new CodeEntryPointMethod(); // получили функцию static void Main
-            cls.Members.Add(main);
+			HMACSHA1 hashalg = new HMACSHA1();
+			byte[] hash = hashalg.ComputeHash(Encoding.UTF8.GetBytes(data));
 
-            var cs = new CSharpCodeProvider();
+			RSACryptoServiceProvider alg = new RSACryptoServiceProvider(); // Определит количетсво byte 
 
-            var file = File.CreateText("MyProg.cs");
+			string pubPrivateKey = alg.ToXmlString(true);
+			string PubKey = alg.ToXmlString(false);
 
-            var writer = new IndentedTextWriter(file);
+			byte[] byteData = Encoding.UTF8.GetBytes(data);
+			var encryptedData = alg.Encrypt(byteData, true);
+            
 
-            var options = new CodeGenerationOptions();
 
-            cs.GenerateCodeFromCompileUnit(unit, writer, options);
+			alg = new RSACryptoServiceProvider();
+			alg.FromXmlString(pubPrivateKey);
+			byteData = alg.Decrypt(encryptedData, true);
+			Console.WriteLine(Encoding.UTF8.GetString(byteData));
 
-            writer.Close();
-        }
-    }
-    
+			Console.ReadLine();
+		}
+	}
+	
 }
 
 /*
@@ -92,7 +95,7 @@ list.Add(3);
 
 List<int> ListTwo = new List<int>()
 {
-    1, 2, 3, 4, 5, 6, 7, 8
+	1, 2, 3, 4, 5, 6, 7, 8
 };
 
 ListTwo.AddRange(array);
@@ -106,14 +109,14 @@ int[] arrayFor = new int[23];
 
 for (int i = 0; i <= arrayFor.Length - 1; i++)
 {
-    arrayFor[i] = i;
+	arrayFor[i] = i;
 }
 Console.WriteLine(string.Join(",", arrayFor));
 
 List<int> listFor = new List<int>();
 for (int j = 0; j <= arrayFor.Length - 1; j++)
 {
-    listFor.Add(j * 5);
+	listFor.Add(j * 5);
 }
 
 Console.WriteLine(string.Join(",", listFor));
@@ -126,8 +129,8 @@ List<string> listStr = new List<string>();
 
 for (int q = 0; q <= arrayStr.Length - 1; q++)
 {
-    listStr.Add(arrayStr[q]);
-                
+	listStr.Add(arrayStr[q]);
+				
 }
 
 // string.Join(",", array) сцепляет элементы созданной коллектции предварительно указав первым параметром сепаратор.
@@ -147,13 +150,13 @@ List<FirstClass> css = new List<FirstClass>();
 
  enum Days
 {
-    Mon = 14,
-    Tru = 23,
-    Wen = 17,
-    Tro = 96,
-    Fri = 84,
-    Sut = 35,
-    Sun = 53
+	Mon = 14,
+	Tru = 23,
+	Wen = 17,
+	Tro = 96,
+	Fri = 84,
+	Sut = 35,
+	Sun = 53
 }
 
 Советы по кментариям:
@@ -170,7 +173,7 @@ Console.WriteLine(); // Вывод текста на консоль.
 
 /*
 
-                                     Приведение и преобразование типов C# 
+									 Приведение и преобразование типов C# 
 <------------------------------------- Type casting and conversion C#------------------------>
 
 string s = "1"; You can't put string in int
@@ -229,10 +232,10 @@ bool secondBoolian = Convert.ToBoolean(secontStr);
 // tryParse 
 if (int.TryParse(Console.ReadLine(), out int result))
 {
-    Console.WriteLine(result);
+	Console.WriteLine(result);
 } else
 {
-    Console.WriteLine("Input only integer");
+	Console.WriteLine("Input only integer");
 }
 
 Console.WriteLine(str);
@@ -277,8 +280,8 @@ myFunc2(sd);
 Console.WriteLine(sd.id);
 
 {
-    Product pr = new Product();
-    pr.Price = 3.13;
+	Product pr = new Product();
+	pr.Price = 3.13;
 }
 
 // Common language specification
@@ -314,7 +317,7 @@ str3 = String.Intern(str3);
 
 if (Object.ReferenceEquals(str, str3))
 {
-    Console.WriteLine("Equal!!");
+	Console.WriteLine("Equal!!");
 }
 
 // Optimization work with  memory ise StringBuilder
@@ -327,7 +330,7 @@ var str4 = sb.ToString();
 
 if (Object.ReferenceEquals(str, str4))
 {
-    Console.WriteLine("Equal!!");
+	Console.WriteLine("Equal!!");
 }
 Console.WriteLine(str4);
 // IMMUTABEL ARRAY  мы не можем поменять размер массива
@@ -338,7 +341,7 @@ myArray[1] = 555;
 
 foreach (var elem in myArray)
 {
-    Console.WriteLine(elem);
+	Console.WriteLine(elem);
 }
 
 int[, ,] array3d = new int[3, 5, 10]; // EMMUTABLE
@@ -346,7 +349,7 @@ array3d[1, 3, 7] = 777;
 
 foreach (var elem in array3d)
 {
-    Console.WriteLine(string.Join(", ",elem));
+	Console.WriteLine(string.Join(", ",elem));
 }
 
 int[,] array2d = new int[3, 5]; // EMMUTABLE 
@@ -354,7 +357,7 @@ array2d[1, 3] = 777;
 
 foreach (var elem in array2d)
 {
-    Console.WriteLine(elem);
+	Console.WriteLine(elem);
 }
 
 // Обьявляем квадратный масив
@@ -365,7 +368,7 @@ arrayQ[2] = new int[7];
 
 foreach (var elem in arrayQ)
 {
-    Console.WriteLine(elem);
+	Console.WriteLine(elem);
 }
 
 // namespace колизия имен, если делать библиотеку то будет конфликт функции которые называется по дефолту
@@ -379,19 +382,19 @@ AshtonBro.CodeBlog._2.Program p3 = new Program();
 // Thread (поток) -> ~ 05mb => 1.5mb quick - stack
 // 8Tb -> slow
 {
-    Customer с = new Customer();
+	Customer с = new Customer();
 }
 
 {
-    Order o = new Order(); // будет существовать до скобок потом очищается. или выхода из функции
+	Order o = new Order(); // будет существовать до скобок потом очищается. или выхода из функции
 } // Clear stack
 
 {
-    Order o = new Order();
+	Order o = new Order();
 }
 
 {
-    int xx = 333; //automatic variable
+	int xx = 333; //automatic variable
 }
 
 
@@ -406,24 +409,24 @@ Program pX = new Program();
 
 try
 {
-    pX.XFunc();
+	pX.XFunc();
 }
 catch (OutOfMemoryException ex)
 {
-    Console.WriteLine(ex.Message);
-    EventLog.WriteEvent("Application", new EventInstance(333, 555));
+	Console.WriteLine(ex.Message);
+	EventLog.WriteEvent("Application", new EventInstance(333, 555));
 }
 
 catch (Exception ex)
 {
-    Console.WriteLine(ex.Message);
-    EventLog.WriteEvent("Application", new EventInstance(333, 555));
-    Debug.WriteLine("This is debug error");
-    Trace.WriteLine("This is debug error");
+	Console.WriteLine(ex.Message);
+	EventLog.WriteEvent("Application", new EventInstance(333, 555));
+	Debug.WriteLine("This is debug error");
+	Trace.WriteLine("This is debug error");
 }
 
 AshtonBro.CodeBlog._2.Program.myFunc(null);
-            
+			
 Order o2 = new Order();
 o2.amount = 0;
 myFunc(o2);
@@ -438,909 +441,909 @@ Console.WriteLine(cc.id);
 FUNCTIONS -------------------------------->
 class Customer // Reference Type
 {
-    public int id;
-    public double GetBalance()
-    {
-        AshtonBro.CodeBlog._2.Program.myFunc(null);
-        return 3.14;
-    }
+	public int id;
+	public double GetBalance()
+	{
+		AshtonBro.CodeBlog._2.Program.myFunc(null);
+		return 3.14;
+	}
 }
 struct Order
 {
-    public int amount;
+	public int amount;
 }
 class Product
 {
-    public double Price;
+	public double Price;
 }
 
 
 public bool XFunc()
 {
-    //Exception ex = new Exception("my error");
-    //if (1 == 1)
-    //throw ex;
-    return false;
+	//Exception ex = new Exception("my error");
+	//if (1 == 1)
+	//throw ex;
+	return false;
 }
 
 public bool XFunc2()
 {
-    //Exception ex = new Exception("my error");
-    //if (1 == 1)
-    //throw ex;
-    return false;
+	//Exception ex = new Exception("my error");
+	//if (1 == 1)
+	//throw ex;
+	return false;
 }
 
 static void myFunc(Order or) // Global func with name with name space
 {
-    or.amount = 100;
+	or.amount = 100;
 }
 
 public static string myFunc(Customer cc, int z = 333)
 {
-    cc.id = -335;
-    return "Hello";
+	cc.id = -335;
+	return "Hello";
 }
 static void TestParam(ref int x, out int y)
 {
-    y = 163;
-    x++;
+	y = 163;
+	x++;
 }
 
 <==================================== MS DAY 2 ==========================================>
 Необходимо понимать какой тип данных принимать в свой проект
 
 enum myColor : int
-    {
-        Red = 255,
-        Green = 65535,
-        Blue = 481246
-    }
+	{
+		Red = 255,
+		Green = 65535,
+		Blue = 481246
+	}
 
-    // Конструктор
-    struct Order
-    {
-        int id;
-        int CustID;
-        int Amount;
-        public Order(int _id, int _CustId, int _Amount)
-        {
-            id = _id;
-            CustID = _CustId;
-            Amount = _Amount;
-        }
-        public Order(string _id, int _CustId)
-        {
-            id = int.Parse(_id);
-            CustID = _CustId;
-            Amount = 0;
-        }
-        // функции доступа данных
-        public void setID(int i)
-        {
-            if(i > 0)
-            {
-                id = i;
-            } else {
-                Exception ex = new Exception("ID must be above zero");
-                throw ex;
-            }
-        }
-        public int getID()
-        {
-            return id;
-        }
-        
-       // public int MyID { get; set; }
-        public string this[string Name]
-        {
-            get { return "Hello" + Name; }
-            set { }
-        }
-        public int ID { get { return id; } set {
-                if (value < 0)
-                {
-                    Exception ex = new Exception("ID must be above zero");
-                    throw ex;
-                }
-                id = value; } 
-        }
-    }
-    class Program
-    {
-        static void myFunction(myColor color)
-        {
-            Order bla = new Order();
-        }
-        static void Main(string[] args)
-        {
-            Order or2 = new Order();
+	// Конструктор
+	struct Order
+	{
+		int id;
+		int CustID;
+		int Amount;
+		public Order(int _id, int _CustId, int _Amount)
+		{
+			id = _id;
+			CustID = _CustId;
+			Amount = _Amount;
+		}
+		public Order(string _id, int _CustId)
+		{
+			id = int.Parse(_id);
+			CustID = _CustId;
+			Amount = 0;
+		}
+		// функции доступа данных
+		public void setID(int i)
+		{
+			if(i > 0)
+			{
+				id = i;
+			} else {
+				Exception ex = new Exception("ID must be above zero");
+				throw ex;
+			}
+		}
+		public int getID()
+		{
+			return id;
+		}
+		
+	   // public int MyID { get; set; }
+		public string this[string Name]
+		{
+			get { return "Hello" + Name; }
+			set { }
+		}
+		public int ID { get { return id; } set {
+				if (value < 0)
+				{
+					Exception ex = new Exception("ID must be above zero");
+					throw ex;
+				}
+				id = value; } 
+		}
+	}
+	class Program
+	{
+		static void myFunction(myColor color)
+		{
+			Order bla = new Order();
+		}
+		static void Main(string[] args)
+		{
+			Order or2 = new Order();
 
-            var s = or2["Bob"];
+			var s = or2["Bob"];
 
-            or2.ID = 3333; // Get
-            Console.WriteLine(or2.ID);
-            Order or = new Order(163, 72, 73);
+			or2.ID = 3333; // Get
+			Console.WriteLine(or2.ID);
+			Order or = new Order(163, 72, 73);
 
-            Console.WriteLine(or);
+			Console.WriteLine(or);
 
-            // иногда необходимо контролировать тип ввода данных, например я принимаю только 3 цвета и всё.
-            myFunction(myColor.Blue);
-            Console.WriteLine(myColor.Blue);
-            // чтобы получить чисто нужно переконвертировать в int
-            int x = (int)myColor.Blue;
-            Console.WriteLine(x);
-            Console.ReadLine();
+			// иногда необходимо контролировать тип ввода данных, например я принимаю только 3 цвета и всё.
+			myFunction(myColor.Blue);
+			Console.WriteLine(myColor.Blue);
+			// чтобы получить чисто нужно переконвертировать в int
+			int x = (int)myColor.Blue;
+			Console.WriteLine(x);
+			Console.ReadLine();
 
-            // Коллекции ----------------------------------------------
-            ArrayList lst = new ArrayList(100); // прожерливая функция наъодиться в System.Collection - лучше избегать
-            int i = 333;
-            // boxing -> unboxind
-            lst.Add(i); // для работы требуют согласовать вызов перед обработкой данных 4 byte -> 4 byte <- и того 8 byte на обратобку
-            Stack sS = new Stack();
-            sS.Push(i);  // всё что System.collections обходить
-            // SortedList // боллее менее хороший вариант, но есть и лучше
+			// Коллекции ----------------------------------------------
+			ArrayList lst = new ArrayList(100); // прожерливая функция наъодиться в System.Collection - лучше избегать
+			int i = 333;
+			// boxing -> unboxind
+			lst.Add(i); // для работы требуют согласовать вызов перед обработкой данных 4 byte -> 4 byte <- и того 8 byte на обратобку
+			Stack sS = new Stack();
+			sS.Push(i);  // всё что System.collections обходить
+			// SortedList // боллее менее хороший вариант, но есть и лучше
 
-            object obj = lst[0];
-            int xIn = (int)obj;
+			object obj = lst[0];
+			int xIn = (int)obj;
 
-        }
-    }
+		}
+	}
 
  // DELEGATE -> string Invoke (string)
-    delegate string MyServerEvent(int id);
-    class Server
-    {
-        public MyServerEvent srvEvent;
-        public void FireEvent()
-        {
-            if(srvEvent != null)
-            {
-                var result = srvEvent.Invoke(333);
-            }
-        }
-    }
-    class MyClient
-    {
-        public string MyFunction(int xInt)
-        {
-            Console.WriteLine("Event resived " + xInt.ToString());
-            return "Hello from client!";
-        }
-    }
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Server srv = new Server();
-            MyClient newCl = new MyClient();
-            MyServerEvent mSerEv = new MyServerEvent(newCl.MyFunction);
-            MyClient newCl2 = new MyClient();
-            MyServerEvent mSerEv2 = new MyServerEvent(newCl.MyFunction);
-            srv.srvEvent = mSerEv + mSerEv2;
-            srv.srvEvent -= mSerEv2;
-            srv.FireEvent();
+	delegate string MyServerEvent(int id);
+	class Server
+	{
+		public MyServerEvent srvEvent;
+		public void FireEvent()
+		{
+			if(srvEvent != null)
+			{
+				var result = srvEvent.Invoke(333);
+			}
+		}
+	}
+	class MyClient
+	{
+		public string MyFunction(int xInt)
+		{
+			Console.WriteLine("Event resived " + xInt.ToString());
+			return "Hello from client!";
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			Server srv = new Server();
+			MyClient newCl = new MyClient();
+			MyServerEvent mSerEv = new MyServerEvent(newCl.MyFunction);
+			MyClient newCl2 = new MyClient();
+			MyServerEvent mSerEv2 = new MyServerEvent(newCl.MyFunction);
+			srv.srvEvent = mSerEv + mSerEv2;
+			srv.srvEvent -= mSerEv2;
+			srv.FireEvent();
 
-            Console.ReadLine();
-        }
-    }
+			Console.ReadLine();
+		}
+	}
 
 // Creating Class
 
-    // Encapculation, все данные должны подконтрольно защищены.
+	// Encapculation, все данные должны подконтрольно защищены.
    class Product
-    {
-        // 1 правило ООП - Все данные ООП должны быть защищены от сторонних вмешательство
-        // если данные не доступны и с наружи не доступны, указываем их с нижнем подчёркиванием
-        int Id;
-        string _name;
-        double _price;
+	{
+		// 1 правило ООП - Все данные ООП должны быть защищены от сторонних вмешательство
+		// если данные не доступны и с наружи не доступны, указываем их с нижнем подчёркиванием
+		int Id;
+		string _name;
+		double _price;
 
-        public double Price
-        {
-            get;
-            set;
-        }
+		public double Price
+		{
+			get;
+			set;
+		}
 
-        public double GetPrice()
-        {
-            if (1 == 1)
-                return _price;
-            else
-                return 0.0;
-        }
-        public void SetPrice(double price)
-        {
-            if (price > 0)
-                _price = price;
-        }
-    }
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Product p = new Product();
-           // p. = -3.14;
-        }
-    }
+		public double GetPrice()
+		{
+			if (1 == 1)
+				return _price;
+			else
+				return 0.0;
+		}
+		public void SetPrice(double price)
+		{
+			if (price > 0)
+				_price = price;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			Product p = new Product();
+		   // p. = -3.14;
+		}
+	}
 
 
 // Inheritance наследование
-    //abstract class BankAccount // Чисто абстрактный класс - abstract
-    //{
-    //    // абстрактный класс создаём шаблон для дальнейшей модификации
-    //    public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
-    //}
+	//abstract class BankAccount // Чисто абстрактный класс - abstract
+	//{
+	//    // абстрактный класс создаём шаблон для дальнейшей модификации
+	//    public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
+	//}
 
-    interface IBankAccount
-    {
-       // Интерфейс шаблон и прототипы функции 
-       // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
-        double GetBalance();
-    }
+	interface IBankAccount
+	{
+	   // Интерфейс шаблон и прототипы функции 
+	   // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
+		double GetBalance();
+	}
 
-    class ChildAccount : IBankAccount
-    {
-        int _id; // приватное поле, маленький регистр или нижнее подчёркивани
-        protected double _amount;
-        public double GetBalance()
-        {
-            return _amount + 3;
-        }
-        // при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
-    }
-    class Program
-    {
-        static void CalculateBalance(IBankAccount b)
-        {
-            Console.WriteLine(b.GetBalance());
-        }
-       static void Main(string[] args)
-        {
+	class ChildAccount : IBankAccount
+	{
+		int _id; // приватное поле, маленький регистр или нижнее подчёркивани
+		protected double _amount;
+		public double GetBalance()
+		{
+			return _amount + 3;
+		}
+		// при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
+	}
+	class Program
+	{
+		static void CalculateBalance(IBankAccount b)
+		{
+			Console.WriteLine(b.GetBalance());
+		}
+	   static void Main(string[] args)
+		{
 
-            ChildAccount newChild = new ChildAccount();
+			ChildAccount newChild = new ChildAccount();
 
-            CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
+			CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
 
-            Console.ReadLine();
-        }
-    }
+			Console.ReadLine();
+		}
+	}
 
 // REFERENCE TYPES AND VALUE TYPES
  Reference types = class
  Value types = struct
 
 // Inheritance наследование
-    //abstract class BankAccount // Чисто абстрактный класс - abstract
-    //{
-    //    // абстрактный класс создаём шаблон для дальнейшей модификации
-    //    public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
-    //}
+	//abstract class BankAccount // Чисто абстрактный класс - abstract
+	//{
+	//    // абстрактный класс создаём шаблон для дальнейшей модификации
+	//    public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
+	//}
 
-    interface IBankAccount
-    {
-       // Интерфейс шаблон и прототипы функции 
-       // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
-        double GetBalance();
-    }
+	interface IBankAccount
+	{
+	   // Интерфейс шаблон и прототипы функции 
+	   // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
+		double GetBalance();
+	}
 
-    class ChildAccount : IBankAccount
-    {
-        int _id; // приватное поле, маленький регистр или нижнее подчёркивани
-        public int Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
+	class ChildAccount : IBankAccount
+	{
+		int _id; // приватное поле, маленький регистр или нижнее подчёркивани
+		public int Id
+		{
+			get { return _id; }
+			set { _id = value; }
+		}
 
-        protected double _amount;
+		protected double _amount;
 
-        public double Amount
-        {
-            get { return _amount; }
-            set { _amount = value; }
-        }
-      
-        public double GetBalance()
-        {
-            return _amount + 3;
-        }
-        // при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
-        
-        // Глобальные функция, можно вызвать на примую обращаяст к child
-        public static string GetStatic()
-        {
-            return "Static Func";
-        }
-        
-    }
-    class Program
-    {
-        static void CalculateBalance(IBankAccount b)
-        {
-            Console.WriteLine(b.GetBalance());
-        }
-       static void Main(string[] args)
-        {
+		public double Amount
+		{
+			get { return _amount; }
+			set { _amount = value; }
+		}
+	  
+		public double GetBalance()
+		{
+			return _amount + 3;
+		}
+		// при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
+		
+		// Глобальные функция, можно вызвать на примую обращаяст к child
+		public static string GetStatic()
+		{
+			return "Static Func";
+		}
+		
+	}
+	class Program
+	{
+		static void CalculateBalance(IBankAccount b)
+		{
+			Console.WriteLine(b.GetBalance());
+		}
+	   static void Main(string[] args)
+		{
 
-            var result = ChildAccount.GetStatic();
-            Console.WriteLine(result);
+			var result = ChildAccount.GetStatic();
+			Console.WriteLine(result);
 
-            ChildAccount newChild = new ChildAccount() { Id = 333, Amount = 3.14 };
+			ChildAccount newChild = new ChildAccount() { Id = 333, Amount = 3.14 };
 
-            CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
+			CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
 
-            Console.ReadLine();
-        }
-    }
+			Console.ReadLine();
+		}
+	}
 
 
   // Introducing Generics (Template)
 
-    class myGenericClass<T>
-    {
-        T _unknown;
-        public T GetUnknown()
-        {
-            return _unknown;
-        }
-    }
+	class myGenericClass<T>
+	{
+		T _unknown;
+		public T GetUnknown()
+		{
+			return _unknown;
+		}
+	}
 
-    class Program
-    {
-        //static void MyFunction(object obj)
-        //{
-        //    Console.WriteLine(obj);
-        //}
-        // функция заточена забирать данные из стека, функция с неизвестным параметрам, при разных
-        // типах даных сама подставляет необходимый тип и забирает и при это работает без box и unbox
-        // настройка типа на ходу.
-        static void MyFunction<UnknownDataType>(UnknownDataType obj)
-        {
-            Console.WriteLine(obj);
-        }
+	class Program
+	{
+		//static void MyFunction(object obj)
+		//{
+		//    Console.WriteLine(obj);
+		//}
+		// функция заточена забирать данные из стека, функция с неизвестным параметрам, при разных
+		// типах даных сама подставляет необходимый тип и забирает и при это работает без box и unbox
+		// настройка типа на ходу.
+		static void MyFunction<UnknownDataType>(UnknownDataType obj)
+		{
+			Console.WriteLine(obj);
+		}
 
-        static void Main(string[] args)
-       {
-            int x = 333;
-            MyFunction(x);
-            MyFunction("Я и это сьел");
-            MyFunction(DateTime.Now);
-
-
-            myGenericClass<int> cls1 = new myGenericClass<int>();
-            Console.WriteLine(cls1.GetUnknown());
-
-            myGenericClass<DateTime> cls2 = new myGenericClass<DateTime>();
-            Console.WriteLine(cls2.GetUnknown());
+		static void Main(string[] args)
+	   {
+			int x = 333;
+			MyFunction(x);
+			MyFunction("Я и это сьел");
+			MyFunction(DateTime.Now);
 
 
+			myGenericClass<int> cls1 = new myGenericClass<int>();
+			Console.WriteLine(cls1.GetUnknown());
 
-            Console.ReadLine();
-        }
+			myGenericClass<DateTime> cls2 = new myGenericClass<DateTime>();
+			Console.WriteLine(cls2.GetUnknown());
 
-        
 
-    }
+
+			Console.ReadLine();
+		}
+
+		
+
+	}
 
 
  // Introducing Generics (Template)
-    class MyClass<T> where T : struct
-    {
-        T _unknown;
-        public T GetUnknown()
-        {
-            return _unknown;
-        }
-    }
-    class Program
-    {
-        static void Main(string[] args)
-       {
-            //ArrayList lst = new ArrayList();
-            //lst.Add(333);
+	class MyClass<T> where T : struct
+	{
+		T _unknown;
+		public T GetUnknown()
+		{
+			return _unknown;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+	   {
+			//ArrayList lst = new ArrayList();
+			//lst.Add(333);
 
-            List<int> lst = new List<int>();
-            lst.Add(163); // добавляем int 
-            var result = lst[0]; // выдаём int
+			List<int> lst = new List<int>();
+			lst.Add(163); // добавляем int 
+			var result = lst[0]; // выдаём int
 
-            MyClass<int> cls1 = new MyClass<int>();
-            Console.WriteLine(cls1.GetUnknown());
+			MyClass<int> cls1 = new MyClass<int>();
+			Console.WriteLine(cls1.GetUnknown());
 
-            MyClass<DateTime> cls2 = new MyClass<DateTime>();
-            Console.WriteLine(cls2.GetUnknown());
+			MyClass<DateTime> cls2 = new MyClass<DateTime>();
+			Console.WriteLine(cls2.GetUnknown());
 
-            MyClass<double> cls3 = new MyClass<double>();
+			MyClass<double> cls3 = new MyClass<double>();
 
-            Console.WriteLine(result);
-            Console.ReadLine();
-        }
+			Console.WriteLine(result);
+			Console.ReadLine();
+		}
 
-    }
+	}
 
 <==================================== MS DAY 3 ==========================================>
 
  // Virtual abstract
   
-    class BankAccount
-    {
-        int _data = 555;
+	class BankAccount
+	{
+		int _data = 555;
 
-        public int Data { get => _data; set => _data = value; }
-        public virtual int GetData() { return _data; } //vtbl virtual function table
+		public int Data { get => _data; set => _data = value; }
+		public virtual int GetData() { return _data; } //vtbl virtual function table
 
-    }
+	}
 
-    class ChildAccount : BankAccount
-    {
-        public override int GetData()
-        {
-            Data = -333;
-            return Data;
-        }
-    }
-    class Program
-    {
-        static void Main(string[] args)
+	class ChildAccount : BankAccount
+	{
+		public override int GetData()
+		{
+			Data = -333;
+			return Data;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
 
-        {   // Member heen
-            BankAccount b = new ChildAccount();
-            var result = b.GetData();
-            Console.WriteLine(result);
-            Console.ReadLine();
-        }
-    }
+		{   // Member heen
+			BankAccount b = new ChildAccount();
+			var result = b.GetData();
+			Console.WriteLine(result);
+			Console.ReadLine();
+		}
+	}
 
  class BankAccount
-    {
-        int _data = 555;
+	{
+		int _data = 555;
 
-        public int Data { get => _data; set => _data = value; }
-        public virtual int GetData() { return _data; } //vtbl virtual function table
+		public int Data { get => _data; set => _data = value; }
+		public virtual int GetData() { return _data; } //vtbl virtual function table
 
-    }
+	}
 
-    // Также можно закрыть выводиться из CildAccount, сами сделали override а сами закрылись.
-    sealed class ChildAccount : BankAccount
-    {
-        // sealed закрыть выведение и наследование
-        // функции базового класса вызывается через ключит base.
-        // Из struct выводиться нельзя по default
-        public sealed override int GetData()
-        {
-            // отработала базовай функция и выводимая, если это нужно.
-            int rse = base.GetData();
-            Data = rse - 333;
-            return Data;
-        }
-    }
-    class Program
-    {
-        static void Main(string[] args)
+	// Также можно закрыть выводиться из CildAccount, сами сделали override а сами закрылись.
+	sealed class ChildAccount : BankAccount
+	{
+		// sealed закрыть выведение и наследование
+		// функции базового класса вызывается через ключит base.
+		// Из struct выводиться нельзя по default
+		public sealed override int GetData()
+		{
+			// отработала базовай функция и выводимая, если это нужно.
+			int rse = base.GetData();
+			Data = rse - 333;
+			return Data;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
 
-        {   // Member heen
-            BankAccount b = new ChildAccount();
-            var result = b.GetData();
-            Console.WriteLine(result);
-            Console.ReadLine();
-        }
-    }
+		{   // Member heen
+			BankAccount b = new ChildAccount();
+			var result = b.GetData();
+			Console.WriteLine(result);
+			Console.ReadLine();
+		}
+	}
 
 // Exception and try catch
   class LockOfMoney : Exception
-    {
-        public override string Message
-        {
-            get { return "LockOf Money"; }
-        }
-    }
-    class Program
-    {
-        static void Buy(int amount)
-        {
-            if(1 == 1)
-            {
-                LockOfMoney lom = new LockOfMoney();
-                throw lom;
-            }
-        }
-        static void Main(string[] args)
-        {
-            try
-            {
-                Buy(333);
-            }
-            catch (LockOfMoney ex)
-            {
+	{
+		public override string Message
+		{
+			get { return "LockOf Money"; }
+		}
+	}
+	class Program
+	{
+		static void Buy(int amount)
+		{
+			if(1 == 1)
+			{
+				LockOfMoney lom = new LockOfMoney();
+				throw lom;
+			}
+		}
+		static void Main(string[] args)
+		{
+			try
+			{
+				Buy(333);
+			}
+			catch (LockOfMoney ex)
+			{
 
-            }
-            catch (Exception ex)
-            {
+			}
+			catch (Exception ex)
+			{
 
-            }
-            finally
-            {
-                // отрабатывает всегда не зависимо был exception или нет.
-            }
-        }
-    }
+			}
+			finally
+			{
+				// отрабатывает всегда не зависимо был exception или нет.
+			}
+		}
+	}
 
   // Exception method
-    static class MyLibary
-    {
-        // Если к переменной подставить this 
-        public static string MyFunction(this int x)
-        {
-            return "Hello from " + x;
-        }
-    }
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            int xx = 333;
+	static class MyLibary
+	{
+		// Если к переменной подставить this 
+		public static string MyFunction(this int x)
+		{
+			return "Hello from " + x;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			int xx = 333;
 
-            var res = MyLibary.MyFunction(xx);
-            // то вызов функции можно представить ниже.
-            res = xx.MyFunction();
+			var res = MyLibary.MyFunction(xx);
+			// то вызов функции можно представить ниже.
+			res = xx.MyFunction();
 
-            Console.WriteLine();
-        }
-    }
+			Console.WriteLine();
+		}
+	}
 
 // Exception method
-    static class MyLibary
-    {
-        // Если к переменной подставить this 
-        // Если подставить неявную передачу в качестве параметров то функцию можно вызвать у любого типа данных
-        public static string MyFunction<XXX>(this XXX x)
-        {
-            return "Hello from " + x;
-        }
-    }
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            int xx = 333;
+	static class MyLibary
+	{
+		// Если к переменной подставить this 
+		// Если подставить неявную передачу в качестве параметров то функцию можно вызвать у любого типа данных
+		public static string MyFunction<XXX>(this XXX x)
+		{
+			return "Hello from " + x;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			int xx = 333;
 
-            var res = MyLibary.MyFunction(xx);
-            // то вызов функции можно представить ниже.
-            res = xx.MyFunction();
-            res = "Test".MyFunction(); // даже так
+			var res = MyLibary.MyFunction(xx);
+			// то вызов функции можно представить ниже.
+			res = xx.MyFunction();
+			res = "Test".MyFunction(); // даже так
 
-            Console.WriteLine();
-        }
-    }
+			Console.WriteLine();
+		}
+	}
 
   // Reading and Writing local Data
-    // Манипуляция файловой системой
+	// Манипуляция файловой системой
    
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            // Code Access Security 3.5 Net => 4.0 Net
-            if(!Directory.Exists("MyDir"))
-            Directory.CreateDirectory("MyDir");
-            if (!File.Exists("MyDir\\My.txt"))
-            {
-                StreamWriter sw = File.CreateText("MyDir\\My.txt");
-                sw.WriteLine("Hello! This my own file created with cmd");
-                sw.Flush(); // сделает сброс буфера и сохраняет на диск
-                sw.Close(); // делает сброс буфера и закрывает программу
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			// Code Access Security 3.5 Net => 4.0 Net
+			if(!Directory.Exists("MyDir"))
+			Directory.CreateDirectory("MyDir");
+			if (!File.Exists("MyDir\\My.txt"))
+			{
+				StreamWriter sw = File.CreateText("MyDir\\My.txt");
+				sw.WriteLine("Hello! This my own file created with cmd");
+				sw.Flush(); // сделает сброс буфера и сохраняет на диск
+				sw.Close(); // делает сброс буфера и закрывает программу
 
-            }
-            StreamReader sr = File.OpenText("MyDir\\My.txt"); // прочитываем текст
-            Console.WriteLine(sr.ReadToEnd());
-            sr.Close(); // закрывает файл очищаем буфер
+			}
+			StreamReader sr = File.OpenText("MyDir\\My.txt"); // прочитываем текст
+			Console.WriteLine(sr.ReadToEnd());
+			sr.Close(); // закрывает файл очищаем буфер
 
-            // два симетричный класса
-            DirectoryInfo di = new DirectoryInfo("MyDir"); // выделяем память и обьявялем
-            foreach (FileInfo file in di.GetFiles())
-            {
-                FileStream fs = file.OpenRead(); // поток на чтение и у файла выбираем метод открыть для чтения
-                StreamReader s = new StreamReader(fs); // конвертируем
-                Console.WriteLine(s.ReadToEnd());
-                sr.Close(); // закрывает файл очищаем буфер
-            }
+			// два симетричный класса
+			DirectoryInfo di = new DirectoryInfo("MyDir"); // выделяем память и обьявялем
+			foreach (FileInfo file in di.GetFiles())
+			{
+				FileStream fs = file.OpenRead(); // поток на чтение и у файла выбираем метод открыть для чтения
+				StreamReader s = new StreamReader(fs); // конвертируем
+				Console.WriteLine(s.ReadToEnd());
+				sr.Close(); // закрывает файл очищаем буфер
+			}
 
 
-            Console.ReadLine();
-        }
-    }
+			Console.ReadLine();
+		}
+	}
 
 •
 
-    Serialize an object as binary.
+	Serialize an object as binary.
  class Program
-    {
-        [Serializable] // ключ разрешение слива данных
-        public class Customer
-        {
-            public int ID { get; set; }
-            public string Name { get; set; }
-            public string Address { get; set; }
-        }
-        static void Main(string[] args)
-        {
-            List<Customer> tbl = new List<Customer>()
-            { 
-                new Customer() { ID = 333, Name="Bob", Address="London"},
-                new Customer() { ID = 365, Name="Mary", Address="London"},
-                new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
-            };
+	{
+		[Serializable] // ключ разрешение слива данных
+		public class Customer
+		{
+			public int ID { get; set; }
+			public string Name { get; set; }
+			public string Address { get; set; }
+		}
+		static void Main(string[] args)
+		{
+			List<Customer> tbl = new List<Customer>()
+			{ 
+				new Customer() { ID = 333, Name="Bob", Address="London"},
+				new Customer() { ID = 365, Name="Mary", Address="London"},
+				new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
+			};
 
-            // Отправляем файл
-            FileStream fs = new FileStream("Custoners.bin", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
-            //fs.Write
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
-            fs.Close(); // сбрасывает буффер
+			// Отправляем файл
+			FileStream fs = new FileStream("Custoners.bin", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
+			//fs.Write
+			BinaryFormatter bf = new BinaryFormatter();
+			bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
+			fs.Close(); // сбрасывает буффер
 
-            // Читаем файл, другай сторогна
-            fs = new FileStream("Custoners.bin", FileMode.Open);
-            bf = new BinaryFormatter();
-            var customers = bf.Deserialize(fs) as List<Customer> ;
-            fs.Close();
-            foreach (var c in customers)
-            {
-            Console.WriteLine(c.Name + "\t" + c.Address);
+			// Читаем файл, другай сторогна
+			fs = new FileStream("Custoners.bin", FileMode.Open);
+			bf = new BinaryFormatter();
+			var customers = bf.Deserialize(fs) as List<Customer> ;
+			fs.Close();
+			foreach (var c in customers)
+			{
+			Console.WriteLine(c.Name + "\t" + c.Address);
 
-            }
-            Console.ReadLine();
-        }
-    }
+			}
+			Console.ReadLine();
+		}
+	}
 
 •
 
-    Serialize an object as XML.
+	Serialize an object as XML.
 
  public class Program
-    {
-        [Serializable] // ключ разрешение слива данных
-        public class Customer
-        {
-            [XmlAttribute("CustID")] public int ID { get; set; }
-            [XmlElement("C")] public string Name { get; set; }
-            public string Address { get; set; }
-        }
-        static void Main(string[] args)
-        {
-            List<Customer> tbl = new List<Customer>()
-            { 
-               new Customer() { ID = 333, Name="Bob", Address="London"},
-               new Customer() { ID = 365, Name="Mary", Address="London"},
-               new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
-            };
+	{
+		[Serializable] // ключ разрешение слива данных
+		public class Customer
+		{
+			[XmlAttribute("CustID")] public int ID { get; set; }
+			[XmlElement("C")] public string Name { get; set; }
+			public string Address { get; set; }
+		}
+		static void Main(string[] args)
+		{
+			List<Customer> tbl = new List<Customer>()
+			{ 
+			   new Customer() { ID = 333, Name="Bob", Address="London"},
+			   new Customer() { ID = 365, Name="Mary", Address="London"},
+			   new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
+			};
 
-            // Отправляем файл
-            FileStream fs = new FileStream("Custoners.xml", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
-            //fs.Write
-            //BinaryFormatter bf = new BinaryFormatter();
-            XmlSerializer bf = new XmlSerializer(typeof(List<Customer>));
-            bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
-            fs.Close(); // сбрасывает буффер
+			// Отправляем файл
+			FileStream fs = new FileStream("Custoners.xml", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
+			//fs.Write
+			//BinaryFormatter bf = new BinaryFormatter();
+			XmlSerializer bf = new XmlSerializer(typeof(List<Customer>));
+			bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
+			fs.Close(); // сбрасывает буффер
 
-            // Читаем файл, другай сторогна
-            fs = new FileStream("Custoners.xml", FileMode.Open);
-            //bf = new BinaryFormatter();
-            bf = new XmlSerializer(typeof(List<Customer>));
-            var customers = bf.Deserialize(fs) as List<Customer> ;
-            fs.Close();
-            foreach (var c in customers)
-            {
-            Console.WriteLine(c.Name + "\t" + c.Address);
+			// Читаем файл, другай сторогна
+			fs = new FileStream("Custoners.xml", FileMode.Open);
+			//bf = new BinaryFormatter();
+			bf = new XmlSerializer(typeof(List<Customer>));
+			var customers = bf.Deserialize(fs) as List<Customer> ;
+			fs.Close();
+			foreach (var c in customers)
+			{
+			Console.WriteLine(c.Name + "\t" + c.Address);
 
-            }
-            Console.ReadLine();
-        }
-    }
+			}
+			Console.ReadLine();
+		}
+	}
 
  // Serialization
-    // WCF Library
-    
-    •
+	// WCF Library
+	
+	•
 
-    Describe the purpose of serialization, and the formats that the .NET Framework supports.
+	Describe the purpose of serialization, and the formats that the .NET Framework supports.
 
-    •
+	•
 
-    Create a custom type that is serializable.
+	Create a custom type that is serializable.
 
-    •
+	•
 
-    Serialize an object as binary.
+	Serialize an object as binary.
 
-    •
+	•
 
-    Serialize an object as XML.
+	Serialize an object as XML.
 
-    •
+	•
 
-    Serialize an object as JSON.
-     
+	Serialize an object as JSON.
+	 
 
 public class Program
 {
-    [Serializable] // ключ разрешение слива данных
-    public class Customer
-    {
-        [XmlAttribute("CustID")] public int ID { get; set; }
-        [XmlElement("C")] public string Name { get; set; }
-        public string Address { get; set; }
-    }
-    static void Main(string[] args)
-    {
-        List<Customer> tbl = new List<Customer>()
-            {
-               new Customer() { ID = 333, Name="Bob", Address="London"},
-               new Customer() { ID = 365, Name="Mary", Address="London"},
-               new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
-            };
+	[Serializable] // ключ разрешение слива данных
+	public class Customer
+	{
+		[XmlAttribute("CustID")] public int ID { get; set; }
+		[XmlElement("C")] public string Name { get; set; }
+		public string Address { get; set; }
+	}
+	static void Main(string[] args)
+	{
+		List<Customer> tbl = new List<Customer>()
+			{
+			   new Customer() { ID = 333, Name="Bob", Address="London"},
+			   new Customer() { ID = 365, Name="Mary", Address="London"},
+			   new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
+			};
 
-        // Отправляем файл
-        FileStream fs = new FileStream("Custoners.xml", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
-                                                                          //fs.Write
-                                                                          //BinaryFormatter bf = new BinaryFormatter();
-        XmlSerializer bf = new XmlSerializer(typeof(List<Customer>));
-        bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
-        fs.Close(); // сбрасывает буффер
+		// Отправляем файл
+		FileStream fs = new FileStream("Custoners.xml", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
+																		  //fs.Write
+																		  //BinaryFormatter bf = new BinaryFormatter();
+		XmlSerializer bf = new XmlSerializer(typeof(List<Customer>));
+		bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
+		fs.Close(); // сбрасывает буффер
 
-        // Читаем файл, другай сторогна
-        fs = new FileStream("Custoners.xml", FileMode.Open);
-        //bf = new BinaryFormatter();
-        bf = new XmlSerializer(typeof(List<Customer>));
-        var customers = bf.Deserialize(fs) as List<Customer>;
-        fs.Close();
-        foreach (var c in customers)
-        {
-            Console.WriteLine(c.Name + "\t" + c.Address);
+		// Читаем файл, другай сторогна
+		fs = new FileStream("Custoners.xml", FileMode.Open);
+		//bf = new BinaryFormatter();
+		bf = new XmlSerializer(typeof(List<Customer>));
+		var customers = bf.Deserialize(fs) as List<Customer>;
+		fs.Close();
+		foreach (var c in customers)
+		{
+			Console.WriteLine(c.Name + "\t" + c.Address);
 
-        }
-        Console.ReadLine();
-    }
+		}
+		Console.ReadLine();
+	}
 }
 
 
 //Creating and Using Entity Data Models
 
-    //Use the ADO.NET Entity Data Model Tools
-    /*
-     * ADO.NET includes three xml files
-     * CSDL => C# classes
-     * MSL
-     * SSDL => DATABASE
-     * 
-     *   public class Program
-    {
-     
-        static void Main(string[] args)
-        {
-            ModelContainer ctx = new ModelContainer();
+	//Use the ADO.NET Entity Data Model Tools
+	/*
+	 * ADO.NET includes three xml files
+	 * CSDL => C# classes
+	 * MSL
+	 * SSDL => DATABASE
+	 * 
+	 *   public class Program
+	{
+	 
+		static void Main(string[] args)
+		{
+			ModelContainer ctx = new ModelContainer();
 
-            Customer c1 = new Customer() { Id = 0, Name = "Bob", Address = "London" };
-            Product p1 = new Product() { Id = 0, Name = "Mary", Price = 3.14 };
-            Order o1 = new Order() { Customer = c1, Product = p1, Amount = 3 };
+			Customer c1 = new Customer() { Id = 0, Name = "Bob", Address = "London" };
+			Product p1 = new Product() { Id = 0, Name = "Mary", Price = 3.14 };
+			Order o1 = new Order() { Customer = c1, Product = p1, Amount = 3 };
 
-            Customer c2 = new Customer() { Id = 0, Name = "Milk", Address = "Miami" };
-            Product p2 = new Product() { Id = 0, Name = "Wayn", Price = 2.8 };
-            Order o2 = new Order() { Customer = c2, Product = p2, Amount = 3 };
+			Customer c2 = new Customer() { Id = 0, Name = "Milk", Address = "Miami" };
+			Product p2 = new Product() { Id = 0, Name = "Wayn", Price = 2.8 };
+			Order o2 = new Order() { Customer = c2, Product = p2, Amount = 3 };
 
-            Customer c3 = new Customer() { Id = 0, Name = "Jon", Address = "Tyumen" };
-            Order o3 = new Order() { Customer = c3, Product = p1, Amount = 5 };
+			Customer c3 = new Customer() { Id = 0, Name = "Jon", Address = "Tyumen" };
+			Order o3 = new Order() { Customer = c3, Product = p1, Amount = 5 };
 
-            ctx.Customers.Add(c1);
-            ctx.Customers.Add(c2);
-            ctx.Customers.Add(c3);
+			ctx.Customers.Add(c1);
+			ctx.Customers.Add(c2);
+			ctx.Customers.Add(c3);
 
-            ctx.Product.Add(p1);
-            ctx.Product.Add(p2);
+			ctx.Product.Add(p1);
+			ctx.Product.Add(p2);
 
-            ctx.Orders.Add(o1);
-            ctx.Orders.Add(o2);
-            ctx.Orders.Add(o3);
+			ctx.Orders.Add(o1);
+			ctx.Orders.Add(o2);
+			ctx.Orders.Add(o3);
 
-            
-            var x = new { Id = 333, Data = "xx", Price = 3.14 }; // анонимные типы данных 
+			
+			var x = new { Id = 333, Data = "xx", Price = 3.14 }; // анонимные типы данных 
 
-            // LINQ = LAMBDA EXPRESSION
-            var query = from o1 in ctx.Orders
-                        where o1.Product.Name == "Bread"
-                        orderby o1.Id
-                        select new 
-                        { CustomerName = o1.Customer.Name,
-                            ProductName = o1.Product.Name,
-                            OrderAmount = o1.Amount};
+			// LINQ = LAMBDA EXPRESSION
+			var query = from o1 in ctx.Orders
+						where o1.Product.Name == "Bread"
+						orderby o1.Id
+						select new 
+						{ CustomerName = o1.Customer.Name,
+							ProductName = o1.Product.Name,
+							OrderAmount = o1.Amount};
 
-            foreach (var item in query)
-            {
-                Console.WriteLine(item.CustomerName + "\t" + item.ProductName + "\t" + item.OrderAmount);
-            }
+			foreach (var item in query)
+			{
+				Console.WriteLine(item.CustomerName + "\t" + item.ProductName + "\t" + item.OrderAmount);
+			}
 
-            var query2 = ctx.Orders.Where(o1 => o1.Product.Name == "Bread").OrderBy( o1=> o1.Id).Select(o1 => o1);
+			var query2 = ctx.Orders.Where(o1 => o1.Product.Name == "Bread").OrderBy( o1=> o1.Id).Select(o1 => o1);
 
 
-            foreach (var item in query2)
-            {
-                Console.WriteLine(item.Customer.Name + "\t" + item.Customer.Address + "\t" + item.Product.Name + "\t" + item.Amount);
-            }
+			foreach (var item in query2)
+			{
+				Console.WriteLine(item.Customer.Name + "\t" + item.Customer.Address + "\t" + item.Product.Name + "\t" + item.Amount);
+			}
 
-            var orders = query2.ToList();
+			var orders = query2.ToList();
 
-            orders[0].Customer.Address = "London";
+			orders[0].Customer.Address = "London";
 
-            ctx.SaveChanges();
+			ctx.SaveChanges();
 
-            Console.ReadLine()
-        }
-    }v
+			Console.ReadLine()
+		}
+	}v
 
 // Accessong Remote Data
 
-     *
-     * After completing this module, you will be able to:
-     * Send data to and receive data from web services and other remote data sources.
-     * Access data by using WCF Data Services.
-     * 
-     
+	 *
+	 * After completing this module, you will be able to:
+	 * Send data to and receive data from web services and other remote data sources.
+	 * Access data by using WCF Data Services.
+	 * 
+	 
 public class Program
 {
 
-    static void Main(string[] args)
-    {
-        WebRequest request = WebRequest.Create("http://www.rambler.ru"); // схема протокола, сомтри какой обработчик зарегистирован, должны уметь распоковывать упаковывать стандартным спосоом, должны отправлять принимать данные. 
-        request.Method = "GET";
+	static void Main(string[] args)
+	{
+		WebRequest request = WebRequest.Create("http://www.rambler.ru"); // схема протокола, сомтри какой обработчик зарегистирован, должны уметь распоковывать упаковывать стандартным спосоом, должны отправлять принимать данные. 
+		request.Method = "GET";
 
-        request.Credentials = new NetworkCredential("Bob", "{Pa$$w0rd");
-        HttpWebRequest httpReq = request as HttpWebRequest;
+		request.Credentials = new NetworkCredential("Bob", "{Pa$$w0rd");
+		HttpWebRequest httpReq = request as HttpWebRequest;
 
-        // httpReq.ClientCertificates.Add добавляем сертификаты, выбираем чем представидться
+		// httpReq.ClientCertificates.Add добавляем сертификаты, выбираем чем представидться
 
-        WebResponse response = request.GetResponse();
-        var s = response.GetResponseStream(); // Байтовый поток, писать читатьб по байтно и конвертировать.
-        StreamReader sf = new StreamReader(s); // Конвертация данных
-        Console.WriteLine(sf.ReadToEnd());
-        Console.ReadLine();
-    }
+		WebResponse response = request.GetResponse();
+		var s = response.GetResponseStream(); // Байтовый поток, писать читатьб по байтно и конвертировать.
+		StreamReader sf = new StreamReader(s); // Конвертация данных
+		Console.WriteLine(sf.ReadToEnd());
+		Console.ReadLine();
+	}
 }
 
 
-            // Server
-            ServiceHost svc = new ServiceHost(typeof(Service1));
-            svc.Open();
+			// Server
+			ServiceHost svc = new ServiceHost(typeof(Service1));
+			svc.Open();
 
-            Console.WriteLine("Server is ready!!!");
+			Console.WriteLine("Server is ready!!!");
 
-            Console.ReadLine();
+			Console.ReadLine();
 
-            svc.Close();
+			svc.Close();
 
-            Client
-            MyServices.Service1Client svc = new MyServices.Service1Client();
-            var customers = svc.DoWork(333);
-            foreach (var item in customers)
-            {
-                Console.WriteLine(item.Name + "\t" + item.Address);
-            }
+			Client
+			MyServices.Service1Client svc = new MyServices.Service1Client();
+			var customers = svc.DoWork(333);
+			foreach (var item in customers)
+			{
+				Console.WriteLine(item.Name + "\t" + item.Address);
+			}
 
-            Console.ReadLine();
+			Console.ReadLine();
 
-    public interface Service1 : IService1
-    {
-        public List<Customer> DoWork(int id)
-        {
-            CustomerDBEntities ctx = new CustomerDBEntities();
-            ctx.Customers.ToList();
-            var customers = from с in ctx.Customers.Local
-                            select new Customer() { Id = c.Id, Name = c.Name, Address = c.Address };
+	public interface Service1 : IService1
+	{
+		public List<Customer> DoWork(int id)
+		{
+			CustomerDBEntities ctx = new CustomerDBEntities();
+			ctx.Customers.ToList();
+			var customers = from с in ctx.Customers.Local
+							select new Customer() { Id = c.Id, Name = c.Name, Address = c.Address };
 
-            //ctx.Orders.ToList();
-            //ctx.Orders.ToList();
+			//ctx.Orders.ToList();
+			//ctx.Orders.ToList();
 
-            return customers.ToList();
-        }
-    }
+			return customers.ToList();
+		}
+	}
 
 <==================================== MS DAY 4 ==========================================>
 
@@ -1352,117 +1355,117 @@ btn.Content = "Hello!"
 
 namespace wpfApplication2
 {
-    public class MyControl : FrameworkElement / usercontrol / control
-    {
-        ovveride void OnRender(System.Windows.Media.DrawingContext drawingContext)
-        {
-            drawingContext.DrawEllipse(new SolidColorBrush(Color.FromRgb(0,255,0)), new Pen(Color.FromRgb(0,255,0), 2), new Point (this.Width / 2, this.Height / 2), Widht, Height)
-        }
-    }
+	public class MyControl : FrameworkElement / usercontrol / control
+	{
+		ovveride void OnRender(System.Windows.Media.DrawingContext drawingContext)
+		{
+			drawingContext.DrawEllipse(new SolidColorBrush(Color.FromRgb(0,255,0)), new Pen(Color.FromRgb(0,255,0), 2), new Point (this.Width / 2, this.Height / 2), Widht, Height)
+		}
+	}
 
 // 
 
-    public class MyControl : Control
-    {
-        ovveride void OnRender(System.Windows.Media.DrawingContext drawingContext)
-        {
-            drawingContext.DrawEllipse(new SolidColorBrush(Color.FromRgb(0,255,0)), new Pen(Color.FromRgb(0,255,0), 2), new Point (this.Width / 2, this.Height / 2), Widht, Height)
-        }
-    }
+	public class MyControl : Control
+	{
+		ovveride void OnRender(System.Windows.Media.DrawingContext drawingContext)
+		{
+			drawingContext.DrawEllipse(new SolidColorBrush(Color.FromRgb(0,255,0)), new Pen(Color.FromRgb(0,255,0), 2), new Point (this.Width / 2, this.Height / 2), Widht, Height)
+		}
+	}
 
-    public Class MyDB
-    {
-        public MyDB()
-        {
-        
-        }
-        public string Date {get; set;}
-    }
+	public Class MyDB
+	{
+		public MyDB()
+		{
+		
+		}
+		public string Date {get; set;}
+	}
 }
 
 
 
-    // Performing Operations Asynchronously
+	// Performing Operations Asynchronously
 
-    Asynchronous operations are closely related to tasks. The .NET Framework 4.5 includes some new features that make it easier to perform asynchronous operations. These operations transparently create new tasks and coordinate their actions, enabling you to concentrate on the business logic of your application. In particular, the async and await keywords enable you to invoke an asynchronous operation and wait for the result within a single method, without blocking the thread.
-     *
-     * 
-     * 
-     
-    public delegate string MyDelegate(int id);
+	Asynchronous operations are closely related to tasks. The .NET Framework 4.5 includes some new features that make it easier to perform asynchronous operations. These operations transparently create new tasks and coordinate their actions, enabling you to concentrate on the business logic of your application. In particular, the async and await keywords enable you to invoke an asynchronous operation and wait for the result within a single method, without blocking the thread.
+	 *
+	 * 
+	 * 
+	 
+	public delegate string MyDelegate(int id);
 
 public class Program
 {
-    public static string MyFunction(int x)
-    {
-        return "Hello!";
+	public static string MyFunction(int x)
+	{
+		return "Hello!";
 
-    }
-    static void Main(string[] args)
-    {
-        MyDelegate d = new MyDelegate(MyFunction);
-        var result = d.Invoke(323);
+	}
+	static void Main(string[] args)
+	{
+		MyDelegate d = new MyDelegate(MyFunction);
+		var result = d.Invoke(323);
 
-        Func<int, string> d2 = new Func<int, string>(MyFunction);
-        result = d2.Invoke(323);
+		Func<int, string> d2 = new Func<int, string>(MyFunction);
+		result = d2.Invoke(323);
 
-        Func<int, string> d3 = MyFunction;
-        result = d3.Invoke(323);
+		Func<int, string> d3 = MyFunction;
+		result = d3.Invoke(323);
 
-        Func<int, string> d4 = delegate (int x)
-        { // ANONIMOUSE FUNCTION
-            return "Hello!";
-        };
-        result = d4.Invoke(323);
+		Func<int, string> d4 = delegate (int x)
+		{ // ANONIMOUSE FUNCTION
+			return "Hello!";
+		};
+		result = d4.Invoke(323);
 
-        Func<int, string> d5 = (x) =>
-        { // ANONIMOUSE FUNCTION
-            return "Hello!";
-        };
-        result = d5.Invoke(323);
+		Func<int, string> d5 = (x) =>
+		{ // ANONIMOUSE FUNCTION
+			return "Hello!";
+		};
+		result = d5.Invoke(323);
 
-        // LAMBDA EXPRESSION
-        Func<int, string> d6 = (x) => "Hello!" + x;
-        result = d6.Invoke(323);
-    }
+		// LAMBDA EXPRESSION
+		Func<int, string> d6 = (x) => "Hello!" + x;
+		result = d6.Invoke(323);
+	}
 }
  
  // Performing Operations Asynchronously
 
    
-    public class Program
-    {
-    
-        public static string MyFunction(int id)
-        {
-            Thread.Sleep(10000);
-            return "Hello from id= " + id;
-        }
-        static void Main(string[] args)
-        {
-            //Console.WriteLine(myFunction(333));
-            //Console.WriteLine(myFunction(555));
-            //Console.WriteLine(myFunction(777));
+	public class Program
+	{
+	
+		public static string MyFunction(int id)
+		{
+			Thread.Sleep(10000);
+			return "Hello from id= " + id;
+		}
+		static void Main(string[] args)
+		{
+			//Console.WriteLine(myFunction(333));
+			//Console.WriteLine(myFunction(555));
+			//Console.WriteLine(myFunction(777));
 
-            var task1 = new Task<string>(() => MyFunction(333));
-            var task2 = new Task<string>(() => MyFunction(555));
-            var task3 = new Task<string>(() => MyFunction(777));
-            task1.Start();
-            task2.Start();
-            task3.Start();
+			var task1 = new Task<string>(() => MyFunction(333));
+			var task2 = new Task<string>(() => MyFunction(555));
+			var task3 = new Task<string>(() => MyFunction(777));
+			task1.Start();
+			task2.Start();
+			task3.Start();
 
-            Task[] tsk = new Task[3] {task1, task2, task3 };
-            Task.WaitAll(tsk);
-
-
-            Console.WriteLine(task1.Result);
-            Console.WriteLine(task2.Result);
-            Console.WriteLine(task3.Result);
+			Task[] tsk = new Task[3] {task1, task2, task3 };
+			Task.WaitAll(tsk);
 
 
-            Console.ReadLine();
-        }
-    }
+			Console.WriteLine(task1.Result);
+			Console.WriteLine(task2.Result);
+			Console.WriteLine(task3.Result);
+
+
+			Console.ReadLine();
+		}
+	}
 
 // тоже самое но короче 
 
@@ -1480,43 +1483,43 @@ Console.WriteLine(task3.Result);
 
 
 Console.ReadLine();
-    
+	
  public static string MyFunction(int id)
 {
-    Thread.Sleep(1);
-    return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
+	Thread.Sleep(1);
+	return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
 }
 static void Main(string[] args)
 {
-    Console.WriteLine("Main " + Thread.CurrentThread.ManagedThreadId);
+	Console.WriteLine("Main " + Thread.CurrentThread.ManagedThreadId);
 
-    var task1 = Task.Run(() => MyFunction(333));
-    var task2 = Task.Run(() => MyFunction(555));
-    var task3 = Task.Run(() => MyFunction(888));
+	var task1 = Task.Run(() => MyFunction(333));
+	var task2 = Task.Run(() => MyFunction(555));
+	var task3 = Task.Run(() => MyFunction(888));
 
-    Task[] tsk = new Task[3] {task1, task2, task3 };
-    Task.WaitAll(tsk);
+	Task[] tsk = new Task[3] {task1, task2, task3 };
+	Task.WaitAll(tsk);
 
-    int[] todo = new int[] { 333, 555, 888, 999, 222, 444, 644, 111 };
+	int[] todo = new int[] { 333, 555, 888, 999, 222, 444, 644, 111 };
 
-    //Parallel.ForEach(todo, (t) => MyFunction(t));
-    // Parallel LINQ
-    var query = from t in todo.AsParallel().WithDegreeOfParallelism(4)
-        select MyFunction(t);
+	//Parallel.ForEach(todo, (t) => MyFunction(t));
+	// Parallel LINQ
+	var query = from t in todo.AsParallel().WithDegreeOfParallelism(4)
+		select MyFunction(t);
 
-    var result = query.ToList();
+	var result = query.ToList();
 
-    foreach (var r in result)
-    {
-        Console.WriteLine(r);
-    }
+	foreach (var r in result)
+	{
+		Console.WriteLine(r);
+	}
 
-    //Console.WriteLine(task1.Result);
-    //Console.WriteLine(task2.Result);
-    //Console.WriteLine(task3.Result);
+	//Console.WriteLine(task1.Result);
+	//Console.WriteLine(task2.Result);
+	//Console.WriteLine(task3.Result);
 
 
-    Console.ReadLine();
+	Console.ReadLine();
 }
  
  // Parallel
@@ -1524,227 +1527,227 @@ static void Main(string[] args)
 public class Program
 {
 
-    public static string MyFunction(int id)
-    {
-        Thread.Sleep(1);
-        return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
-    }
+	public static string MyFunction(int id)
+	{
+		Thread.Sleep(1);
+		return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
+	}
 
-    public static string MyFunction(int id, CancellationToken token)
-    {
-        for (int i = 0; i < 100; i++)
-        {
-            if (token.IsCancellationRequested)
-                throw new Exception("My Error");
-            token.ThrowIfCancellationRequested();
-            Thread.Sleep(2000);
-        }
-        return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
-    }
-    static void Main(string[] args)
-    {
-        Console.WriteLine("Main " + Thread.CurrentThread.ManagedThreadId);
+	public static string MyFunction(int id, CancellationToken token)
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			if (token.IsCancellationRequested)
+				throw new Exception("My Error");
+			token.ThrowIfCancellationRequested();
+			Thread.Sleep(2000);
+		}
+		return "Hello from thread# " + Thread.CurrentThread.ManagedThreadId + " id:" + id;
+	}
+	static void Main(string[] args)
+	{
+		Console.WriteLine("Main " + Thread.CurrentThread.ManagedThreadId);
 
-        var task1 = Task.Run(() => MyFunction(333)).ContinueWith<string>((t) => MyFunction(888));
+		var task1 = Task.Run(() => MyFunction(333)).ContinueWith<string>((t) => MyFunction(888));
 
-        CancellationTokenSource ts = new CancellationTokenSource();
+		CancellationTokenSource ts = new CancellationTokenSource();
 
-        var task2 = Task.Run(() => MyFunction(555, ts.Token);
+		var task2 = Task.Run(() => MyFunction(555, ts.Token);
 
-        Console.ReadLine();
-        ts.Cancel(true);
+		Console.ReadLine();
+		ts.Cancel(true);
 
-        Task[] tsk = new Task[2] {task1, task2 };
-        Task.WaitAll(tsk);
+		Task[] tsk = new Task[2] {task1, task2 };
+		Task.WaitAll(tsk);
 
-        int[] todo = new int[] { 333, 555, 888, 999, 222, 444, 644, 111 };
+		int[] todo = new int[] { 333, 555, 888, 999, 222, 444, 644, 111 };
 
-        //Parallel.ForEach(todo, (t) => MyFunction(t));
-        // Parallel LINQ
-        var query = from t in todo.AsParallel().WithDegreeOfParallelism(4)
-            select MyFunction(t);
+		//Parallel.ForEach(todo, (t) => MyFunction(t));
+		// Parallel LINQ
+		var query = from t in todo.AsParallel().WithDegreeOfParallelism(4)
+			select MyFunction(t);
 
-        var result = query.ToList();
+		var result = query.ToList();
 
-        foreach (var r in result)
-        {
-            Console.WriteLine(r);
-        }
+		foreach (var r in result)
+		{
+			Console.WriteLine(r);
+		}
 
-        //Console.WriteLine(task1.Result);
-        //Console.WriteLine(task2.Result);
-        //Console.WriteLine(task3.Result);
+		//Console.WriteLine(task1.Result);
+		//Console.WriteLine(task2.Result);
+		//Console.WriteLine(task3.Result);
 
 
-        Console.ReadLine();
-    }
+		Console.ReadLine();
+	}
 }
  
  // Performing Operations Asynchronously
-    // Parallel Многопоточность
+	// Parallel Многопоточность
 
-    public class Program
-    {
+	public class Program
+	{
 
-        static int count = 0;
-        static void MyFunctiony()
-        {
-            int tmp = count;
-            tmp++;
-            Thread.Sleep(1000);
-            count = tmp;
+		static int count = 0;
+		static void MyFunctiony()
+		{
+			int tmp = count;
+			tmp++;
+			Thread.Sleep(1000);
+			count = tmp;
 
 
-            //count++;
-        }
-        static void Main(string[] args)
-        {
-            Task[] tsk = new Task[]
-            {
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony()),
-                Task.Run(() => MyFunctiony())
+			//count++;
+		}
+		static void Main(string[] args)
+		{
+			Task[] tsk = new Task[]
+			{
+				Task.Run(() => MyFunctiony()),
+				Task.Run(() => MyFunctiony()),
+				Task.Run(() => MyFunctiony()),
+				Task.Run(() => MyFunctiony()),
+				Task.Run(() => MyFunctiony()),
+				Task.Run(() => MyFunctiony()),
+				Task.Run(() => MyFunctiony())
 
-            };
-            Task.WaitAll(tsk);
+			};
+			Task.WaitAll(tsk);
 
-            Console.WriteLine(count);
-            Console.ReadLine();
-        }
-    }
+			Console.WriteLine(count);
+			Console.ReadLine();
+		}
+	}
  
 <==================================== MS DAY 5 ==========================================>
 
 
  // Integrating with Unmanaged Code
-    // Creating and Using Dynamic Objects
-    //
-    // COM -> precompiled to CPU code (x86)
-    // COM -> rigistry in OS -> GUID Global unity indentify -> ole32.dll
-    // COM -> metadata C++ *.h (прототипы функции) -> IDL -> dll(tlb)
-    // 
-    // Void* pointer -> vtbl
-    // Unknow size -> How to free memory ??
-    //
-    //Tlbimp.exe -> idl (*.h) -> idl => class(.Net wrapper)
-    // RCW class (RunTime Call Wrapper) 
-    // RCW лучше загружать готовые и не самопальные
-    
-    public class Program
-    {   [Guid("0002DF01-0000-0000-C000-000000000046")]
-        class MyIE
-        {
+	// Creating and Using Dynamic Objects
+	//
+	// COM -> precompiled to CPU code (x86)
+	// COM -> rigistry in OS -> GUID Global unity indentify -> ole32.dll
+	// COM -> metadata C++ *.h (прототипы функции) -> IDL -> dll(tlb)
+	// 
+	// Void* pointer -> vtbl
+	// Unknow size -> How to free memory ??
+	//
+	//Tlbimp.exe -> idl (*.h) -> idl => class(.Net wrapper)
+	// RCW class (RunTime Call Wrapper) 
+	// RCW лучше загружать готовые и не самопальные
+	
+	public class Program
+	{   [Guid("0002DF01-0000-0000-C000-000000000046")]
+		class MyIE
+		{
 
-        }
-        static void Main(string[] args)
-        {
-           // SHDocVw.InternetExplorer ie = new SHDocVw.InternetExplorer(); // RCW
+		}
+		static void Main(string[] args)
+		{
+		   // SHDocVw.InternetExplorer ie = new SHDocVw.InternetExplorer(); // RCW
 
-            dynamic ie = new MyIE();
-            ie.Visible = true;
-            ie.Navigate("http://www.yandex.ru");
-            ie.MyFunction("Hello");
+			dynamic ie = new MyIE();
+			ie.Visible = true;
+			ie.Navigate("http://www.yandex.ru");
+			ie.MyFunction("Hello");
 
-            Marshal.ReleaseComObject(ie);
+			Marshal.ReleaseComObject(ie);
 
-            Console.ReadLine();
-        }
+			Console.ReadLine();
+		}
 
-    }
-    
+	}
+	
 // Integrating with Unmanaged Code
-    // Managing the Lifetime of Objects and Controlling Unmanaged Resources
+	// Managing the Lifetime of Objects and Controlling Unmanaged Resources
 
-    class MyClass : IDisposable
-    {
-        public int data;
-        ~MyClass()
-        {
-            Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
-            Save();
-        }
+	class MyClass : IDisposable
+	{
+		public int data;
+		~MyClass()
+		{
+			Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
+			Save();
+		}
 
-        public void Save()
-        {
-            Marshal.ReleaseComObject
-            GC.SuppressFinalize(this);
-        }
-        public void Dispose()
-        {
-            Save();
-        }
+		public void Save()
+		{
+			Marshal.ReleaseComObject
+			GC.SuppressFinalize(this);
+		}
+		public void Dispose()
+		{
+			Save();
+		}
 
-    }
-    struct MyStruct
-    {
-        public int data;
-    }
-    public class Program
-    {   
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
+	}
+	struct MyStruct
+	{
+		public int data;
+	}
+	public class Program
+	{   
+		static void Main(string[] args)
+		{
+			Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
 
-            MyClass clsTest = null;
+			MyClass clsTest = null;
 
-            try
-            {
-                { // stack
-                    MyClass cls;
-                    using cls = new MyClass(); // heap allocation
-                    {
-                        MyStruct strc = new MyStruct(); // stack allocation
-                        int i = 0; // stack allocation
+			try
+			{
+				{ // stack
+					MyClass cls;
+					using cls = new MyClass(); // heap allocation
+					{
+						MyStruct strc = new MyStruct(); // stack allocation
+						int i = 0; // stack allocation
 
-                        i = 333 / i;
+						i = 333 / i;
 
-                        clsTest = cls;
+						clsTest = cls;
 
-                        cls.Save();
+						cls.Save();
 
-                        Marshal.ReleaseComObject(cls);
-                    }
-                    
-                }// automatic clear stack
-            }
-            catch { }
+						Marshal.ReleaseComObject(cls);
+					}
+					
+				}// automatic clear stack
+			}
+			catch { }
 
-            clsTest = null;
+			clsTest = null;
 
-            GC.Collect(); // break app-> stacks analys and clear 
-        }
+			GC.Collect(); // break app-> stacks analys and clear 
+		}
 
-    }
+	}
 
  // Integrating with Unmanaged Code
-    // Examining Object Metadata
-    // для динамического взаимодействия с другими библиотеками
-    // Расширяемость серверов
-    // REFLECTION
+	// Examining Object Metadata
+	// для динамического взаимодействия с другими библиотеками
+	// Расширяемость серверов
+	// REFLECTION
 
 namespace myLib
 {
-    [MyInterfaces.My("This is my class")]
-    public class Class1 : MyInterfaces.IMyInterface
-    {
-        [MyInterfaces.My("This is MyFunction. Must be in transaction")]
-        public string MyFunction()
-        {
-            return "Hello MyLib";
-        }
+	[MyInterfaces.My("This is my class")]
+	public class Class1 : MyInterfaces.IMyInterface
+	{
+		[MyInterfaces.My("This is MyFunction. Must be in transaction")]
+		public string MyFunction()
+		{
+			return "Hello MyLib";
+		}
 
-        [PrincipalPermission(SecurityAction.Demand,Role ="Managers")]
-        public string TestAttributeFunction()
-        {
-            return "Hello from myLib";
-        }
+		[PrincipalPermission(SecurityAction.Demand,Role ="Managers")]
+		public string TestAttributeFunction()
+		{
+			return "Hello from myLib";
+		}
 
 
-    }
+	}
 }
 
 namespace AshtonBro.CodeBlog._2
@@ -1775,53 +1778,121 @@ namespace AshtonBro.CodeBlog._2
 }
 
    static void Main(string[] args)
-        {
-            Assembly asm = Assembly.LoadFile(Path.GetFullPath("myLib.dll"));
+		{
+			Assembly asm = Assembly.LoadFile(Path.GetFullPath("myLib.dll"));
 
-            foreach (var item in asm.GetTypes())
-            {
-                Console.WriteLine(item.FullName);
+			foreach (var item in asm.GetTypes())
+			{
+				Console.WriteLine(item.FullName);
 
-                foreach (var attr in item.GetCustomAttribute())
-                {
-                    MyInterfaces.MyAttribute a = attr as MyInterfaces.MyAttribute;
-                    if (a != null)
-                    {
-                        Console.WriteLine(a.Data);
-                    }
+				foreach (var attr in item.GetCustomAttribute())
+				{
+					MyInterfaces.MyAttribute a = attr as MyInterfaces.MyAttribute;
+					if (a != null)
+					{
+						Console.WriteLine(a.Data);
+					}
 
-                }
+				}
 
-                foreach (MethodInfo mi in item.GetMethods())
-                {
-                    Console.WriteLine(mi.Name);
-                }
+				foreach (MethodInfo mi in item.GetMethods())
+				{
+					Console.WriteLine(mi.Name);
+				}
 
-             
-            }
+			 
+			}
 
-            Type t = asm.GetType("MyLib.MyClass");
+			Type t = asm.GetType("MyLib.MyClass");
 
-            MethodInfo method = t.GetMethod("MyFunction");
-            //method.GetMethodBody();
+			MethodInfo method = t.GetMethod("MyFunction");
+			//method.GetMethodBody();
 
-            //object o = Activator.CreateInstance(t);
-            //object result = method.Invoke(o, new object[]{ });
+			//object o = Activator.CreateInstance(t);
+			//object result = method.Invoke(o, new object[]{ });
 
-            var o = Activator.CreateInstance(t) as MyInterfaces.IMyInterfaces;
+			var o = Activator.CreateInstance(t) as MyInterfaces.IMyInterfaces;
 
 
-            Console.WriteLine(o.TestAttributeFunction());
-           // Console.WriteLine(o.MyFunction());
-            // Console.WriteLine(result.ToString());
+			Console.WriteLine(o.TestAttributeFunction());
+		   // Console.WriteLine(o.MyFunction());
+			// Console.WriteLine(result.ToString());
 
-            Console.ReadLine();
-        }
-    }
-    
+			Console.ReadLine();
+		}
+	}
+	
 
 PRIVATE ASSEMBLY --> NAME
 
 STRONG NAME ASSEMBLY -> NAME + CRYPTO HASH + Version
+
+
+public class Program
+{
+	static void Main(string[] args)
+	{
+		var unit = new CodeCompileUnit();
+		var ns = new CodeNamespace("MyOrgGazprom"); // create namespace
+		unit.Namespaces.Add(ns); 
+		ns.Imports.Add(new CodeNamespaceImport("System")); // add using System;
+		var cls = new CodeTypeDeclaration("MyClass"); // Create new MyClass
+		ns.Types.Add(cls);
+		var main = new CodeEntryPointMethod(); // получили функцию static void Main
+		cls.Members.Add(main);
+
+		var cs = new CSharpCodeProvider();
+
+		var file = File.CreateText("MyProg.cs");
+
+		var writer = new IndentedTextWriter(file);
+
+		var options = new CodeGenerationOptions();
+
+		cs.GenerateCodeFromCompileUnit(unit, writer, options);
+
+		writer.Close();
+	}
+}
+	
+
+	// Implementing Symmetric Encryption
+	// Implementing Asymmetric Encryption
+		{
+			var data = "Test stream";
+			SymmetricAlgorithm alg = new AesManaged(); // TripleDESCryptoServiceProvider
+			byte[] key = alg.Key;
+			byte[] IV = alg.IV;
+
+			// ШИФРОВКА
+			FileStream fs = new FileStream("my.bin", FileMode.Create);
+
+			CryptoStream cs = new CryptoStream(fs, alg.CreateEncryptor(), CryptoStreamMode.Write);
+
+			StreamWriter sw = new StreamWriter(cs);
+
+			sw.Write(data);
+			sw.Close();
+			cs.Flush();
+			cs.Close();
+			fs.Close();
+
+
+
+			alg = new AesManaged();
+			alg.KeySize = 256;
+			alg.Key = key;
+			alg.IV = IV;
+
+
+			fs = new FileStream("my.bin", FileMode.Open);
+
+			cs = new CryptoStream(fs, alg.CreateDecryptor(), CryptoStreamMode.Read);
+
+			StreamReader sr = new StreamReader(cs);
+
+            Console.WriteLine(sr.ReadToEnd());
+			Console.ReadLine();
+		}
  */
 
