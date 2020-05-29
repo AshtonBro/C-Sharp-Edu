@@ -32,27 +32,7 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-			string data = "Hello RSA!";
 
-			HMACSHA1 hashalg = new HMACSHA1();
-			byte[] hash = hashalg.ComputeHash(Encoding.UTF8.GetBytes(data));
-
-			RSACryptoServiceProvider alg = new RSACryptoServiceProvider(); // Определит количетсво byte 
-
-			string pubPrivateKey = alg.ToXmlString(true);
-			string PubKey = alg.ToXmlString(false);
-
-			byte[] byteData = Encoding.UTF8.GetBytes(data);
-			var encryptedData = alg.Encrypt(byteData, true);
-            
-
-
-			alg = new RSACryptoServiceProvider();
-			alg.FromXmlString(pubPrivateKey);
-			byteData = alg.Decrypt(encryptedData, true);
-			Console.WriteLine(Encoding.UTF8.GetString(byteData));
-
-			Console.ReadLine();
 		}
 	}
 	
@@ -1884,7 +1864,7 @@ public class Program
 			alg.Key = key;
 			alg.IV = IV;
 
-
+			// ДЕШИВРОВКА
 			fs = new FileStream("my.bin", FileMode.Open);
 
 			cs = new CryptoStream(fs, alg.CreateDecryptor(), CryptoStreamMode.Read);
@@ -1894,5 +1874,36 @@ public class Program
             Console.WriteLine(sr.ReadToEnd());
 			Console.ReadLine();
 		}
+
+	// Encrypting and Decrypting Data
+	// Implementing Symmetric Encryption
+	// Implementing Asymmetric Encryption
+	public class Program
+	{
+		static void Main(string[] args)
+		{
+			string data = "Hello RSA!";
+
+			// collision resistance 
+
+			HMACSHA1 hashalg = new HMACSHA1();
+			byte[] hash = hashalg.ComputeHash(Encoding.UTF8.GetBytes(data));
+
+			RSACryptoServiceProvider alg = new RSACryptoServiceProvider(); // Определит количетсво byte 
+
+			string pubPrivateKey = alg.ToXmlString(true);
+			string PubKey = alg.ToXmlString(false);
+
+			byte[] byteData = Encoding.UTF8.GetBytes(data);
+			var encryptedData = alg.Encrypt(byteData, true);
+            
+			alg = new RSACryptoServiceProvider();
+			alg.FromXmlString(pubPrivateKey);
+			byteData = alg.Decrypt(encryptedData, true);
+			Console.WriteLine(Encoding.UTF8.GetString(byteData));
+
+			Console.ReadLine();
+		}
+	}
  */
 
