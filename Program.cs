@@ -21,37 +21,65 @@ using System.Runtime.InteropServices;
 namespace AshtonBro.CodeBlog._2
 {
     // Integrating with Unmanaged Code
-    // Creating and Using Dynamic Objects
-    //
-    // COM -> precompiled to CPU code (x86)
-    // COM -> rigistry in OS -> GUID Global unity indentify -> ole32.dll
-    // COM -> metadata C++ *.h (прототипы функции) -> IDL -> dll(tlb)
-    // 
-    // Void* pointer -> vtbl
-    // Unknow size -> How to free memory ??
-    //
-    //Tlbimp.exe -> idl (*.h) -> idl => class(.Net wrapper)
-    // RCW class (RunTime Call Wrapper) 
-    // RCW лучше загружать готовые и не самопальные
-    
-    public class Program
-    {   [Guid("0002DF01-0000-0000-C000-000000000046")]
-        class MyIE
-        {
+    // Managing the Lifetime of Objects and Controlling Unmanaged Resources
 
+    class MyClass : IDisposable
+    {
+        public int data;
+        ~MyClass()
+        {
+            Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
+            Save();
         }
+
+        public void Save()
+        {
+            Marshal.ReleaseComObject
+            GC.SuppressFinalize(this);
+        }
+        public void Dispose()
+        {
+            Save();
+        }
+
+    }
+    struct MyStruct
+    {
+        public int data;
+    }
+    public class Program
+    {   
         static void Main(string[] args)
         {
-           // SHDocVw.InternetExplorer ie = new SHDocVw.InternetExplorer(); // RCW
+            Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
 
-            dynamic ie = new MyIE();
-            ie.Visible = true;
-            ie.Navigate("http://www.yandex.ru");
-            ie.MyFunction("Hello");
+            MyClass clsTest = null;
 
-            Marshal.ReleaseComObject(ie);
+            try
+            {
+                { // stack
+                    MyClass cls;
+                    using cls = new MyClass(); // heap allocation
+                    {
+                        MyStruct strc = new MyStruct(); // stack allocation
+                        int i = 0; // stack allocation
 
-            Console.ReadLine();
+                        i = 333 / i;
+
+                        clsTest = cls;
+
+                        cls.Save();
+
+                        Marshal.ReleaseComObject(cls);
+                    }
+                    
+                }// automatic clear stack
+            }
+            catch { }
+
+            clsTest = null;
+
+            GC.Collect(); // break app => stacks analys and clear 
         }
 
     }
@@ -1622,7 +1650,42 @@ public class Program
     }
  
 <==================================== MS DAY 5 ==========================================>
+ // Integrating with Unmanaged Code
+    // Creating and Using Dynamic Objects
+    //
+    // COM -> precompiled to CPU code (x86)
+    // COM -> rigistry in OS -> GUID Global unity indentify -> ole32.dll
+    // COM -> metadata C++ *.h (прототипы функции) -> IDL -> dll(tlb)
+    // 
+    // Void* pointer -> vtbl
+    // Unknow size -> How to free memory ??
+    //
+    //Tlbimp.exe -> idl (*.h) -> idl => class(.Net wrapper)
+    // RCW class (RunTime Call Wrapper) 
+    // RCW лучше загружать готовые и не самопальные
+    
+    public class Program
+    {   [Guid("0002DF01-0000-0000-C000-000000000046")]
+        class MyIE
+        {
 
+        }
+        static void Main(string[] args)
+        {
+           // SHDocVw.InternetExplorer ie = new SHDocVw.InternetExplorer(); // RCW
+
+            dynamic ie = new MyIE();
+            ie.Visible = true;
+            ie.Navigate("http://www.yandex.ru");
+            ie.MyFunction("Hello");
+
+            Marshal.ReleaseComObject(ie);
+
+            Console.ReadLine();
+        }
+
+    }
+    
 
 
 
