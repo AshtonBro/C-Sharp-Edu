@@ -140,8 +140,8 @@ List<FirstClass> css = new List<FirstClass>();
 конечно с практикой стараться писать комментарий все меньше, но при не стардартном поведении кода или функции всегда указывать комментарий
 
 Console.WriteLine(); // Вывод текста на консоль.
-*/
-/*
+
+
 * Много 
 * строчный
 * коментарий 
@@ -465,3 +465,374 @@ static void TestParam(ref int x, out int y)
 	y = 163;
 	x++;
 }
+
+<==================================== MS DAY 2 ==========================================>
+Необходимо понимать какой тип данных принимать в свой проект
+
+enum myColor : int
+	{
+		Red = 255,
+		Green = 65535,
+		Blue = 481246
+	}
+
+	// Конструктор
+	struct Order
+	{
+		int id;
+		int CustID;
+		int Amount;
+		public Order(int _id, int _CustId, int _Amount)
+		{
+			id = _id;
+			CustID = _CustId;
+			Amount = _Amount;
+		}
+		public Order(string _id, int _CustId)
+		{
+			id = int.Parse(_id);
+			CustID = _CustId;
+			Amount = 0;
+		}
+		// функции доступа данных
+		public void setID(int i)
+		{
+			if(i > 0)
+			{
+				id = i;
+			} else {
+				Exception ex = new Exception("ID must be above zero");
+				throw ex;
+			}
+		}
+		public int getID()
+		{
+			return id;
+		}
+		
+	   // public int MyID { get; set; }
+		public string this[string Name]
+		{
+			get { return "Hello" + Name; }
+			set { }
+		}
+		public int ID { get { return id; } set {
+				if (value < 0)
+				{
+					Exception ex = new Exception("ID must be above zero");
+					throw ex;
+				}
+				id = value; } 
+		}
+	}
+	class Program
+	{
+		static void myFunction(myColor color)
+		{
+			Order bla = new Order();
+		}
+		static void Main(string[] args)
+		{
+			Order or2 = new Order();
+
+			var s = or2["Bob"];
+
+			or2.ID = 3333; // Get
+			Console.WriteLine(or2.ID);
+			Order or = new Order(163, 72, 73);
+
+			Console.WriteLine(or);
+
+			// иногда необходимо контролировать тип ввода данных, например я принимаю только 3 цвета и всё.
+			myFunction(myColor.Blue);
+			Console.WriteLine(myColor.Blue);
+			// чтобы получить чисто нужно переконвертировать в int
+			int x = (int)myColor.Blue;
+			Console.WriteLine(x);
+			Console.ReadLine();
+
+			// Коллекции ----------------------------------------------
+			ArrayList lst = new ArrayList(100); // прожерливая функция наъодиться в System.Collection - лучше избегать
+			int i = 333;
+			// boxing -> unboxind
+			lst.Add(i); // для работы требуют согласовать вызов перед обработкой данных 4 byte -> 4 byte <- и того 8 byte на обратобку
+			Stack sS = new Stack();
+			sS.Push(i);  // всё что System.collections обходить
+			// SortedList // боллее менее хороший вариант, но есть и лучше
+
+			object obj = lst[0];
+			int xIn = (int)obj;
+
+		}
+	}
+
+ // DELEGATE -> string Invoke (string)
+	delegate string MyServerEvent(int id);
+	class Server
+	{
+		public MyServerEvent srvEvent;
+		public void FireEvent()
+		{
+			if(srvEvent != null)
+			{
+				var result = srvEvent.Invoke(333);
+			}
+		}
+	}
+	class MyClient
+	{
+		public string MyFunction(int xInt)
+		{
+			Console.WriteLine("Event resived " + xInt.ToString());
+			return "Hello from client!";
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			Server srv = new Server();
+			MyClient newCl = new MyClient();
+			MyServerEvent mSerEv = new MyServerEvent(newCl.MyFunction);
+			MyClient newCl2 = new MyClient();
+			MyServerEvent mSerEv2 = new MyServerEvent(newCl.MyFunction);
+			srv.srvEvent = mSerEv + mSerEv2;
+			srv.srvEvent -= mSerEv2;
+			srv.FireEvent();
+
+			Console.ReadLine();
+		}
+	}
+
+// Creating Class
+
+	// Encapculation, все данные должны подконтрольно защищены.
+   class Product
+	{
+		// 1 правило ООП - Все данные ООП должны быть защищены от сторонних вмешательство
+		// если данные не доступны и с наружи не доступны, указываем их с нижнем подчёркиванием
+		int Id;
+		string _name;
+		double _price;
+
+		public double Price
+		{
+			get;
+			set;
+		}
+
+		public double GetPrice()
+		{
+			if (1 == 1)
+				return _price;
+			else
+				return 0.0;
+		}
+		public void SetPrice(double price)
+		{
+			if (price > 0)
+				_price = price;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			Product p = new Product();
+		   // p. = -3.14;
+		}
+	}
+
+
+// Inheritance наследование
+	//abstract class BankAccount // Чисто абстрактный класс - abstract
+	//{
+	//    // абстрактный класс создаём шаблон для дальнейшей модификации
+	//    public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
+	//}
+
+	interface IBankAccount
+	{
+	   // Интерфейс шаблон и прототипы функции 
+	   // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
+		double GetBalance();
+	}
+
+	class ChildAccount : IBankAccount
+	{
+		int _id; // приватное поле, маленький регистр или нижнее подчёркивани
+		protected double _amount;
+		public double GetBalance()
+		{
+			return _amount + 3;
+		}
+		// при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
+	}
+	class Program
+	{
+		static void CalculateBalance(IBankAccount b)
+		{
+			Console.WriteLine(b.GetBalance());
+		}
+	   static void Main(string[] args)
+		{
+
+			ChildAccount newChild = new ChildAccount();
+
+			CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
+
+			Console.ReadLine();
+		}
+	}
+
+// REFERENCE TYPES AND VALUE TYPES
+ Reference types = class
+ Value types = struct
+
+// Inheritance наследование
+	//abstract class BankAccount // Чисто абстрактный класс - abstract
+	//{
+	//    // абстрактный класс создаём шаблон для дальнейшей модификации
+	//    public abstract double GetBalance(); // функция пустышка, значем что она будет переписана чайелдом
+	//}
+
+	interface IBankAccount
+	{
+	   // Интерфейс шаблон и прототипы функции 
+	   // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
+		double GetBalance();
+	}
+
+	class ChildAccount : IBankAccount
+	{
+		int _id; // приватное поле, маленький регистр или нижнее подчёркивани
+		public int Id
+		{
+			get { return _id; }
+			set { _id = value; }
+		}
+
+		protected double _amount;
+
+		public double Amount
+		{
+			get { return _amount; }
+			set { _amount = value; }
+		}
+	  
+		public double GetBalance()
+		{
+			return _amount + 3;
+		}
+		// при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
+		
+		// Глобальные функция, можно вызвать на примую обращаяст к child
+		public static string GetStatic()
+		{
+			return "Static Func";
+		}
+		
+	}
+	class Program
+	{
+		static void CalculateBalance(IBankAccount b)
+		{
+			Console.WriteLine(b.GetBalance());
+		}
+	   static void Main(string[] args)
+		{
+
+			var result = ChildAccount.GetStatic();
+			Console.WriteLine(result);
+
+			ChildAccount newChild = new ChildAccount() { Id = 333, Amount = 3.14 };
+
+			CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
+
+			Console.ReadLine();
+		}
+	}
+
+
+  // Introducing Generics (Template)
+
+	class myGenericClass<T>
+	{
+		T _unknown;
+		public T GetUnknown()
+		{
+			return _unknown;
+		}
+	}
+
+	class Program
+	{
+		//static void MyFunction(object obj)
+		//{
+		//    Console.WriteLine(obj);
+		//}
+		// функция заточена забирать данные из стека, функция с неизвестным параметрам, при разных
+		// типах даных сама подставляет необходимый тип и забирает и при это работает без box и unbox
+		// настройка типа на ходу.
+		static void MyFunction<UnknownDataType>(UnknownDataType obj)
+		{
+			Console.WriteLine(obj);
+		}
+
+		static void Main(string[] args)
+	   {
+			int x = 333;
+			MyFunction(x);
+			MyFunction("Я и это сьел");
+			MyFunction(DateTime.Now);
+
+
+			myGenericClass<int> cls1 = new myGenericClass<int>();
+			Console.WriteLine(cls1.GetUnknown());
+
+			myGenericClass<DateTime> cls2 = new myGenericClass<DateTime>();
+			Console.WriteLine(cls2.GetUnknown());
+
+
+
+			Console.ReadLine();
+		}
+
+		
+
+	}
+
+
+ // Introducing Generics (Template)
+	class MyClass<T> where T : struct
+	{
+		T _unknown;
+		public T GetUnknown()
+		{
+			return _unknown;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+	   {
+			//ArrayList lst = new ArrayList();
+			//lst.Add(333);
+
+			List<int> lst = new List<int>();
+			lst.Add(163); // добавляем int 
+			var result = lst[0]; // выдаём int
+
+			MyClass<int> cls1 = new MyClass<int>();
+			Console.WriteLine(cls1.GetUnknown());
+
+			MyClass<DateTime> cls2 = new MyClass<DateTime>();
+			Console.WriteLine(cls2.GetUnknown());
+
+			MyClass<double> cls3 = new MyClass<double>();
+
+			Console.WriteLine(result);
+			Console.ReadLine();
+		}
+
+	}
