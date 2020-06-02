@@ -836,3 +836,487 @@ enum myColor : int
 		}
 
 	}
+
+<==================================== MS DAY 3 ==========================================>
+
+ // Virtual abstract
+  
+	class BankAccount
+	{
+		int _data = 555;
+
+		public int Data { get => _data; set => _data = value; }
+		public virtual int GetData() { return _data; } //vtbl virtual function table
+
+	}
+
+	class ChildAccount : BankAccount
+	{
+		public override int GetData()
+		{
+			Data = -333;
+			return Data;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+
+		{   // Member heen
+			BankAccount b = new ChildAccount();
+			var result = b.GetData();
+			Console.WriteLine(result);
+			Console.ReadLine();
+		}
+	}
+
+ class BankAccount
+	{
+		int _data = 555;
+
+		public int Data { get => _data; set => _data = value; }
+		public virtual int GetData() { return _data; } //vtbl virtual function table
+
+	}
+
+	// Также можно закрыть выводиться из CildAccount, сами сделали override а сами закрылись.
+	sealed class ChildAccount : BankAccount
+	{
+		// sealed закрыть выведение и наследование
+		// функции базового класса вызывается через ключит base.
+		// Из struct выводиться нельзя по default
+		public sealed override int GetData()
+		{
+			// отработала базовай функция и выводимая, если это нужно.
+			int rse = base.GetData();
+			Data = rse - 333;
+			return Data;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+
+		{   // Member heen
+			BankAccount b = new ChildAccount();
+			var result = b.GetData();
+			Console.WriteLine(result);
+			Console.ReadLine();
+		}
+	}
+
+// Exception and try catch
+  class LockOfMoney : Exception
+	{
+		public override string Message
+		{
+			get { return "LockOf Money"; }
+		}
+	}
+	class Program
+	{
+		static void Buy(int amount)
+		{
+			if(1 == 1)
+			{
+				LockOfMoney lom = new LockOfMoney();
+				throw lom;
+			}
+		}
+		static void Main(string[] args)
+		{
+			try
+			{
+				Buy(333);
+			}
+			catch (LockOfMoney ex)
+			{
+
+			}
+			catch (Exception ex)
+			{
+
+			}
+			finally
+			{
+				// отрабатывает всегда не зависимо был exception или нет.
+			}
+		}
+	}
+
+  // Exception method
+	static class MyLibary
+	{
+		// Если к переменной подставить this 
+		public static string MyFunction(this int x)
+		{
+			return "Hello from " + x;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			int xx = 333;
+
+			var res = MyLibary.MyFunction(xx);
+			// то вызов функции можно представить ниже.
+			res = xx.MyFunction();
+
+			Console.WriteLine();
+		}
+	}
+
+// Exception method
+	static class MyLibary
+	{
+		// Если к переменной подставить this 
+		// Если подставить неявную передачу в качестве параметров то функцию можно вызвать у любого типа данных
+		public static string MyFunction<XXX>(this XXX x)
+		{
+			return "Hello from " + x;
+		}
+	}
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			int xx = 333;
+
+			var res = MyLibary.MyFunction(xx);
+			// то вызов функции можно представить ниже.
+			res = xx.MyFunction();
+			res = "Test".MyFunction(); // даже так
+
+			Console.WriteLine();
+		}
+	}
+
+  // Reading and Writing local Data
+	// Манипуляция файловой системой
+   
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			// Code Access Security 3.5 Net => 4.0 Net
+			if(!Directory.Exists("MyDir"))
+			Directory.CreateDirectory("MyDir");
+			if (!File.Exists("MyDir\\My.txt"))
+			{
+				StreamWriter sw = File.CreateText("MyDir\\My.txt");
+				sw.WriteLine("Hello! This my own file created with cmd");
+				sw.Flush(); // сделает сброс буфера и сохраняет на диск
+				sw.Close(); // делает сброс буфера и закрывает программу
+
+			}
+			StreamReader sr = File.OpenText("MyDir\\My.txt"); // прочитываем текст
+			Console.WriteLine(sr.ReadToEnd());
+			sr.Close(); // закрывает файл очищаем буфер
+
+			// два симетричный класса
+			DirectoryInfo di = new DirectoryInfo("MyDir"); // выделяем память и обьявялем
+			foreach (FileInfo file in di.GetFiles())
+			{
+				FileStream fs = file.OpenRead(); // поток на чтение и у файла выбираем метод открыть для чтения
+				StreamReader s = new StreamReader(fs); // конвертируем
+				Console.WriteLine(s.ReadToEnd());
+				sr.Close(); // закрывает файл очищаем буфер
+			}
+
+
+			Console.ReadLine();
+		}
+	}
+
+•
+
+	Serialize an object as binary.
+ class Program
+	{
+		[Serializable] // ключ разрешение слива данных
+		public class Customer
+		{
+			public int ID { get; set; }
+			public string Name { get; set; }
+			public string Address { get; set; }
+		}
+		static void Main(string[] args)
+		{
+			List<Customer> tbl = new List<Customer>()
+			{ 
+				new Customer() { ID = 333, Name="Bob", Address="London"},
+				new Customer() { ID = 365, Name="Mary", Address="London"},
+				new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
+			};
+
+			// Отправляем файл
+			FileStream fs = new FileStream("Custoners.bin", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
+			//fs.Write
+			BinaryFormatter bf = new BinaryFormatter();
+			bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
+			fs.Close(); // сбрасывает буффер
+
+			// Читаем файл, другай сторогна
+			fs = new FileStream("Custoners.bin", FileMode.Open);
+			bf = new BinaryFormatter();
+			var customers = bf.Deserialize(fs) as List<Customer> ;
+			fs.Close();
+			foreach (var c in customers)
+			{
+			Console.WriteLine(c.Name + "\t" + c.Address);
+
+			}
+			Console.ReadLine();
+		}
+	}
+
+•
+
+	Serialize an object as XML.
+
+ public class Program
+	{
+		[Serializable] // ключ разрешение слива данных
+		public class Customer
+		{
+			[XmlAttribute("CustID")] public int ID { get; set; }
+			[XmlElement("C")] public string Name { get; set; }
+			public string Address { get; set; }
+		}
+		static void Main(string[] args)
+		{
+			List<Customer> tbl = new List<Customer>()
+			{ 
+			   new Customer() { ID = 333, Name="Bob", Address="London"},
+			   new Customer() { ID = 365, Name="Mary", Address="London"},
+			   new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
+			};
+
+			// Отправляем файл
+			FileStream fs = new FileStream("Custoners.xml", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
+			//fs.Write
+			//BinaryFormatter bf = new BinaryFormatter();
+			XmlSerializer bf = new XmlSerializer(typeof(List<Customer>));
+			bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
+			fs.Close(); // сбрасывает буффер
+
+			// Читаем файл, другай сторогна
+			fs = new FileStream("Custoners.xml", FileMode.Open);
+			//bf = new BinaryFormatter();
+			bf = new XmlSerializer(typeof(List<Customer>));
+			var customers = bf.Deserialize(fs) as List<Customer> ;
+			fs.Close();
+			foreach (var c in customers)
+			{
+			Console.WriteLine(c.Name + "\t" + c.Address);
+
+			}
+			Console.ReadLine();
+		}
+	}
+
+ // Serialization
+	// WCF Library
+	
+	•
+
+	Describe the purpose of serialization, and the formats that the .NET Framework supports.
+
+	•
+
+	Create a custom type that is serializable.
+
+	•
+
+	Serialize an object as binary.
+
+	•
+
+	Serialize an object as XML.
+
+	•
+
+	Serialize an object as JSON.
+	 
+
+public class Program
+{
+	[Serializable] // ключ разрешение слива данных
+	public class Customer
+	{
+		[XmlAttribute("CustID")] public int ID { get; set; }
+		[XmlElement("C")] public string Name { get; set; }
+		public string Address { get; set; }
+	}
+	static void Main(string[] args)
+	{
+		List<Customer> tbl = new List<Customer>()
+			{
+			   new Customer() { ID = 333, Name="Bob", Address="London"},
+			   new Customer() { ID = 365, Name="Mary", Address="London"},
+			   new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
+			};
+
+		// Отправляем файл
+		FileStream fs = new FileStream("Custoners.xml", FileMode.Create); // читаем поток, если нет то создать, если есть перезаписать.
+																		  //fs.Write
+																		  //BinaryFormatter bf = new BinaryFormatter();
+		XmlSerializer bf = new XmlSerializer(typeof(List<Customer>));
+		bf.Serialize(fs, tbl); // конвертирует и укладывает файлы
+		fs.Close(); // сбрасывает буффер
+
+		// Читаем файл, другай сторогна
+		fs = new FileStream("Custoners.xml", FileMode.Open);
+		//bf = new BinaryFormatter();
+		bf = new XmlSerializer(typeof(List<Customer>));
+		var customers = bf.Deserialize(fs) as List<Customer>;
+		fs.Close();
+		foreach (var c in customers)
+		{
+			Console.WriteLine(c.Name + "\t" + c.Address);
+
+		}
+		Console.ReadLine();
+	}
+}
+
+
+//Creating and Using Entity Data Models
+
+	//Use the ADO.NET Entity Data Model Tools
+	/*
+	 * ADO.NET includes three xml files
+	 * CSDL => C# classes
+	 * MSL
+	 * SSDL => DATABASE
+	 * 
+	 *   public class Program
+	{
+	 
+		static void Main(string[] args)
+		{
+			ModelContainer ctx = new ModelContainer();
+
+			Customer c1 = new Customer() { Id = 0, Name = "Bob", Address = "London" };
+			Product p1 = new Product() { Id = 0, Name = "Mary", Price = 3.14 };
+			Order o1 = new Order() { Customer = c1, Product = p1, Amount = 3 };
+
+			Customer c2 = new Customer() { Id = 0, Name = "Milk", Address = "Miami" };
+			Product p2 = new Product() { Id = 0, Name = "Wayn", Price = 2.8 };
+			Order o2 = new Order() { Customer = c2, Product = p2, Amount = 3 };
+
+			Customer c3 = new Customer() { Id = 0, Name = "Jon", Address = "Tyumen" };
+			Order o3 = new Order() { Customer = c3, Product = p1, Amount = 5 };
+
+			ctx.Customers.Add(c1);
+			ctx.Customers.Add(c2);
+			ctx.Customers.Add(c3);
+
+			ctx.Product.Add(p1);
+			ctx.Product.Add(p2);
+
+			ctx.Orders.Add(o1);
+			ctx.Orders.Add(o2);
+			ctx.Orders.Add(o3);
+
+			
+			var x = new { Id = 333, Data = "xx", Price = 3.14 }; // анонимные типы данных 
+
+			// LINQ = LAMBDA EXPRESSION
+			var query = from o1 in ctx.Orders
+						where o1.Product.Name == "Bread"
+						orderby o1.Id
+						select new 
+						{ CustomerName = o1.Customer.Name,
+							ProductName = o1.Product.Name,
+							OrderAmount = o1.Amount};
+
+			foreach (var item in query)
+			{
+				Console.WriteLine(item.CustomerName + "\t" + item.ProductName + "\t" + item.OrderAmount);
+			}
+
+			var query2 = ctx.Orders.Where(o1 => o1.Product.Name == "Bread").OrderBy( o1=> o1.Id).Select(o1 => o1);
+
+
+			foreach (var item in query2)
+			{
+				Console.WriteLine(item.Customer.Name + "\t" + item.Customer.Address + "\t" + item.Product.Name + "\t" + item.Amount);
+			}
+
+			var orders = query2.ToList();
+
+			orders[0].Customer.Address = "London";
+
+			ctx.SaveChanges();
+
+			Console.ReadLine()
+		}
+	}v
+
+// Accessong Remote Data
+
+	 *
+	 * After completing this module, you will be able to:
+	 * Send data to and receive data from web services and other remote data sources.
+	 * Access data by using WCF Data Services.
+	 * 
+	 
+public class Program
+{
+
+	static void Main(string[] args)
+	{
+		WebRequest request = WebRequest.Create("http://www.rambler.ru"); // схема протокола, сомтри какой обработчик зарегистирован, должны уметь распоковывать упаковывать стандартным спосоом, должны отправлять принимать данные. 
+		request.Method = "GET";
+
+		request.Credentials = new NetworkCredential("Bob", "{Pa$$w0rd");
+		HttpWebRequest httpReq = request as HttpWebRequest;
+
+		// httpReq.ClientCertificates.Add добавляем сертификаты, выбираем чем представидться
+
+		WebResponse response = request.GetResponse();
+		var s = response.GetResponseStream(); // Байтовый поток, писать читатьб по байтно и конвертировать.
+		StreamReader sf = new StreamReader(s); // Конвертация данных
+		Console.WriteLine(sf.ReadToEnd());
+		Console.ReadLine();
+	}
+}
+
+
+			// Server
+			ServiceHost svc = new ServiceHost(typeof(Service1));
+			svc.Open();
+
+			Console.WriteLine("Server is ready!!!");
+
+			Console.ReadLine();
+
+			svc.Close();
+
+			Client
+			MyServices.Service1Client svc = new MyServices.Service1Client();
+			var customers = svc.DoWork(333);
+			foreach (var item in customers)
+			{
+				Console.WriteLine(item.Name + "\t" + item.Address);
+			}
+
+			Console.ReadLine();
+
+	public interface Service1 : IService1
+	{
+		public List<Customer> DoWork(int id)
+		{
+			CustomerDBEntities ctx = new CustomerDBEntities();
+			ctx.Customers.ToList();
+			var customers = from с in ctx.Customers.Local
+							select new Customer() { Id = c.Id, Name = c.Name, Address = c.Address };
+
+			//ctx.Orders.ToList();
+			//ctx.Orders.ToList();
+
+			return customers.ToList();
+		}
+	}
