@@ -84,14 +84,29 @@ namespace School
                     }
                     break;
 
-                    // TODO: Exercise 2: Task 1a: If the user pressed Insert, add a new student
+                case Key.Insert: // TODO: Exercise 2: Task 1a: If the user pressed Insert, add a new student
                     // TODO: Exercise 2: Task 2a: Use the StudentsForm to get the details of the student from the user
+                    sf = new StudentForm();
                     // TODO: Exercise 2: Task 2b: Set the title of the form to indicate which class the student will be added to (the class for the currently selected teacher)
+                    sf.Title = "Add a new student " + teacher.Class + " !";
                     // TODO: Exercise 2: Task 3a: Display the form and get the details of the new student
                     // TODO: Exercise 2: Task 3b: When the user closes the form, retrieve the details of the student from the form and use them to create a new Student object
-                    // TODO: Exercise 2: Task 4a: Assign the new student to the current teacher
-                    // TODO: Exercise 2: Task 4b: Add the student to the list displayed on the form
-                    // TODO: Exercise 2: Task 4c: Enable saving (changes are not made permanent until they are written back to the database)
+                    if (sf.ShowDialog().Value)
+                    {
+                        Student newStudent = new Student();
+                        newStudent.FirstName = sf.firstName.Text;
+                        newStudent.LastName = sf.lastName.Text;
+                        newStudent.DateOfBirth = DateTime.ParseExact(sf.dateOfBirth.Text, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                        // TODO: Exercise 2: Task 4a: Assign the new student to the current teacher
+                        // TODO: Exercise 2: Task 4b: Add the student to the list displayed on the form
+                        this.teacher.Students.Add(newStudent);
+                        // TODO: Exercise 2: Task 4c: Enable saving (changes are not made permanent until they are written back to the database)
+                        saveChanges.IsEnabled = true;
+                    }
+                    
+                    
+                    
+                    break;
             }
         }
 
