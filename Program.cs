@@ -95,7 +95,7 @@ if (int.TryParse(Console.ReadLine(), out int result))
     Console.WriteLine(result);
 } else
 {
-    Console.WriteLine("Input only integer");
+    Console.WriteLine("Input only% integer");
 }
 
 Console.WriteLine(str);
