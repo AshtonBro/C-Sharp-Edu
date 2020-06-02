@@ -29,6 +29,20 @@ namespace AshtonBro.CodeBlog._2
 		static void Main(string[] args)
 		{
 
+			 // TODO: Exercise 3: Task 1a: If the user pressed Delete, remove the currently selected student
+                case Key.Delete: student = this.studentsList.SelectedItem as Student;
+			// TODO: Exercise 3: Task 2a: Prompt the user to confirm that the student should be removed
+			var msg = MessageBox.Show("Are you sure want to delete the student?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+			// TODO: Exercise 3: Task 3a: If the user clicked Yes, remove the student from the database
+			if (msg == MessageBoxResult.Yes)
+			{
+				this.studentsInfo.Remove(student);
+			}
+			// TODO: Exercise 3: Task 3b: Enable saving (changes are not made permanent until they are written back to the database)
+			saveChanges.IsEnabled = true;
+			break;
+
+
 		}
 	}
 
