@@ -25,9 +25,6 @@ using System.Security.Cryptography;
 
 namespace AshtonBro.CodeBlog._2
 {
-	// Encrypting and Decrypting Data
-	// Implementing Symmetric Encryption
-	// Implementing Asymmetric Encryption
 	public class Program
 	{
 		static void Main(string[] args)
@@ -1871,7 +1868,7 @@ public class Program
 
 			StreamReader sr = new StreamReader(cs);
 
-            Console.WriteLine(sr.ReadToEnd());
+			Console.WriteLine(sr.ReadToEnd());
 			Console.ReadLine();
 		}
 
@@ -1896,7 +1893,7 @@ public class Program
 
 			byte[] byteData = Encoding.UTF8.GetBytes(data);
 			var encryptedData = alg.Encrypt(byteData, true);
-            
+			
 			alg = new RSACryptoServiceProvider();
 			alg.FromXmlString(pubPrivateKey);
 			byteData = alg.Decrypt(encryptedData, true);
