@@ -1596,3 +1596,310 @@ public class Program
 		}
 	}
  
+<==================================== MS DAY 5 ==========================================>
+
+
+ // Integrating with Unmanaged Code
+	// Creating and Using Dynamic Objects
+	//
+	// COM -> precompiled to CPU code (x86)
+	// COM -> rigistry in OS -> GUID Global unity indentify -> ole32.dll
+	// COM -> metadata C++ *.h (прототипы функции) -> IDL -> dll(tlb)
+	// 
+	// Void* pointer -> vtbl
+	// Unknow size -> How to free memory ??
+	//
+	//Tlbimp.exe -> idl (*.h) -> idl => class(.Net wrapper)
+	// RCW class (RunTime Call Wrapper) 
+	// RCW лучше загружать готовые и не самопальные
+	
+	public class Program
+	{   [Guid("0002DF01-0000-0000-C000-000000000046")]
+		class MyIE
+		{
+
+		}
+		static void Main(string[] args)
+		{
+		   // SHDocVw.InternetExplorer ie = new SHDocVw.InternetExplorer(); // RCW
+
+			dynamic ie = new MyIE();
+			ie.Visible = true;
+			ie.Navigate("http://www.yandex.ru");
+			ie.MyFunction("Hello");
+
+			Marshal.ReleaseComObject(ie);
+
+			Console.ReadLine();
+		}
+
+	}
+	
+// Integrating with Unmanaged Code
+	// Managing the Lifetime of Objects and Controlling Unmanaged Resources
+
+	class MyClass : IDisposable
+	{
+		public int data;
+		~MyClass()
+		{
+			Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
+			Save();
+		}
+
+		public void Save()
+		{
+			Marshal.ReleaseComObject
+			GC.SuppressFinalize(this);
+		}
+		public void Dispose()
+		{
+			Save();
+		}
+
+	}
+	struct MyStruct
+	{
+		public int data;
+	}
+	public class Program
+	{   
+		static void Main(string[] args)
+		{
+			Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
+
+			MyClass clsTest = null;
+
+			try
+			{
+				{ // stack
+					MyClass cls;
+					using cls = new MyClass(); // heap allocation
+					{
+						MyStruct strc = new MyStruct(); // stack allocation
+						int i = 0; // stack allocation
+
+						i = 333 / i;
+
+						clsTest = cls;
+
+						cls.Save();
+
+						Marshal.ReleaseComObject(cls);
+					}
+					
+				}// automatic clear stack
+			}
+			catch { }
+
+			clsTest = null;
+
+			GC.Collect(); // break app-> stacks analys and clear 
+		}
+
+	}
+
+ // Integrating with Unmanaged Code
+	// Examining Object Metadata
+	// для динамического взаимодействия с другими библиотеками
+	// Расширяемость серверов
+	// REFLECTION
+
+namespace myLib
+{
+	[MyInterfaces.My("This is my class")]
+	public class Class1 : MyInterfaces.IMyInterface
+	{
+		[MyInterfaces.My("This is MyFunction. Must be in transaction")]
+		public string MyFunction()
+		{
+			return "Hello MyLib";
+		}
+
+		[PrincipalPermission(SecurityAction.Demand,Role ="Managers")]
+		public string TestAttributeFunction()
+		{
+			return "Hello from myLib";
+		}
+
+
+	}
+}
+
+namespace AshtonBro.CodeBlog._2
+{
+	public class MyInterfaces
+	{
+		public interface IMyInterfaces
+		{
+			string MyFunction();
+
+			string TestAttributeFunction();
+		}
+
+		[AttributeUsage(AttributeTargets.All)]
+		public class MyAttribute : Attribute
+		{
+			public MyAttribute()
+			{
+			}
+			public MyAttribute(string data)
+			{
+				Data = data;
+			}
+			public string Data { get; set; }
+		}
+
+	}
+}
+
+   static void Main(string[] args)
+		{
+			Assembly asm = Assembly.LoadFile(Path.GetFullPath("myLib.dll"));
+
+			foreach (var item in asm.GetTypes())
+			{
+				Console.WriteLine(item.FullName);
+
+				foreach (var attr in item.GetCustomAttribute())
+				{
+					MyInterfaces.MyAttribute a = attr as MyInterfaces.MyAttribute;
+					if (a != null)
+					{
+						Console.WriteLine(a.Data);
+					}
+
+				}
+
+				foreach (MethodInfo mi in item.GetMethods())
+				{
+					Console.WriteLine(mi.Name);
+				}
+
+			 
+			}
+
+			Type t = asm.GetType("MyLib.MyClass");
+
+			MethodInfo method = t.GetMethod("MyFunction");
+			//method.GetMethodBody();
+
+			//object o = Activator.CreateInstance(t);
+			//object result = method.Invoke(o, new object[]{ });
+
+			var o = Activator.CreateInstance(t) as MyInterfaces.IMyInterfaces;
+
+
+			Console.WriteLine(o.TestAttributeFunction());
+		   // Console.WriteLine(o.MyFunction());
+			// Console.WriteLine(result.ToString());
+
+			Console.ReadLine();
+		}
+	}
+	
+
+PRIVATE ASSEMBLY --> NAME
+
+STRONG NAME ASSEMBLY -> NAME + CRYPTO HASH + Version
+
+
+public class Program
+{
+	static void Main(string[] args)
+	{
+		var unit = new CodeCompileUnit();
+		var ns = new CodeNamespace("MyOrgGazprom"); // create namespace
+		unit.Namespaces.Add(ns); 
+		ns.Imports.Add(new CodeNamespaceImport("System")); // add using System;
+		var cls = new CodeTypeDeclaration("MyClass"); // Create new MyClass
+		ns.Types.Add(cls);
+		var main = new CodeEntryPointMethod(); // получили функцию static void Main
+		cls.Members.Add(main);
+
+		var cs = new CSharpCodeProvider();
+
+		var file = File.CreateText("MyProg.cs");
+
+		var writer = new IndentedTextWriter(file);
+
+		var options = new CodeGenerationOptions();
+
+		cs.GenerateCodeFromCompileUnit(unit, writer, options);
+
+		writer.Close();
+	}
+}
+	
+
+	// Implementing Symmetric Encryption
+	// Implementing Asymmetric Encryption
+		{
+			var data = "Test stream";
+			SymmetricAlgorithm alg = new AesManaged(); // TripleDESCryptoServiceProvider
+			byte[] key = alg.Key;
+			byte[] IV = alg.IV;
+
+			// ШИФРОВКА
+			FileStream fs = new FileStream("my.bin", FileMode.Create);
+
+			CryptoStream cs = new CryptoStream(fs, alg.CreateEncryptor(), CryptoStreamMode.Write);
+
+			StreamWriter sw = new StreamWriter(cs);
+
+			sw.Write(data);
+			sw.Close();
+			cs.Flush();
+			cs.Close();
+			fs.Close();
+
+
+
+			alg = new AesManaged();
+			alg.KeySize = 256;
+			alg.Key = key;
+			alg.IV = IV;
+
+			// ДЕШИВРОВКА
+			fs = new FileStream("my.bin", FileMode.Open);
+
+			cs = new CryptoStream(fs, alg.CreateDecryptor(), CryptoStreamMode.Read);
+
+			StreamReader sr = new StreamReader(cs);
+
+			Console.WriteLine(sr.ReadToEnd());
+			Console.ReadLine();
+		}
+
+	// Encrypting and Decrypting Data
+	// Implementing Symmetric Encryption
+	// Implementing Asymmetric Encryption
+	public class Program
+	{
+		static void Main(string[] args)
+		{
+			string data = "Hello RSA!";
+
+			// collision resistance 
+
+			HMACSHA1 hashalg = new HMACSHA1();
+			byte[] hash = hashalg.ComputeHash(Encoding.UTF8.GetBytes(data));
+
+			RSACryptoServiceProvider alg = new RSACryptoServiceProvider(); // Определит количетсво byte 
+
+			string pubPrivateKey = alg.ToXmlString(true);
+			string PubKey = alg.ToXmlString(false);
+
+			byte[] byteData = Encoding.UTF8.GetBytes(data);
+			var encryptedData = alg.Encrypt(byteData, true);
+			
+			alg = new RSACryptoServiceProvider();
+			alg.FromXmlString(pubPrivateKey);
+			byteData = alg.Decrypt(encryptedData, true);
+			Console.WriteLine(Encoding.UTF8.GetString(byteData));
+
+			Console.ReadLine();
+		}
+	}
+ */
+
