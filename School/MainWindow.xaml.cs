@@ -151,7 +151,19 @@ namespace School
         public object Convert(object value, Type targetType, object parameter,
                               System.Globalization.CultureInfo culture)
         {
-            return "";
+          
+            if(value != null)
+            {
+                DateTime studentTime = (DateTime)value;
+                TimeSpan nowTime = DateTime.Now.Subtract(studentTime);
+                int result = (int)(nowTime.Days / 365.20);
+                return result.ToString();
+;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         #region Predefined code
