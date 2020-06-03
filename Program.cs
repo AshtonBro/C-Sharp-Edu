@@ -21,29 +21,41 @@ using System.CodeDom.Compiler;
 using System.CodeDom;
 using Microsoft.CSharp;
 using System.Security.Cryptography;
+using Microsoft.VisualBasic;
 
 namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
+		public class Age
+		{
+			public int Id { get; set; }
+			public int Experians { get; set; }
+			public int Years { get; set; }
+		}
 		static void Main(string[] args)
 		{
+			List<Age> ages = new List<Age>();
+			ages.Add(new Age() { Id = 1, Experians = 10, Years = 5});
+			ages.Add(new Age() { Id = 6, Experians = 17, Years = 10 });
+			ages.Add(new Age() { Id = 5, Experians = 14, Years = 37 });
+			ages.Add(new Age() { Id = 9, Experians = 12, Years = 85 });
+			ages.Add(new Age() { Id = 3, Experians = 7, Years = 11 });
+			ages.Add(new Age() { Id = 7, Experians = 9, Years = 55 });
+			ages.Add(new Age() { Id = 4, Experians = 28, Years = 5 });
+			ages.Add(new Age() { Id = 8, Experians = 9, Years = 33 });
 
-			 // TODO: Exercise 3: Task 1a: If the user pressed Delete, remove the currently selected student
-                case Key.Delete: student = this.studentsList.SelectedItem as Student;
-			// TODO: Exercise 3: Task 2a: Prompt the user to confirm that the student should be removed
-			var msg = MessageBox.Show("Are you sure want to delete the student?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
-			// TODO: Exercise 3: Task 3a: If the user clicked Yes, remove the student from the database
-			if (msg == MessageBoxResult.Yes)
+
+			var result = ages.Where(f => f.Experians > 10 | f.Years > 15).OrderBy(f => f.Id);
+
+			foreach (var r in result)
 			{
-				this.studentsInfo.Remove(student);
+				Console.WriteLine("Id: " + r.Id + ", " + "Experians: " + r.Experians + ", " + "Years: " + r.Years);
 			}
-			// TODO: Exercise 3: Task 3b: Enable saving (changes are not made permanent until they are written back to the database)
-			saveChanges.IsEnabled = true;
-			break;
 
-
+			Console.ReadLine();
 		}
+
 	}
 
 }
