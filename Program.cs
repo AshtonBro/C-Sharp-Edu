@@ -27,82 +27,43 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-		private void editStudent(Student student)
+
+		private void ok_Click(object sender, RoutedEventArgs e)
 		{
-			// Use the StudentsForm to display and edit the details of the student
-			StudentForm sf = new StudentForm();
-
-			// Set the title of the form and populate the fields on the form with the details of the student           
-			sf.Title = "Edit Student Details";
-			sf.firstName.Text = student.FirstName;
-			sf.lastName.Text = student.LastName;
-			sf.dateOfBirth.Text = student.DateOfBirth.ToString("d"); // Format the date to omit the time element
-
-			// Display the form
-			if (sf.ShowDialog().Value)
+			// TODO: Exercise 2: Task 2a: Check that the user has provided a first name
+			if (String.IsNullOrEmpty(this.firstName.Text))
 			{
-				// When the user closes the form, copy the details back to the student
-				student.FirstName = sf.firstName.Text;
-				student.LastName = sf.lastName.Text;
-				student.DateOfBirth = DateTime.Parse(sf.dateOfBirth.Text);
-
-				// Enable saving (changes are not made permanent until they are written back to the database)
-				saveChanges.IsEnabled = true;
+				MessageBox.Show("FirstName is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
 			}
 
-		}
-
-		private void addNewStudent(Student student)
-		{
-			// TODO: Exercise 1: Task 3a: Refactor as the addNewStudent method
-
-			// Use the StudentsForm to get the details of the student from the user
-			StudentForm sf = new StudentForm();
-
-			// Set the title of the form to indicate which class the student will be added to (the class for the currently selected teacher)
-			sf.Title = "New Student for Class " + teacher.Class;
-
-			// Display the form and get the details of the new student
-			if (sf.ShowDialog().Value)
+			// TODO: Exercise 2: Task 2b: Check that the user has provided a last name
+			if (String.IsNullOrEmpty(this.lastName.Text))
 			{
-				// When the user closes the form, retrieve the details of the student from the form
-				// and use them to create a new Student object
-
-				student.FirstName = sf.firstName.Text;
-				student.LastName = sf.lastName.Text;
-				student.DateOfBirth = DateTime.Parse(sf.dateOfBirth.Text);
-
-				// Assign the new student to the current teacher
-				this.teacher.Students.Add(student);
-
-				// Add the student to the list displayed on the form
-				this.studentsInfo.Add(student);
-
-				// Enable saving (changes are not made permanent until they are written back to the database)
-				saveChanges.IsEnabled = true;
+				MessageBox.Show("LastName is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
 			}
-		}
 
-		private void removeStudent(Student student)
-		{
-			// TODO: Exercise 1: Task 3b: Refactor as the removeStudent method
-
-			// Prompt the user to confirm that the student should be removed
-			MessageBoxResult response = MessageBox.Show(
-				String.Format("Remove {0}", student.FirstName + " " + student.LastName),
-				"Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question,
-				MessageBoxResult.No);
-
-			// If the user clicked Yes, remove the student from the database
-			if (response == MessageBoxResult.Yes)
+			DateTime result;
+			// TODO: Exercise 2: Task 3a: Check that the user has entered a valid date for the date of birth
+			if (!DateTime.TryParse(this.dateOfBirth.Text, out result))
 			{
-				this.schoolContext.Students.DeleteObject(student);
-
-				// Enable saving (changes are not made permanent until they are written back to the database)
-				saveChanges.IsEnabled = true;
+				MessageBox.Show("DateTime is uncorrect", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
 			}
-		}
 
+			// TODO: Exercise 2: Task 3b: Verify that the student is at least 5 years old
+			DateTime studentDateOfBirth = result;
+			TimeSpan difference = DateTime.Now.Subtract(studentDateOfBirth);
+			int ageInYears = (int)(difference.Days / 365.25);
+			if (ageInYears < 5)
+			{
+				MessageBox.Show("DateTime can't be lower than 5 years", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				return;
+			}
+			// Indicate that the data is valid
+			this.DialogResult = true;
+		}
 	}
 
 }
