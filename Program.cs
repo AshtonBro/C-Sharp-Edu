@@ -27,33 +27,36 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-		public class Age
+		[ValueConversion(typeof(string), typeof(Decimal))]
+		class AgeConverter : IValueConverter
 		{
-			public int Id { get; set; }
-			public int Experians { get; set; }
-			public int Years { get; set; }
-		}
-		static void Main(string[] args)
-		{
-			List<Age> ages = new List<Age>();
-			ages.Add(new Age() { Id = 1, Experians = 10, Years = 5});
-			ages.Add(new Age() { Id = 6, Experians = 17, Years = 10 });
-			ages.Add(new Age() { Id = 5, Experians = 14, Years = 37 });
-			ages.Add(new Age() { Id = 9, Experians = 12, Years = 85 });
-			ages.Add(new Age() { Id = 3, Experians = 7, Years = 11 });
-			ages.Add(new Age() { Id = 7, Experians = 9, Years = 55 });
-			ages.Add(new Age() { Id = 4, Experians = 28, Years = 5 });
-			ages.Add(new Age() { Id = 8, Experians = 9, Years = 33 });
-
-
-			var result = ages.Where(f => f.Experians > 10 | f.Years > 15).OrderBy(f => f.Id);
-
-			foreach (var r in result)
+			public object Convert(object value, Type targetType, object parameter,
+								  System.Globalization.CultureInfo culture)
 			{
-				Console.WriteLine("Id: " + r.Id + ", " + "Experians: " + r.Experians + ", " + "Years: " + r.Years);
+
+				if (value != null)
+				{
+					DateTime studentTime = (DateTime)value;
+					TimeSpan nowTime = DateTime.Now.Subtract(studentTime);
+					int result = (int)(nowTime.Days / 365.20);
+					return result.ToString();
+					;
+				}
+				else
+				{
+					return "";
+				}
 			}
 
-			Console.ReadLine();
+			#region Predefined code
+
+			public object ConvertBack(object value, Type targetType, object parameter,
+									  System.Globalization.CultureInfo culture)
+			{
+				throw new NotImplementedException();
+			}
+
+			#endregion
 		}
 
 	}
