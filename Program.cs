@@ -27,36 +27,80 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-		[ValueConversion(typeof(string), typeof(Decimal))]
-		class AgeConverter : IValueConverter
+		private void editStudent(Student student)
 		{
-			public object Convert(object value, Type targetType, object parameter,
-								  System.Globalization.CultureInfo culture)
-			{
+			// Use the StudentsForm to display and edit the details of the student
+			StudentForm sf = new StudentForm();
 
-				if (value != null)
-				{
-					DateTime studentTime = (DateTime)value;
-					TimeSpan nowTime = DateTime.Now.Subtract(studentTime);
-					int result = (int)(nowTime.Days / 365.20);
-					return result.ToString();
-					;
-				}
-				else
-				{
-					return "";
-				}
+			// Set the title of the form and populate the fields on the form with the details of the student           
+			sf.Title = "Edit Student Details";
+			sf.firstName.Text = student.FirstName;
+			sf.lastName.Text = student.LastName;
+			sf.dateOfBirth.Text = student.DateOfBirth.ToString("d"); // Format the date to omit the time element
+
+			// Display the form
+			if (sf.ShowDialog().Value)
+			{
+				// When the user closes the form, copy the details back to the student
+				student.FirstName = sf.firstName.Text;
+				student.LastName = sf.lastName.Text;
+				student.DateOfBirth = DateTime.Parse(sf.dateOfBirth.Text);
+
+				// Enable saving (changes are not made permanent until they are written back to the database)
+				saveChanges.IsEnabled = true;
 			}
 
-			#region Predefined code
+		}
 
-			public object ConvertBack(object value, Type targetType, object parameter,
-									  System.Globalization.CultureInfo culture)
+		private void addNewStudent(Student student)
+		{
+			// TODO: Exercise 1: Task 3a: Refactor as the addNewStudent method
+
+			// Use the StudentsForm to get the details of the student from the user
+			StudentForm sf = new StudentForm();
+
+			// Set the title of the form to indicate which class the student will be added to (the class for the currently selected teacher)
+			sf.Title = "New Student for Class " + teacher.Class;
+
+			// Display the form and get the details of the new student
+			if (sf.ShowDialog().Value)
 			{
-				throw new NotImplementedException();
-			}
+				// When the user closes the form, retrieve the details of the student from the form
+				// and use them to create a new Student object
 
-			#endregion
+				student.FirstName = sf.firstName.Text;
+				student.LastName = sf.lastName.Text;
+				student.DateOfBirth = DateTime.Parse(sf.dateOfBirth.Text);
+
+				// Assign the new student to the current teacher
+				this.teacher.Students.Add(student);
+
+				// Add the student to the list displayed on the form
+				this.studentsInfo.Add(student);
+
+				// Enable saving (changes are not made permanent until they are written back to the database)
+				saveChanges.IsEnabled = true;
+			}
+		}
+
+		private void removeStudent(Student student)
+		{
+			// TODO: Exercise 1: Task 3b: Refactor as the removeStudent method
+
+			// Prompt the user to confirm that the student should be removed
+			MessageBoxResult response = MessageBox.Show(
+				String.Format("Remove {0}", student.FirstName + " " + student.LastName),
+				"Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question,
+				MessageBoxResult.No);
+
+			// If the user clicked Yes, remove the student from the database
+			if (response == MessageBoxResult.Yes)
+			{
+				this.schoolContext.Students.DeleteObject(student);
+
+				// Enable saving (changes are not made permanent until they are written back to the database)
+				saveChanges.IsEnabled = true;
+			}
 		}
 
 	}
@@ -65,6 +109,36 @@ namespace AshtonBro.CodeBlog._2
 
 /*
  
+	public class Age
+		{
+			public int Id { get; set; }
+			public int Experians { get; set; }
+			public int Years { get; set; }
+		}
+		static void Main(string[] args)
+		{
+			List<Age> ages = new List<Age>();
+			ages.Add(new Age() { Id = 1, Experians = 10, Years = 5});
+			ages.Add(new Age() { Id = 6, Experians = 17, Years = 10 });
+			ages.Add(new Age() { Id = 5, Experians = 14, Years = 37 });
+			ages.Add(new Age() { Id = 9, Experians = 12, Years = 85 });
+			ages.Add(new Age() { Id = 3, Experians = 7, Years = 11 });
+			ages.Add(new Age() { Id = 7, Experians = 9, Years = 55 });
+			ages.Add(new Age() { Id = 4, Experians = 28, Years = 5 });
+			ages.Add(new Age() { Id = 8, Experians = 9, Years = 33 });
+
+
+			var result = ages.Where(f => f.Experians > 10 | f.Years > 15).OrderBy(f => f.Id);
+
+			foreach (var r in result)
+			{
+				Console.WriteLine("Id: " + r.Id + ", " + "Experians: " + r.Experians + ", " + "Years: " + r.Years);
+			}
+
+			Console.ReadLine();
+		}
+
+
 <------------------------------Коллекции C#: массивы (array) и списки (list). Перечисления (enum)--------------------->
 
 
