@@ -27,7 +27,10 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-
+		private void saveChanges_Click(object sender, RoutedEventArgs e)
+		{
+			schoolContext.SaveChanges();
+		}
 	}
 
 }
