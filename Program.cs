@@ -27,10 +27,22 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-		private void saveChanges_Click(object sender, RoutedEventArgs e)
+		private void Logon_Click(object sender, RoutedEventArgs e)
 		{
-			schoolContext.SaveChanges();
+			logonForm.Visibility = Visibility.Collapsed;
+			SessionContext.UserName = username.Text;
+			SessionContext.UserRole = (bool)userrole.IsEnabled ? Role.Teacher : Role.Student;
+			if (SessionContext.UserRole == Role.Student)
+			{
+				SessionContext.CurrentStudent = "Eric Gruber";
+			}
+
+			//if(LogonSuccess != null)
+			//{
+			//    LogonSuccess(this, null);
+			//}
 		}
+
 	}
 
 }
