@@ -27,20 +27,21 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-		private void Refresh()
+		private void Student_Click(object sender, RoutedEventArgs e)
 		{
-			switch (SessionContext.UserRole)
+			Button itemClicked = sender as Button;
+			if (itemClicked != null)
 			{
-				case Role.Student:
-					txtName.Text = "Welcome " + SessionContext.UserName;
-					GotoStudentProfile();
-					break;
-				case Role.Teacher:
-					txtName.Text = "Welcom " + SessionContext.UserName;
-					GotoStudentsPage();
-					break;
+				// Find out which student was clicked - the Tag property of the button contains the name
+				string studentName = (string)itemClicked.Tag;
+				if (StudentSelected != null)
+				{
+					// Raise the StudentSelected event (handled by MainWindow) to display the details for this student
+					StudentSelected(sender, new StudentEventArgs(studentName));
+				}
 			}
 		}
+#endregion
 
 	}
 
