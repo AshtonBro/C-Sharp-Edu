@@ -27,20 +27,25 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-			ArrayList students = new ArrayList();
-            var teacher = SessionContext.CurrentTeacher.TeacherID;
 
-            foreach (Student student in DataSource.Students)
-            {
-                if(student.TeacherID == teacher)
-                {
-                    students.Add(student);
-                }
-            }
+		public delegate void StudentSelectionHandler(object sender, StudentEventArgs e);
+		public event StudentSelectionHandler StudentSelected;
+		
+		// TODO: Exercise 3: Task 3b: If the user clicks on a student, display the details for that student
+		private void Student_Click(object sender, RoutedEventArgs e)
+		{
+			Button studentClicked = sender as Button;
+			if (studentClicked != null)
+			{
+				int studentInd = (int)studentClicked.Tag;
+				if (StudentSelected != null)
+				{
+					Student student = (Student)studentClicked.DataContext;
+					StudentSelected(sender, new StudentEventArgs(student));
+				}
+			}
 
-            list.ItemsSource = students;
-
-            txtClass.Text = String.Format("Class {0}", SessionContext.CurrentTeacher.Class);
+		}
 	}
 
 }
@@ -2053,5 +2058,21 @@ public class Program
 		{
 		   MessageBox.Show("The " + logonPage.username.Text + " must try again", "Logon Faild", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
- */
+ArrayList students = new ArrayList();
+            var teacher = SessionContext.CurrentTeacher.TeacherID;
 
+            foreach (Student student in DataSource.Students)
+            {
+                if(student.TeacherID == teacher)
+                {
+                    students.Add(student);
+                }
+            }
+
+            list.ItemsSource = students;
+
+            txtClass.Text = String.Format("Class {0}", SessionContext.CurrentTeacher.Class);
+
+
+
+ */
