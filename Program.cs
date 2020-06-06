@@ -29,34 +29,8 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-			List<string> list = new List<string>();
+		
 
-
-            while (list.Count < 5) // повторять до дех пор пока выпонятся какой-то условие
-				// если условие изначально не верное, то это не выполнится никогда.
-			{
-				list.Add(Console.ReadLine());
-			}
-
-			var j = 0;
-			while(j < list.Count) 
-            {
-                Console.WriteLine(list[j]);
-				j++;
-            }
-
-			do // если аналогично условие не верное, то хотябы один раз тело выполнится. 
-			{
-
-			}
-			while (j < list.Count);
-
-			foreach (var item in list)
-            {
-                Console.WriteLine(item + " Hello");
-            }
-
-			Console.ReadLine();
 		}
 		
 	}
@@ -67,6 +41,15 @@ namespace AshtonBro.CodeBlog._2
  
 <------------------------------------------------Циклы C# (for, foreach, while)------------------------------------->
 
+		int[,] array = new int[10, 10];
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+					array[i, j] = 8;
+				}
+            }
 
 		foreach (var item in list)
             {
