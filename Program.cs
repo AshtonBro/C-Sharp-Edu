@@ -29,17 +29,33 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-			List<int> list = new List<int>();
+			List<string> list = new List<string>();
 
-            for (int i = 0; i < 50; i += 2)
+
+            while (list.Count < 5) // повторять до дех пор пока выпонятся какой-то условие
+				// если условие изначально не верное, то это не выполнится никогда.
+			{
+				list.Add(Console.ReadLine());
+			}
+
+			var j = 0;
+			while(j < list.Count) 
             {
-				list.Add(i);
+                Console.WriteLine(list[j]);
+				j++;
             }
 
-            for (int i = 0; i < list.Count; i++)
+			do // если аналогично условие не верное, то хотябы один раз тело выполнится. 
+			{
+
+			}
+			while (j < list.Count);
+
+			foreach (var item in list)
             {
-                Console.WriteLine(list[i]);
+                Console.WriteLine(item + " Hello");
             }
+
 			Console.ReadLine();
 		}
 		
@@ -50,6 +66,39 @@ namespace AshtonBro.CodeBlog._2
 /*
  
 <------------------------------------------------Циклы C# (for, foreach, while)------------------------------------->
+
+
+		foreach (var item in list)
+            {
+                Console.WriteLine(item + " Hello");
+            }
+
+		List<string> list = new List<string>();
+
+            for (int i = 0; i < 50; i += 2)
+            {
+				list.Add(i.ToString());
+            }
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                Console.WriteLine(list[i]);
+            }
+			Console.ReadLine();
+
+			while(list.Count < 5) // повторять до дех пор пока выпонятся какой-то условие
+			{
+				list.Add(Console.ReadLine());
+			}
+
+			var j = 0;
+			while(j < list.Count)
+            {
+                Console.WriteLine(list[j]);
+				j++;
+            }
+
+			Console.ReadLine();
 
    for (int i = 0; i < 100; i += 5)
             {
@@ -66,7 +115,19 @@ namespace AshtonBro.CodeBlog._2
 			Console.ReadLine();
 
 
+			while(условие) // повторять до дех пор пока выпонятся какой-то условие
+			{ 
+				
+			}	
 
+
+			do // если аналогично условие не верное, то хотябы один раз тело выполнится. 
+			{
+
+			}
+			while (j < list.Count);
+
+<----------------- Home Work --------------->
 
 	public class Age
 		{
