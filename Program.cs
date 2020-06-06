@@ -29,8 +29,13 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-		
 
+			public int CompareTo(Student other)
+			{
+				string thisStudent = LastName + FirstName;
+				string otherStudent = other.LastName + other.FirstName;
+				return (String.Compare(thisStudent, otherStudent));
+			}
 		}
 		
 	}
@@ -2349,5 +2354,61 @@ ArrayList students = new ArrayList();
                     return;
                 }
 
+		 // TODO: Exercise 2: Task 2a: Add validation to the AssessmentDate property
+        private string _assessmentDate;
+        public string AssessmentDate
+        {
+            get { return _assessmentDate;  }
+            set
+            {
+                DateTime assessmentDate;
+                if(DateTime.TryParse(value, out assessmentDate))
+                {
+                    if(assessmentDate > DateTime.Now)
+                    {
+                        throw new ArgumentOutOfRangeException("AssessmentDate error", "AssessmentDate must be lower then now time");
+                    }
+                    _assessmentDate = assessmentDate.ToString("d");
+                }
+                else
+                {
+                    throw new ArgumentException("AssessmentDate", "Assessment date is not recognized"); 
+                }
+            }
+        }
+
+
+        // TODO: Exercise 2: Task 2b: Add validation to the SubjectName property
+        private string _subjectName;
+        public string SubjectName
+        {
+            get { return _subjectName; }
+            set
+            {
+                if(DataSource.Subjects.Contains(value))
+                {
+                    _subjectName = value;
+                }
+                else
+                {
+                    throw new ArgumentException("SubjectName", "SubjectName is not recognized");
+                }
+            }
+        }
+
+        // TODO: Exercise 2: Task 2c: Add validation to the Assessment property
+        private string _assessment;
+        public string Assessment
+        { 
+            get { return _assessment; }
+            set
+            {
+                if(DataSource.Grades.Contains(value))
+                {
+                    _assessment = value;
+                }
+            }
+        
+        }
 
  */
