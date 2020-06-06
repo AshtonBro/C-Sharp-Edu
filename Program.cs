@@ -27,25 +27,8 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
+	
 
-		public delegate void StudentSelectionHandler(object sender, StudentEventArgs e);
-		public event StudentSelectionHandler StudentSelected;
-		
-		// TODO: Exercise 3: Task 3b: If the user clicks on a student, display the details for that student
-		private void Student_Click(object sender, RoutedEventArgs e)
-		{
-			Button studentClicked = sender as Button;
-			if (studentClicked != null)
-			{
-				int studentInd = (int)studentClicked.Tag;
-				if (StudentSelected != null)
-				{
-					Student student = (Student)studentClicked.DataContext;
-					StudentSelected(sender, new StudentEventArgs(student));
-				}
-			}
-
-		}
 	}
 
 }
@@ -2075,4 +2058,27 @@ ArrayList students = new ArrayList();
 
 
 
+		#region Event Members
+        public delegate void StudentSelectionHandler(object sender, StudentEventArgs e);
+        public event StudentSelectionHandler StudentSelected;        
+        #endregion
+
+        #region Event Handlers
+
+        // TODO: Exercise 3: Task 3b: If the user clicks on a student, display the details for that student
+        private void Student_Click(object sender, RoutedEventArgs e)
+        {
+            Button studentClicked = sender as Button;
+            if(studentClicked != null)
+            {
+                int studentInd = (int)studentClicked.Tag;
+                if(StudentSelected != null)
+                {
+                    Student student = (Student)studentClicked.DataContext;
+                    StudentSelected(sender, new StudentEventArgs(student));
+                }
+            }
+            
+        }
+        #endregion
  */
