@@ -27,10 +27,20 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-		private void Logon_Failed(object sender, EventArgs e)
-		{
-			MessageBox.Show("The " + logonPage.username.Text + " must try again", "Logon Faild", MessageBoxButton.OK, MessageBoxImage.Error);
-		}
+			ArrayList students = new ArrayList();
+            var teacher = SessionContext.CurrentTeacher.TeacherID;
+
+            foreach (Student student in DataSource.Students)
+            {
+                if(student.TeacherID == teacher)
+                {
+                    students.Add(student);
+                }
+            }
+
+            list.ItemsSource = students;
+
+            txtClass.Text = String.Format("Class {0}", SessionContext.CurrentTeacher.Class);
 	}
 
 }
@@ -2018,7 +2028,7 @@ public class Program
 			LogonFailed(this, null);
 		}
 
-private void Refresh()
+	private void Refresh()
 		{
 			switch (SessionContext.UserRole)
 			{
@@ -2037,6 +2047,11 @@ private void Refresh()
 					GotoStudentsPage();                    
 					break;
 			}
+		}
+
+	private void Logon_Failed(object sender, EventArgs e)
+		{
+		   MessageBox.Show("The " + logonPage.username.Text + " must try again", "Logon Faild", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
  */
 
