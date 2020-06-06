@@ -29,11 +29,21 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
+			public void AddGrade(Grade grade)
+			{
+				if (grade.StudentID == 0)
+				{
+					grade.StudentID = StudentID;
+				}
+				else
+				{
+					throw new ArgumentException("Grade", "Grade to a different Student");
+				}
 
+			}
 
-			public static List<Student> Students;
-			DataSource.Students.Sort();
-	}
+		}
+		
 		
 	}
 
@@ -2414,5 +2424,8 @@ ArrayList students = new ArrayList();
             string otherStudent = other.LastName + other.FirstName;
             return (String.Compare(thisStudent, otherStudent));
         }
+
+		public static List<Student> Students;
+			DataSource.Students.Sort();
 
  */
