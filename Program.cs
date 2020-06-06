@@ -27,49 +27,25 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-		// TODO: Exercise 3: Task 1a: Define LogonFailed event
-		public event EventHandler LogonFailed;
-
-#endregion
-
-		#region Logon Validation
-
-		// TODO: Exercise 3: Task 1b: Validate the username and password against the Users collection in the MainWindow window
-		private void Logon_Click(object sender, RoutedEventArgs e)
+		private void Refresh()
 		{
-			var teacher = (from Teacher t in DataSource.Teachers
-						   where String.Compare(t.UserName, username.Text) == 0 && String.Compare(t.Password, password.Password) == 0
-						   select t).FirstOrDefault();
-
-			if (!String.IsNullOrEmpty(teacher.UserName))
+			switch (SessionContext.UserRole)
 			{
-				SessionContext.UserID = teacher.TeacherID;
-				SessionContext.UserRole = Role.Teacher;
-				SessionContext.UserName = teacher.UserName;
-				SessionContext.CurrentTeacher = teacher;
+				case Role.Student:
+					// TODO: Exercise 3: Task 2c: Display the student name in the banner at the top of the page
 
-				LogonSuccess(this, null);
-				return;
+					txtName.Text = String.Format("Welcome {0} {1} !", SessionContext.CurrentStudent.FirstName, SessionContext.CurrentStudent.LastName);
+					// Display the details for the current student
+					GotoStudentProfile();
+					break;
+
+				case Role.Teacher:
+					// TODO: Exercise 3: Task 2d: Display the teacher name in the banner at the top of the page
+					txtName.Text = String.Format("Welcome {0} {1} !", SessionContext.CurrentTeacher.FirstName, SessionContext.CurrentTeacher.LastName);
+					// Display the list of students for the teacher
+					GotoStudentsPage();
+					break;
 			}
-			else
-			{
-				var student = (from Student s in DataSource.Students
-							   where String.Compare(s.UserName, username.Text) == 0 && String.Compare(s.Password, password.Password) == 0
-							   select s).FirstOrDefault();
-
-				if (!String.IsNullOrEmpty(student.UserName))
-				{
-					SessionContext.UserID = student.StudentID;
-					SessionContext.UserRole = Role.Student;
-					SessionContext.UserName = student.UserName;
-					SessionContext.CurrentStudent = student;
-
-					LogonSuccess(this, null);
-					return;
-				}
-			}
-
-			LogonFailed(this, null);
 		}
 	}
 
@@ -2012,5 +1988,50 @@ public class Program
 		public string Class { get; set; }
 	  
 	}
+
+  // TODO: Exercise 3: Task 1a: Define LogonFailed event
+		public event EventHandler LogonFailed;
+
+		#endregion
+
+		#region Logon Validation
+
+		// TODO: Exercise 3: Task 1b: Validate the username and password against the Users collection in the MainWindow window
+		private void Logon_Click(object sender, RoutedEventArgs e)
+		{
+			var teacher = (from Teacher t in DataSource.Teachers
+						   where String.Compare(t.UserName, username.Text) == 0 && String.Compare(t.Password, password.Password) == 0
+						   select t).FirstOrDefault();
+
+			if(!String.IsNullOrEmpty(teacher.UserName))
+			{
+				SessionContext.UserID = teacher.TeacherID;
+				SessionContext.UserRole = Role.Teacher;
+				SessionContext.UserName = teacher.UserName;
+				SessionContext.CurrentTeacher = teacher;
+
+				LogonSuccess(this, null);
+				return;
+			}
+			else
+			{
+				var student = (from Student s in DataSource.Students
+							   where String.Compare(s.UserName, username.Text) == 0 && String.Compare(s.Password, password.Password) == 0
+							   select s).FirstOrDefault();
+
+				if(!String.IsNullOrEmpty(student.UserName))
+				{
+					SessionContext.UserID = student.StudentID;
+					SessionContext.UserRole = Role.Student;
+					SessionContext.UserName = student.UserName;
+					SessionContext.CurrentStudent = student;
+
+					LogonSuccess(this, null);
+					return;
+				}
+			}
+
+			LogonFailed(this, null);
+		}
  */
 
