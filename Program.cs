@@ -30,13 +30,10 @@ namespace AshtonBro.CodeBlog._2
 		static void Main(string[] args)
 		{
 
-			public int CompareTo(Student other)
-			{
-				string thisStudent = LastName + FirstName;
-				string otherStudent = other.LastName + other.FirstName;
-				return (String.Compare(thisStudent, otherStudent));
-			}
-		}
+
+			public static List<Student> Students;
+			DataSource.Students.Sort();
+	}
 		
 	}
 
@@ -2409,6 +2406,13 @@ ArrayList students = new ArrayList();
                 }
             }
         
+        }
+
+		  public int CompareTo(Student other)
+        {
+            string thisStudent = LastName + FirstName;
+            string otherStudent = other.LastName + other.FirstName;
+            return (String.Compare(thisStudent, otherStudent));
         }
 
  */
