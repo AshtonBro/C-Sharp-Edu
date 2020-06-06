@@ -27,14 +27,47 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-	
+		static void Main(string[] args)
+		{
+			List<int> list = new List<int>();
 
+            for (int i = 0; i < 50; i += 2)
+            {
+				list.Add(i);
+            }
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                Console.WriteLine(list[i]);
+            }
+			Console.ReadLine();
+		}
+		
 	}
 
 }
 
 /*
  
+<------------------------------------------------Циклы C# (for, foreach, while)------------------------------------->
+
+   for (int i = 0; i < 100; i += 5)
+            {
+                Console.WriteLine(i);
+            }
+			for (; ; ) // бесконечный цикл
+			{
+			}
+
+			for (int i = 10 ; ; i += 5)
+			{
+				
+			}
+			Console.ReadLine();
+
+
+
+
 	public class Age
 		{
 			public int Id { get; set; }
@@ -2042,43 +2075,70 @@ public class Program
 		   MessageBox.Show("The " + logonPage.username.Text + " must try again", "Logon Faild", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 ArrayList students = new ArrayList();
-            var teacher = SessionContext.CurrentTeacher.TeacherID;
+			var teacher = SessionContext.CurrentTeacher.TeacherID;
 
-            foreach (Student student in DataSource.Students)
-            {
-                if(student.TeacherID == teacher)
-                {
-                    students.Add(student);
-                }
-            }
+			foreach (Student student in DataSource.Students)
+			{
+				if(student.TeacherID == teacher)
+				{
+					students.Add(student);
+				}
+			}
 
-            list.ItemsSource = students;
+			list.ItemsSource = students;
 
-            txtClass.Text = String.Format("Class {0}", SessionContext.CurrentTeacher.Class);
+			txtClass.Text = String.Format("Class {0}", SessionContext.CurrentTeacher.Class);
 
 
 
 		#region Event Members
-        public delegate void StudentSelectionHandler(object sender, StudentEventArgs e);
-        public event StudentSelectionHandler StudentSelected;        
-        #endregion
+		public delegate void StudentSelectionHandler(object sender, StudentEventArgs e);
+		public event StudentSelectionHandler StudentSelected;        
+		#endregion
 
-        #region Event Handlers
+		#region Event Handlers
 
-        // TODO: Exercise 3: Task 3b: If the user clicks on a student, display the details for that student
-        private void Student_Click(object sender, RoutedEventArgs e)
-        {
-            Button studentClicked = sender as Button;
-            if(studentClicked != null)
-            {
-                int studentInd = (int)studentClicked.Tag;
-                if(StudentSelected != null)
-                {
-                    Student student = (Student)studentClicked.DataContext;
-                    StudentSelected(sender, new StudentEventArgs(student));
-                }
-            }
-            
-        }
-        #endregion
+		// TODO: Exercise 3: Task 3b: If the user clicks on a student, display the details for that student
+		private void Student_Click(object sender, RoutedEventArgs e)
+		{
+			Button studentClicked = sender as Button;
+			if(studentClicked != null)
+			{
+				int studentInd = (int)studentClicked.Tag;
+				if(StudentSelected != null)
+				{
+					Student student = (Student)studentClicked.DataContext;
+					StudentSelected(sender, new StudentEventArgs(student));
+				}
+			}
+			
+		}
+		#endregion
+
+
+		  // TODO: Exercise 3: Task 4a: Display the details for the current student (held in SessionContext.CurrentStudent) 
+			studentName.DataContext = SessionContext.CurrentStudent;
+			// TODO: Exercise 3: Task 4d: Create a list of the grades for the student and display this list on the page
+			if (SessionContext.UserRole == Role.Student)
+			{
+				btnBack.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+				btnBack.Visibility = Visibility.Visible;
+			}
+
+			// find the grades
+			ArrayList grades = new ArrayList();
+			foreach (Grade grade in DataSource.Grades)
+			{
+				if(grade.StudentID == SessionContext.CurrentStudent.StudentID)
+				{
+					grades.Add(grade);
+				}
+			}
+
+			studentGrades.ItemsSource = grades;
+
+
  */
