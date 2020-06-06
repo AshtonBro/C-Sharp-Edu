@@ -27,126 +27,55 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-		// Types of user
-		public enum Role { Teacher, Student };
-
-		// WPF Databinding requires properties
-
-		// TODO: Exercise 1: Task 1a: Convert Grade into a class and define constructors
-		public class Grade
+		static void Main(string[] args)
 		{
-			public int StudentID { get; set; }
-			public string AssessmentDate { get; set; }
-			public string SubjectName { get; set; }
-			public string Assessment { get; set; }
-			public string Comments { get; set; }
+			// Find the user in the list of possible users - first check whether the user is a Teacher
+			// TODO: Exercise 1: Task 3a: Use the VerifyPassword method of the Teacher class to verify the teacher's password
+			var teacher = (from Teacher t in DataSource.Teachers
+						   where String.Compare(t.UserName, username.Text) == 0
+						   && t.VerifyPassword(password.Password)
+						   select t).FirstOrDefault();
 
-			public Grade(int studentID, string assessmentDate, string subjectName, string assessment, string сomments)
+			// If the UserName of the user retrieved by using LINQ is non-empty then the user is a teacher
+			// TODO: Exercise 1: Task 3b: Check whether teacher is null before examining the UserName property
+			if (teacher != null && !String.IsNullOrEmpty(teacher.UserName))
 			{
-				this.StudentID = studentID;
-				this.AssessmentDate = assessmentDate;
-				this.SubjectName = subjectName;
-				this.Assessment = assessment;
-				this.Comments = сomments;
+				// Save the UserID and Role (teacher or student) and UserName in the global context
+				SessionContext.UserID = teacher.TeacherID;
+				SessionContext.UserRole = Role.Teacher;
+				SessionContext.UserName = teacher.UserName;
+				SessionContext.CurrentTeacher = teacher;
+
+				// Raise the LogonSuccess event and finish
+				LogonSuccess(this, null);
+				return;
 			}
-
-			public Grade()
+			// If the user is not a teacher, check whether the username and password match those of a student
+			else
 			{
-				StudentID = 0;
-				AssessmentDate = DateTime.Now.ToString("d");
-				SubjectName = "Math";
-				Assessment = "A-";
-				Comments = "Good";
-			}
+				// TODO: Exercise 1: Task 3c: Use the VerifyPassword method of the Student class to verify the student's password
+				var student = (from Student s in DataSource.Students
+							   where String.Compare(s.UserName, username.Text) == 0
+							   && s.VerifyPassword(password.Password)
+							   select s).FirstOrDefault();
 
-		}
-
-		// TODO: Exercise 1: Task 2a: Convert Student into a class, make the password property write-only, add the VerifyPassword method, and define constructors
-		public class Student
-		{
-			public int StudentID { get; set; }
-			public string UserName { get; set; }
-			private string _password = " ";
-			public string Password
-			{
-				set
+				// If the UserName of the user retrieved by using LINQ is non-empty then the user is a student
+				// TODO: Exercise 1: Task 3d: Check whether student is null before examining the UserName property
+				if (student != null && !String.IsNullOrEmpty(student.UserName))
 				{
-					_password = value;
+					// Save the details of the student in the global context
+					SessionContext.UserID = student.StudentID;
+					SessionContext.UserRole = Role.Student;
+					SessionContext.UserName = student.UserName;
+					SessionContext.CurrentStudent = student;
+
+					// Raise the LogonSuccess event and finish
+					LogonSuccess(this, null);
+					return;
 				}
-			}
 
-			public bool VerifyPassword(string pass)
-			{
-				return (String.Compare(pass, _password) == 0);
 			}
-			public int TeacherID { get; set; }
-			public string FirstName { get; set; }
-			public string LastName { get; set; }
-
-			public Student(int studentID, string userName, string password, int teacherID, string firstName, string lastName)
-			{
-				this.StudentID = studentID;
-				this.UserName = userName;
-				this.Password = password;
-				this.TeacherID = teacherID;
-				this.FirstName = firstName;
-				this.LastName = lastName;
-			}
-
-			public Student()
-			{
-				StudentID = 0;
-				UserName = String.Empty;
-				Password = String.Empty;
-				TeacherID = 0;
-				FirstName = String.Empty;
-				LastName = String.Empty;
-			}
-		}
-
-		// TODO: Exercise 1: Task 2b: Convert Teacher into a class, make the password property write-only, add the VerifyPassword method, and define constructors
-		public class Teacher
-		{
-			public int TeacherID { get; set; }
-			public string UserName { get; set; }
-			private string _password = " ";
-			public string Password
-			{
-				set
-				{
-					_password = value;
-				}
-			}
-
-			public bool VerifyPassword(string pass)
-			{
-				return (String.Compare(pass, _password) == 0);
-			}
-			public string FirstName { get; set; }
-			public string LastName { get; set; }
-			public string Class { get; set; }
-
-			public Teacher(int teacherID, string userName, string password, string firstName, string lastName, string _class)
-			{
-				this.TeacherID = teacherID;
-				this.UserName = userName;
-				this.Password = password;
-				this.FirstName = firstName;
-				this.LastName = lastName;
-				this.Class = _class;
-			}
-
-			public Teacher()
-			{
-				TeacherID = 0;
-				UserName = String.Empty;
-				Password = String.Empty;
-				FirstName = String.Empty;
-				LastName = String.Empty;
-				Class = String.Empty;
-			}
-		}
-
+		
 	}
 
 }
@@ -2297,6 +2226,126 @@ ArrayList students = new ArrayList();
 			}
 
 			studentGrades.ItemsSource = grades;
+
+		 // Types of user
+    public enum Role { Teacher, Student };
+
+    // WPF Databinding requires properties
+
+    // TODO: Exercise 1: Task 1a: Convert Grade into a class and define constructors
+    public class Grade
+    {
+        public int StudentID { get; set; }
+        public string AssessmentDate { get; set; }
+        public string SubjectName { get; set; }
+        public string Assessment { get; set; }
+        public string Comments { get; set; }
+
+        public Grade(int studentID, string assessmentDate, string subjectName, string assessment, string сomments)
+        {
+            this.StudentID = studentID;
+            this.AssessmentDate = assessmentDate;
+            this.SubjectName = subjectName;
+            this.Assessment = assessment;
+            this.Comments = сomments;
+        }
+
+        public Grade()
+        {
+            StudentID = 0;
+            AssessmentDate = DateTime.Now.ToString("d");
+            SubjectName = "Math";
+            Assessment = "A-";
+            Comments = "Good";
+        }
+
+    }
+
+    // TODO: Exercise 1: Task 2a: Convert Student into a class, make the password property write-only, add the VerifyPassword method, and define constructors
+    public class Student
+    {
+        public int StudentID { get; set; }
+        public string UserName { get; set; }
+        private string _password = " ";
+        public string Password
+        {
+            set
+            {
+                _password = value;
+            }
+        }
+
+        public bool VerifyPassword(string pass)
+        {
+            return (String.Compare(pass, _password) == 0);
+        }
+        public int TeacherID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        public Student(int studentID, string userName, string password, int teacherID, string firstName, string lastName)
+        {
+            this.StudentID = studentID;
+            this.UserName = userName;
+            this.Password = password;
+            this.TeacherID = teacherID;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+        }
+
+        public Student()
+        {
+            StudentID = 0;
+            UserName = String.Empty;
+            Password = String.Empty;
+            TeacherID = 0;
+            FirstName = String.Empty;
+            LastName = String.Empty;
+        }
+    }
+
+    // TODO: Exercise 1: Task 2b: Convert Teacher into a class, make the password property write-only, add the VerifyPassword method, and define constructors
+    public class Teacher
+    {
+        public int TeacherID { get; set; }
+        public string UserName { get; set; }
+        private string _password = " ";
+        public string Password
+        {
+            set
+            {
+                _password = value;
+            }
+        }
+
+        public bool VerifyPassword(string pass)
+        {
+            return (String.Compare(pass, _password) == 0);
+        }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Class { get; set; }
+       
+        public Teacher(int teacherID, string userName, string password, string firstName, string lastName, string _class)
+        {
+            this.TeacherID = teacherID;
+            this.UserName = userName;
+            this.Password = password;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Class = _class;
+        }
+
+        public Teacher()
+        {
+            TeacherID = 0;
+            UserName = String.Empty;
+            Password = String.Empty;
+            FirstName = String.Empty;
+            LastName = String.Empty;
+            Class = String.Empty;
+        }
+    }
 
 
  */
