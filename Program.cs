@@ -27,25 +27,9 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-		private void Refresh()
+		private void Logon_Failed(object sender, EventArgs e)
 		{
-			switch (SessionContext.UserRole)
-			{
-				case Role.Student:
-					// TODO: Exercise 3: Task 2c: Display the student name in the banner at the top of the page
-
-					txtName.Text = String.Format("Welcome {0} {1} !", SessionContext.CurrentStudent.FirstName, SessionContext.CurrentStudent.LastName);
-					// Display the details for the current student
-					GotoStudentProfile();
-					break;
-
-				case Role.Teacher:
-					// TODO: Exercise 3: Task 2d: Display the teacher name in the banner at the top of the page
-					txtName.Text = String.Format("Welcome {0} {1} !", SessionContext.CurrentTeacher.FirstName, SessionContext.CurrentTeacher.LastName);
-					// Display the list of students for the teacher
-					GotoStudentsPage();
-					break;
-			}
+			MessageBox.Show("The " + logonPage.username.Text + " must try again", "Logon Faild", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 	}
 
@@ -2032,6 +2016,27 @@ public class Program
 			}
 
 			LogonFailed(this, null);
+		}
+
+private void Refresh()
+		{
+			switch (SessionContext.UserRole)
+			{
+				case Role.Student:
+					// TODO: Exercise 3: Task 2c: Display the student name in the banner at the top of the page
+
+					txtName.Text = String.Format("Welcome {0} {1} !", SessionContext.CurrentStudent.FirstName, SessionContext.CurrentStudent.LastName);
+					// Display the details for the current student
+					GotoStudentProfile();
+					break;
+
+				case Role.Teacher:
+					// TODO: Exercise 3: Task 2d: Display the teacher name in the banner at the top of the page
+					txtName.Text = String.Format("Welcome {0} {1} !", SessionContext.CurrentTeacher.FirstName, SessionContext.CurrentTeacher.LastName);
+					// Display the list of students for the teacher
+					GotoStudentsPage();                    
+					break;
+			}
 		}
  */
 
