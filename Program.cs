@@ -27,44 +27,49 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
-		// Types of user
-		public enum Role { Teacher, Student };
+		// TODO: Exercise 3: Task 1a: Define LogonFailed event
+		public event EventHandler LogonFailed;
 
-		// TODO: Exercise 2: Task 1a: Create the Grade struct
-		public struct Grade
+#endregion
+
+		#region Logon Validation
+
+		// TODO: Exercise 3: Task 1b: Validate the username and password against the Users collection in the MainWindow window
+		private void Logon_Click(object sender, RoutedEventArgs e)
 		{
-			public int StudentID { get; set; }
-			public string AssessmentDate { get; set; }
-			public string SubjectName { get; set; }
+			var teacher = (from Teacher t in DataSource.Teachers
+						   where String.Compare(t.UserName, username.Text) == 0 && String.Compare(t.Password, password.Password) == 0
+						   select t).FirstOrDefault();
 
-			public string Assessment { get; set; }
-			public string Comments { get; set; }
-		}
+			if (!String.IsNullOrEmpty(teacher.UserName))
+			{
+				SessionContext.UserID = teacher.TeacherID;
+				SessionContext.UserRole = Role.Teacher;
+				SessionContext.UserName = teacher.UserName;
+				SessionContext.CurrentTeacher = teacher;
 
-		// TODO: Exercise 2: Task 1b: Create the Student struct
-		public struct Student
-		{
-			public int StudentID { get; set; }
-			public string UserName { get; set; }
-			public string Password { get; set; }
-			public int TeacherID { get; set; }
-			public string FirstName { get; set; }
-			public string LastName { get; set; }
+				LogonSuccess(this, null);
+				return;
+			}
+			else
+			{
+				var student = (from Student s in DataSource.Students
+							   where String.Compare(s.UserName, username.Text) == 0 && String.Compare(s.Password, password.Password) == 0
+							   select s).FirstOrDefault();
 
-		}
+				if (!String.IsNullOrEmpty(student.UserName))
+				{
+					SessionContext.UserID = student.StudentID;
+					SessionContext.UserRole = Role.Student;
+					SessionContext.UserName = student.UserName;
+					SessionContext.CurrentStudent = student;
 
+					LogonSuccess(this, null);
+					return;
+				}
+			}
 
-		// TODO: Exercise 2: Task 1c: Create the Teacher struct
-
-		public struct Teacher
-		{
-			public int TeacherID { get; set; }
-			public string UserName { get; set; }
-			public string Password { get; set; }
-			public string FirstName { get; set; }
-			public string LastName { get; set; }
-			public string Class { get; set; }
-
+			LogonFailed(this, null);
 		}
 	}
 
@@ -1969,43 +1974,43 @@ public class Program
 	}
 
 // Types of user
-    public enum Role { Teacher, Student };
+	public enum Role { Teacher, Student };
 
-    // TODO: Exercise 2: Task 1a: Create the Grade struct
-    public struct Grade
-    {
-        public int StudentID { get; set; }
-        public string AssessmentDate { get; set; }
-        public string SubjectName { get; set; }
+	// TODO: Exercise 2: Task 1a: Create the Grade struct
+	public struct Grade
+	{
+		public int StudentID { get; set; }
+		public string AssessmentDate { get; set; }
+		public string SubjectName { get; set; }
 
-        public string Assessment { get; set; }
-        public string Comments { get; set; }
-    }
+		public string Assessment { get; set; }
+		public string Comments { get; set; }
+	}
 
-    // TODO: Exercise 2: Task 1b: Create the Student struct
-    public struct Student
-    {
-        public int StudentID { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public int TeacherID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+	// TODO: Exercise 2: Task 1b: Create the Student struct
+	public struct Student
+	{
+		public int StudentID { get; set; }
+		public string UserName { get; set; }
+		public string Password { get; set; }
+		public int TeacherID { get; set; }
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
 
-    }
+	}
 
 
-    // TODO: Exercise 2: Task 1c: Create the Teacher struct
+	// TODO: Exercise 2: Task 1c: Create the Teacher struct
 
-    public struct Teacher
-    {
-        public int TeacherID { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Class { get; set; }
-      
-    }
+	public struct Teacher
+	{
+		public int TeacherID { get; set; }
+		public string UserName { get; set; }
+		public string Password { get; set; }
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public string Class { get; set; }
+	  
+	}
  */
 
