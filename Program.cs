@@ -29,20 +29,12 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-			public void AddGrade(Grade grade)
-			{
-				if (grade.StudentID == 0)
-				{
-					grade.StudentID = StudentID;
-				}
-				else
-				{
-					throw new ArgumentException("Grade", "Grade to a different Student");
-				}
-
-			}
-
-		}
+				   // Инкапсуляция
+		public // открытый, публичный
+		internal // открытый в передлах проекта
+		protected // защищенный (может пользоватся наследник)
+		private // закрытый (принадлежит конкретно этому классу)
+	}
 		
 		
 	}
@@ -50,7 +42,10 @@ namespace AshtonBro.CodeBlog._2
 }
 
 /*
- 
+<-----------------------------------------Объектно-ориентированное программирование (ООП) в C#. Инкапсуляция, наследование, полиморфизм #8---------------------------------------->
+
+
+
 <------------------------------------------------Циклы C# (for, foreach, while)------------------------------------->
 
 		int[,] array = new int[10, 10];
@@ -2427,5 +2422,18 @@ ArrayList students = new ArrayList();
 
 		public static List<Student> Students;
 			DataSource.Students.Sort();
+
+	public void AddGrade(Grade grade)
+        {
+            if(grade.StudentID == 0)
+            {
+                grade.StudentID = StudentID;
+            }
+            else
+            {
+                throw new ArgumentException("Grade", "Grade to a different Student");
+            }
+
+        }
 
  */
