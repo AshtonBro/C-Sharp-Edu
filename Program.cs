@@ -22,6 +22,7 @@ using System.CodeDom;
 using Microsoft.CSharp;
 using System.Security.Cryptography;
 using Microsoft.VisualBasic;
+using AshtonBro.CodeBlog._1;
 
 namespace AshtonBro.CodeBlog._2
 {
@@ -29,19 +30,33 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-			public void AddGrade(Grade grade)
-			{
-				if (grade.StudentID == 0)
-				{
-					grade.StudentID = StudentID;
-				}
-				else
-				{
-					throw new ArgumentException("Grade", "Grade to a different Student");
-				}
+			int i = 0;
+			Int32 j = new Int32();
+			
 
-			}
+			Person person = new Person();
+			person.FirstName = "Volodja";
+			person.SecondName = "Gavrilov";
 
+			Person person1 = new Person();
+			person1.FirstName = "Ivan";
+			person1.SecondName = "Ivanov";
+
+			Doctor doctor = new Doctor();
+			doctor.FirstName = "Ross";
+			doctor.Profession = "Serjun";
+
+			Console.WriteLine(doctor.FirstName);
+            Console.WriteLine(doctor.Profession);
+			// полиморфизм
+			Person p = doctor;
+			Console.WriteLine(p.FirstName);
+			Doctor dd = (Doctor)p;
+			
+            Console.WriteLine(dd.FirstName);
+			Console.WriteLine(dd.Profession);
+			Console.ReadLine();
+			
 		}
 		
 		
