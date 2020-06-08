@@ -72,10 +72,7 @@ namespace AshtonBro.CodeBlog._2
 
 		}
 	}
-		
-		
-	}
-
+	
 }
 
 /*
