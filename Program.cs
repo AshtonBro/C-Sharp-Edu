@@ -27,13 +27,19 @@ namespace AshtonBro.CodeBlog._2
 {
 	public class Program
 	{
+		class Person
+		{
+			public string FirstName;
+			public string SecondName;
+
+			private decimal Money;
+
+		}
+
 		static void Main(string[] args)
 		{
-				   // Инкапсуляция
-		public // открытый, публичный
-		internal // открытый в передлах проекта
-		protected // защищенный (может пользоватся наследник)
-		private // закрытый (принадлежит конкретно этому классу)
+
+		}
 	}
 		
 		
