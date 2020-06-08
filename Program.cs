@@ -36,6 +36,11 @@ namespace AshtonBro.CodeBlog._2
 
 		}
 
+		class Doctor : Person
+		{
+			public string Profession;
+		}
+
 		static void Main(string[] args)
 		{
 
