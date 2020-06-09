@@ -2,40 +2,53 @@
 
 namespace AshtonBro.CodeBlog._2
 {
+
 	public class Person
 	{
-		public string Name { get;  set; }
-		public string SecondName { get; set; }
-
-		// Вычисляемые свойства, свойство которое зависит от других свойств
-		public string FullName
-        {
-			get
-            {
-				return $"{SecondName} {Name}";
-            }
-        }
-
-		public string ShortName
-        {
-			get
+		public string Name { get; private set; }
+		public string SecondName { get; private set; }
+		public int Age { get; set; }
+		public Person(string name, string secondName, int age)
+		{
+			if (String.IsNullOrWhiteSpace(name) || name.Length < 2)
 			{
-				return $"{SecondName} {Name.Substring(0, 1)}.";
+				throw new Exception(String.Format("Incorrect Name"));
+			}
+			else
+			{
+				Name = name;
+			}
+
+			if (String.IsNullOrWhiteSpace(secondName) || secondName.Length < 2)
+			{
+				throw new Exception(String.Format("Incorrect Name"));
+			}
+			else
+			{
+				SecondName = secondName;
+			}
+
+			if (age < 0 || age > 120)
+            {
+				throw new Exception(String.Format("Age don't must be lower than 0"));
             }
+			else
+            {
+				Age = age;
+            }
+			
         }
+		
 	}
+
 	public class Program
 	{
-
 		static void Main(string[] args)
 		{
-			Person person = new Person();
-			person.Name = "Bob";
-			person.SecondName = "Brown";
+			Console.ForegroundColor = ConsoleColor.Green;
+			Person person = new Person("Bob", "Brown", 450);
 			
-            Console.WriteLine(person.Name);
-			Console.WriteLine(person.FullName);
-			Console.WriteLine(person.ShortName);
+            Console.WriteLine(String.Join(" ", person.Name, person.SecondName, person.Age));
 			Console.ReadLine();
 		}
 	}
@@ -43,8 +56,61 @@ namespace AshtonBro.CodeBlog._2
 }
 
 /*
- <----------------------------Классы (class), конструкторы (constructor) и свойства (property)------------------------------------------------->
+<----------------------------Классы (class), конструкторы (constructor) и свойства (property)------------------------------------------------->
 <-----------------------------------------Объектно-ориентированное программирование (ООП) в C#. Инкапсуляция, наследование, полиморфизм #8---------------------------------------->
+	Ловим ошибки перед записью в переменную
+	public class Person
+	{
+		public string Name { get; private set; }
+		public string SecondName { get; private set; }
+		public int Age { get; set; }
+		public Person(string name, string secondName, int age)
+		{
+			if (String.IsNullOrWhiteSpace(name) || name.Length < 2)
+			{
+				throw new Exception(String.Format("Incorrect Name"));
+			}
+			else
+			{
+				Name = name;
+			}
+
+			if (String.IsNullOrWhiteSpace(secondName) || secondName.Length < 2)
+			{
+				throw new Exception(String.Format("Incorrect Name"));
+			}
+			else
+			{
+				SecondName = secondName;
+			}
+
+			if (age < 0 || age > 120)
+            {
+				throw new Exception(String.Format("Age don't must be lower than 0"));
+            }
+			else
+            {
+				Age = age;
+            }
+			
+        }
+		
+	}
+
+	public class Program
+	{
+		static void Main(string[] args)
+		{
+			Console.ForegroundColor = ConsoleColor.Green;
+			Person person = new Person("Bob", "Brown", 450);
+			
+            Console.WriteLine(String.Join(" ", person.Name, person.SecondName, person.Age));
+			Console.ReadLine();
+		}
+	}
+
+
+	public string Name { get; set; } = "Tom";
 
 	// Интерпаляция строк 
 	$"{SecondName} {Name.Substring(0, 1)}.";
