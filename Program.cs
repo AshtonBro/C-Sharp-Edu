@@ -1,59 +1,41 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Windows;
-using System.Security.Cryptography.X509Certificates;
-using System.Collections;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml.Serialization;
-using System.Xml;
-using System.Runtime.Remoting;
-using System.Net;
-using System.ServiceModel;
-using System.Threading;
-using System.Runtime.InteropServices;
-using System.Reflection;
-using System.CodeDom.Compiler;
-using System.CodeDom;
-using Microsoft.CSharp;
-using System.Security.Cryptography;
-using Microsoft.VisualBasic;
-using AshtonBro.CodeBlog._1;
 
 namespace AshtonBro.CodeBlog._2
 {
 	public class Person
 	{
-		public string SecondName { get; set; } // секращенное обьявление защищенной переменной
-		public string TherdName { get; protected set; } // protected set возможность записи для наследников, но для других классов нет доступа
-		public string FourName { get; private set; }
-		private string _name;
-		public string Name
-		{
+		public string Name { get;  set; }
+		public string SecondName { get; set; }
+
+		// Вычисляемые свойства, свойство которое зависит от других свойств
+		public string FullName
+        {
+			get
+            {
+				return $"{SecondName} {Name}";
+            }
+        }
+
+		public string ShortName
+        {
 			get
 			{
-				return _name;
-			}
-			set
-			{
-				_name = value;
-
-			}
-		}
+				return $"{SecondName} {Name.Substring(0, 1)}.";
+            }
+        }
 	}
-		public class Program
+	public class Program
 	{
 
 		static void Main(string[] args)
 		{
 			Person person = new Person();
 			person.Name = "Bob";
-
+			person.SecondName = "Brown";
+			
             Console.WriteLine(person.Name);
+			Console.WriteLine(person.FullName);
+			Console.WriteLine(person.ShortName);
 			Console.ReadLine();
 		}
 	}
@@ -63,6 +45,26 @@ namespace AshtonBro.CodeBlog._2
 /*
  <----------------------------Классы (class), конструкторы (constructor) и свойства (property)------------------------------------------------->
 <-----------------------------------------Объектно-ориентированное программирование (ООП) в C#. Инкапсуляция, наследование, полиморфизм #8---------------------------------------->
+
+	// Интерпаляция строк 
+	$"{SecondName} {Name.Substring(0, 1)}.";
+
+	// Вычисляемые свойства, свойство которое зависит от других свойств
+		public string FullName
+        {
+			get
+            {
+				return $"{SecondName} {Name}";
+            }
+        }
+
+		public string ShortName
+        {
+			get
+			{
+				return $"{SecondName} {Name.Substring(0, 1)}.";
+            }
+        }
 
 // ещё сокращаем
 	public string SecondName { get; set; }
