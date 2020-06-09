@@ -22,6 +22,7 @@ using System.CodeDom;
 using Microsoft.CSharp;
 using System.Security.Cryptography;
 using Microsoft.VisualBasic;
+using AshtonBro.CodeBlog._1;
 
 namespace AshtonBro.CodeBlog._2
 {
@@ -30,14 +31,40 @@ namespace AshtonBro.CodeBlog._2
 		
 		static void Main(string[] args)
 		{
-		
+			Person person = new Person();
+			person.SetName("Bob");
+
+            Console.WriteLine(person.GetName());
+			Console.ReadLine();
 		}
 	}
 	
 }
 
 /*
+ <----------------------------Классы (class), конструкторы (constructor) и свойства (property)------------------------------------------------->
 <-----------------------------------------Объектно-ориентированное программирование (ООП) в C#. Инкапсуляция, наследование, полиморфизм #8---------------------------------------->
+
+ private string _name;
+        public string Name
+        { get
+            {
+                return _name;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    _name = value;
+                }
+                else
+                {
+                    throw new ArgumentNullException("The name isn't can empty");
+                }
+
+            }
+        }
+
 
 class Person
 		{
