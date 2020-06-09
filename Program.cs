@@ -1,55 +1,56 @@
 ﻿using System;
+using System.Drawing;
 
 namespace AshtonBro.CodeBlog._2
 {
-
-	public class Person
+	public class Car
 	{
-		public string Name { get; private set; }
-		public string SecondName { get; private set; }
-		public int Age { get; set; }
-		public Person(string name, string secondName, int age)
-		{
-			if (String.IsNullOrWhiteSpace(name) || name.Length < 2)
-			{
-				throw new Exception(String.Format("Incorrect Name"));
-			}
-			else
-			{
-				Name = name;
-			}
+		public string Model { get; set; }
+		public string Color { get; set; }
+		public string Engine { get; set; }
+		public double EnginePower { get; set; }
 
-			if (String.IsNullOrWhiteSpace(secondName) || secondName.Length < 2)
+		public Car(string model, string color, string engine, double enginepower)
+        {
+			if (!String.IsNullOrEmpty(model) && !String.IsNullOrEmpty(color) && !String.IsNullOrEmpty(engine))
 			{
-				throw new Exception(String.Format("Incorrect Name"));
+				if (model.Length < 20 && color.Length < 20 && engine.Length < 20)
+				{
+					Model = model;
+					Color = color;
+					Engine = engine;
+				}
+				else throw new Exception("String must be lower than 20");
 			}
-			else
-			{
-				SecondName = secondName;
-			}
+			else throw new Exception("String can't be null or Empty");
 
-			if (age < 0 || age > 120)
-            {
-				throw new Exception(String.Format("Age don't must be lower than 0"));
-            }
-			else
-            {
-				Age = age;
-            }
-			
+			if (enginepower < 250 && enginepower > 0)
+			{
+				EnginePower = enginepower;
+			}
+			else throw new Exception("This is Urban transpor, is can't be too powerful");
+
         }
-		
 	}
+
+	public class CheapTunnig : Car
+    {
+		public string Marka { get; set; }
+        public CarAdd(string model, string color, string engine, double enginepower)
+			: base(model, color, engine, enginepower)
+		{
+
+			
+		}
+
+	}
+
 
 	public class Program
 	{
 		static void Main(string[] args)
 		{
-			Console.ForegroundColor = ConsoleColor.Green;
-			Person person = new Person("Bob", "Brown", 450);
-			
-            Console.WriteLine(String.Join(" ", person.Name, person.SecondName, person.Age));
-			Console.ReadLine();
+		
 		}
 	}
 	
@@ -58,6 +59,11 @@ namespace AshtonBro.CodeBlog._2
 /*
 <----------------------------Классы (class), конструкторы (constructor) и свойства (property)------------------------------------------------->
 <-----------------------------------------Объектно-ориентированное программирование (ООП) в C#. Инкапсуляция, наследование, полиморфизм #8---------------------------------------->
+	// Домашнее задание
+	// выбрать предметную область, товар, человек, животные и тд
+	// Создать классы со свойствами из выбранной предметно области
+	// Задать для них конструкторы
+
 	Ловим ошибки перед записью в переменную
 	public class Person
 	{
