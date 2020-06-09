@@ -25,15 +25,56 @@ using Microsoft.VisualBasic;
 
 namespace AshtonBro.CodeBlog._2
 {
+	public class Person
+	{
+		public string Name { get; private set; }
+		public string SecondName { get; private set; }
+		public int Age { get; set; }
+		public Person(string name, string secondName, int age)
+		{
+			if (String.IsNullOrWhiteSpace(name) || name.Length < 2)
+			{
+				throw new Exception(String.Format("Incorrect Name"));
+			}
+			else
+			{
+				Name = name;
+			}
+
+			if (String.IsNullOrWhiteSpace(secondName) || secondName.Length < 2)
+			{
+				throw new Exception(String.Format("Incorrect Name"));
+			}
+			else
+			{
+				SecondName = secondName;
+			}
+
+			if (age < 0 || age > 120)
+			{
+				throw new Exception(String.Format("Age don't must be lower than 0"));
+			}
+			else
+			{
+				Age = age;
+			}
+
+		}
+
+	}
+
 	public class Program
 	{
-		
 		static void Main(string[] args)
 		{
-		
+			Console.ForegroundColor = ConsoleColor.Green;
+			Person person = new Person("Bob", "Brown", 450);
+
+			Console.WriteLine(String.Join(" ", person.Name, person.SecondName, person.Age));
+			Console.ReadLine();
 		}
 	}
-	
+
 }
 
 /*
