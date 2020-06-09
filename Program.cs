@@ -26,15 +26,34 @@ using AshtonBro.CodeBlog._1;
 
 namespace AshtonBro.CodeBlog._2
 {
-	public class Program
+	public class Person
 	{
-		
+		public string SecondName { get; set; } // секращенное обьявление защищенной переменной
+		public string TherdName { get; protected set; } // protected set возможность записи для наследников, но для других классов нет доступа
+		public string FourName { get; private set; }
+		private string _name;
+		public string Name
+		{
+			get
+			{
+				return _name;
+			}
+			set
+			{
+				_name = value;
+
+			}
+		}
+	}
+		public class Program
+	{
+
 		static void Main(string[] args)
 		{
 			Person person = new Person();
-			person.SetName("Bob");
+			person.Name = "Bob";
 
-            Console.WriteLine(person.GetName());
+            Console.WriteLine(person.Name);
 			Console.ReadLine();
 		}
 	}
@@ -44,6 +63,24 @@ namespace AshtonBro.CodeBlog._2
 /*
  <----------------------------Классы (class), конструкторы (constructor) и свойства (property)------------------------------------------------->
 <-----------------------------------------Объектно-ориентированное программирование (ООП) в C#. Инкапсуляция, наследование, полиморфизм #8---------------------------------------->
+
+// ещё сокращаем
+	public string SecondName { get; set; }
+
+// сокращаем
+
+   private string _name;
+        public string Name
+        { get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+               
+            }
+        }
 
  private string _name;
         public string Name
