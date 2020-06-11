@@ -35,13 +35,13 @@ namespace AshtonBro.CodeBlog._2
 
 	public class CheapTunnig : Car
     {
-		public string Marka { get; set; }
-        public CarAdd(string model, string color, string engine, double enginepower)
-			: base(model, color, engine, enginepower)
-		{
+		//public string Marka { get; set; }
+  //      public CarAdd(string model, string color, string engine, double enginepower)
+		//	: base(model, color, engine, enginepower)
+		//{
 
 			
-		}
+		//}
 
 	}
 
