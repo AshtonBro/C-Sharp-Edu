@@ -3,31 +3,25 @@ using System.Drawing;
 
 namespace AshtonBro.CodeBlog._2
 {
-
 	public class Program
 	{
 		static void Main(string[] args)
 		{
-            private void Back_Click(object sender, RoutedEventArgs e)
+            if (SessionContext.UserRole == Role.Student)
             {
-                // If the user is not a teacher, do nothing (the button should not appear anyway)
-                if (SessionContext.UserRole != Role.Teacher)
-                {
-                    return;
-                }
-
-                // If the user is a teacher, raise the Back event
-                // The MainWindow page has a handler that catches this event and returns to the Students page
-                if (Back != null)
-                {
-                    Back(sender, e);
-                }
+                btnBack.Visibility = Visibility.Hidden;
+                btnRemove.Visibility = Visibility.Hidden;
+                btnAddGrade.Visibility = Visibility.Hidden;
             }
-
+            else
+            {
+                btnBack.Visibility = Visibility.Visible;
+                btnRemove.Visibility = Visibility.Visible;
+                btnAddGrade.Visibility = Visibility.Visible;
+            }
         }
-    }
+	}
 	
-
 }
 
 /*
