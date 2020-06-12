@@ -10,7 +10,32 @@ namespace AshtonBro.CodeBlog._2
 			 
 		}
 	}
-	
+
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Class { get; set; }
+
+    // Constructor to initialize the properties of a new Teacher
+    public Teacher(int teacherID, string userName, string password, string firstName, string lastName, string className)
+    {
+        TeacherID = teacherID;
+        UserName = userName;
+        Password = password;
+        FirstName = firstName;
+        LastName = lastName;
+        Class = className;
+    }
+
+    // Default constructor
+    public Teacher()
+    {
+        TeacherID = 0;
+        UserName = String.Empty;
+        Password = String.Empty;
+        FirstName = String.Empty;
+        LastName = String.Empty;
+        Class = String.Empty;
+    }
 }
 
 /*
