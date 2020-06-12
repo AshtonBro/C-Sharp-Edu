@@ -3,6 +3,25 @@ using System.Drawing;
 
 namespace AshtonBro.CodeBlog._2
 {
+	public class Program
+	{
+		static void Main(string[] args)
+		{
+		
+		}
+	}
+	
+}
+
+/*
+<----------------------------Классы (class), конструкторы (constructor) и свойства (property)------------------------------------------------->
+<-----------------------------------------Объектно-ориентированное программирование (ООП) в C#. Инкапсуляция, наследование, полиморфизм #8---------------------------------------->
+	// Домашнее задание
+	// выбрать предметную область, товар, человек, животные и тд
+	// Создать классы со свойствами из выбранной предметно области
+	// Задать для них конструкторы
+
+	
 	public class Car
 	{
 		public string Model { get; set; }
@@ -35,34 +54,16 @@ namespace AshtonBro.CodeBlog._2
 
 	public class CheapTunnig : Car
     {
-		//public string Marka { get; set; }
-  //      public CarAdd(string model, string color, string engine, double enginepower)
-		//	: base(model, color, engine, enginepower)
-		//{
+		public string Marka { get; set; }
+        public CarAdd(string model, string color, string engine, double enginepower)
+			: base(model, color, engine, enginepower)
+		{
 
 			
-		//}
-
-	}
-
-
-	public class Program
-	{
-		static void Main(string[] args)
-		{
-		
 		}
-	}
-	
-}
 
-/*
-<----------------------------Классы (class), конструкторы (constructor) и свойства (property)------------------------------------------------->
-<-----------------------------------------Объектно-ориентированное программирование (ООП) в C#. Инкапсуляция, наследование, полиморфизм #8---------------------------------------->
-	// Домашнее задание
-	// выбрать предметную область, товар, человек, животные и тд
-	// Создать классы со свойствами из выбранной предметно области
-	// Задать для них конструкторы
+	}
+
 
 	Ловим ошибки перед записью в переменную
 	public class Person
