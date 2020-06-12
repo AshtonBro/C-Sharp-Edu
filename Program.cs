@@ -7,17 +7,18 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-            if (SessionContext.UserRole == Role.Student)
+            // TODO: Exercise 4: Task 2c: Add a grade to a student (the grade is already populated)
+            public void AddGrade(Grade grade)
             {
-                btnBack.Visibility = Visibility.Hidden;
-                btnRemove.Visibility = Visibility.Hidden;
-                btnAddGrade.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                btnBack.Visibility = Visibility.Visible;
-                btnRemove.Visibility = Visibility.Visible;
-                btnAddGrade.Visibility = Visibility.Visible;
+                if (grade.StudentID == 0)
+                {
+                    grade.StudentID = StudentID;
+                }
+                else
+                {
+                    throw new ArgumentException("Grade", "Grade to a different Student");
+                }
+
             }
         }
 	}
