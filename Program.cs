@@ -3,39 +3,53 @@ using System.Drawing;
 
 namespace AshtonBro.CodeBlog._2
 {
-	public class Program
+    public enum Role { Teacher, Student };
+
+    // WPF Databinding requires properties
+    public class Grade
+    {
+        public int StudentID { get; set; }
+
+        private string _assessmentDate;
+        public string AssessmentDate
+        {
+            get
+            {
+                return _assessmentDate;
+            }
+
+            set
+            {
+                DateTime assessmentDate;
+
+                // Verify that the user has provided a valid date
+                if (DateTime.TryParse(value, out assessmentDate))
+                {
+                    // Check that the date is no later than the current date.                    
+                    if (assessmentDate > DateTime.Now)
+                    {
+                        // Throw an ArgumentOutOfRangeException if the date is after the current date
+                        throw new ArgumentOutOfRangeException("AssessmentDate", "Assessment date must be on or before the current date");
+                    }
+
+                    // If the date is valid, then save it in the appropriate format.
+                    _assessmentDate = assessmentDate.ToString("d");
+                }
+                else
+                {
+                    // If the date is not in a valid format then throw an ArgumentException
+                    throw new ArgumentException("AssessmentDate", "Assessment date is not recognized");
+                }
+            }
+        }
+        public class Program
 	{
 		static void Main(string[] args)
 		{
 			 
 		}
 	}
-
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string Class { get; set; }
-
-    // Constructor to initialize the properties of a new Teacher
-    public Teacher(int teacherID, string userName, string password, string firstName, string lastName, string className)
-    {
-        TeacherID = teacherID;
-        UserName = userName;
-        Password = password;
-        FirstName = firstName;
-        LastName = lastName;
-        Class = className;
-    }
-
-    // Default constructor
-    public Teacher()
-    {
-        TeacherID = 0;
-        UserName = String.Empty;
-        Password = String.Empty;
-        FirstName = String.Empty;
-        LastName = String.Empty;
-        Class = String.Empty;
-    }
+	
 }
 
 /*
