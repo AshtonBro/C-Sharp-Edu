@@ -3,53 +3,40 @@ using System.Drawing;
 
 namespace AshtonBro.CodeBlog._2
 {
-    public enum Role { Teacher, Student };
 
-    // WPF Databinding requires properties
-    public class Grade
-    {
-        public int StudentID { get; set; }
-
-        private string _assessmentDate;
-        public string AssessmentDate
-        {
-            get
-            {
-                return _assessmentDate;
-            }
-
-            set
-            {
-                DateTime assessmentDate;
-
-                // Verify that the user has provided a valid date
-                if (DateTime.TryParse(value, out assessmentDate))
-                {
-                    // Check that the date is no later than the current date.                    
-                    if (assessmentDate > DateTime.Now)
-                    {
-                        // Throw an ArgumentOutOfRangeException if the date is after the current date
-                        throw new ArgumentOutOfRangeException("AssessmentDate", "Assessment date must be on or before the current date");
-                    }
-
-                    // If the date is valid, then save it in the appropriate format.
-                    _assessmentDate = assessmentDate.ToString("d");
-                }
-                else
-                {
-                    // If the date is not in a valid format then throw an ArgumentException
-                    throw new ArgumentException("AssessmentDate", "Assessment date is not recognized");
-                }
-            }
-        }
-        public class Program
+	public class Program
 	{
 		static void Main(string[] args)
 		{
 			 
 		}
 	}
-	
+
+    private string _assessment;
+    public string Assessment
+    {
+        get
+        {
+            return _assessment;
+        }
+
+        set
+        {
+            // Verify that the grade is in the range A+ to E-
+            // Use a regular expression: A single character in the range A-E at the start of the string followed by an optional + or - at the end of the string
+            Match matchGrade = Regex.Match(value, @"^[A-E][+-]?$");
+            if (matchGrade.Success)
+            {
+                _assessment = value;
+            }
+            else
+            {
+                // If the grade is not valid then throw an ArgumentOutOfRangeException
+                throw new ArgumentOutOfRangeException("Assessment", "Assessment grade must be in the range A+ to E-"); ;
+            }
+        }
+    }
+
 }
 
 /*
