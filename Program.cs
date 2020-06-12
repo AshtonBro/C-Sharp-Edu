@@ -8,34 +8,25 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-			 
-		}
-	}
-
-    private string _assessment;
-    public string Assessment
-    {
-        get
-        {
-            return _assessment;
-        }
-
-        set
-        {
-            // Verify that the grade is in the range A+ to E-
-            // Use a regular expression: A single character in the range A-E at the start of the string followed by an optional + or - at the end of the string
-            Match matchGrade = Regex.Match(value, @"^[A-E][+-]?$");
-            if (matchGrade.Success)
+            private void Back_Click(object sender, RoutedEventArgs e)
             {
-                _assessment = value;
+                // If the user is not a teacher, do nothing (the button should not appear anyway)
+                if (SessionContext.UserRole != Role.Teacher)
+                {
+                    return;
+                }
+
+                // If the user is a teacher, raise the Back event
+                // The MainWindow page has a handler that catches this event and returns to the Students page
+                if (Back != null)
+                {
+                    Back(sender, e);
+                }
             }
-            else
-            {
-                // If the grade is not valid then throw an ArgumentOutOfRangeException
-                throw new ArgumentOutOfRangeException("Assessment", "Assessment grade must be in the range A+ to E-"); ;
-            }
+
         }
     }
+	
 
 }
 
