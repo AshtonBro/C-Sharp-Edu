@@ -7,18 +7,32 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-            // TODO: Exercise 4: Task 2c: Add a grade to a student (the grade is already populated)
-            public void AddGrade(Grade grade)
+            // TODO: Exercise 4: Task 2a: Enroll a student in the class for this teacher
+
+            public void EnrollInClass(Student student)
             {
-                if (grade.StudentID == 0)
+                if (student.TeacherID == 0)
                 {
-                    grade.StudentID = StudentID;
+                    student.TeacherID = TeacherID;
                 }
                 else
                 {
-                    throw new ArgumentException("Grade", "Grade to a different Student");
+                    throw new ArgumentException("Student", "Student is already assigned to a class");
                 }
+            }
 
+            // TODO: Exercise 4: Task 2b: Remove a student from the class for this teacher
+
+            public void RemoveFromClass(Student student)
+            {
+                if (student.TeacherID == TeacherID)
+                {
+                    student.TeacherID = 0;
+                }
+                else
+                {
+                    throw new ArgumentException("Student", "Student is not assigned to this class");
+                }
             }
         }
 	}
