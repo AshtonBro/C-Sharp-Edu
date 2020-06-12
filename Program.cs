@@ -7,35 +7,27 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-            // TODO: Exercise 4: Task 2a: Enroll a student in the class for this teacher
-
-            public void EnrollInClass(Student student)
+            private void Refresh()
             {
-                if (student.TeacherID == 0)
+                var unassignedStud = from s in DataSource.Students
+                                     where s.TeacherID == 0
+                                     select s;
+
+                if (unassignedStud.Count() == 0)
                 {
-                    student.TeacherID = TeacherID;
+                    txtMessage.Visibility = Visibility.Visible;
+                    list.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    throw new ArgumentException("Student", "Student is already assigned to a class");
+                    txtMessage.Visibility = Visibility.Collapsed;
+                    list.Visibility = Visibility.Visible;
+                    list.ItemsSource = unassignedStud;
                 }
             }
 
-            // TODO: Exercise 4: Task 2b: Remove a student from the class for this teacher
-
-            public void RemoveFromClass(Student student)
-            {
-                if (student.TeacherID == TeacherID)
-                {
-                    student.TeacherID = 0;
-                }
-                else
-                {
-                    throw new ArgumentException("Student", "Student is not assigned to this class");
-                }
-            }
         }
-	}
+    }
 	
 }
 
