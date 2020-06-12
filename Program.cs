@@ -7,27 +7,42 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-            private void Refresh()
+            // TODO: Exercise 4: Task 3a: Enroll a student in the teacher's class
+            private void Student_Click(object sender, RoutedEventArgs e)
             {
-                var unassignedStud = from s in DataSource.Students
-                                     where s.TeacherID == 0
-                                     select s;
+                try
+                {
+                    Button studentClicked = sender as Button;
+                    int studentID = (int)studentClicked.Tag;
 
-                if (unassignedStud.Count() == 0)
-                {
-                    txtMessage.Visibility = Visibility.Visible;
-                    list.Visibility = Visibility.Collapsed;
+                    Student student = (from s in DataSource.Students
+                                       where s.StudentID == studentID
+                                       select s).First();
+
+                    string message = String.Format("Add {0} {1} to your class?", student.FirstName, student.LastName);
+                    MessageBoxResult reply = MessageBox.Show(message, "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (reply == MessageBoxResult.Yes)
+                    {
+                        int teacherID = SessionContext.CurrentTeacher.TeacherID;
+                        SessionContext.CurrentTeacher.EnrollInClass(student);
+                        Refresh();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    txtMessage.Visibility = Visibility.Collapsed;
-                    list.Visibility = Visibility.Visible;
-                    list.ItemsSource = unassignedStud;
+                    MessageBox.Show(ex.Message, "Error enrolling student", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 
+            private void OK_Click(object sender, RoutedEventArgs e)
+            {
+                // Close the dialog box
+                this.Close();
+            }
         }
     }
+	}
 	
 }
 
