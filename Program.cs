@@ -7,7 +7,7 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-		
+			 
 		}
 	}
 	
@@ -47,7 +47,7 @@ namespace AshtonBro.CodeBlog._2
 			{
 				EnginePower = enginepower;
 			}
-			else throw new Exception("This is Urban transpor, is can't be too powerful");
+			else throw new Exception("This is Urban transport, is can't be too powerful");
 
         }
 	}
