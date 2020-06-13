@@ -7,14 +7,8 @@ namespace AshtonBro.CodeBlog._2
 	{
 		static void Main(string[] args)
 		{
-            // TODO: Exercise 4: Task 3c: Enroll a student in the teacher's class
-            private void EnrollStudent_Click(object sender, RoutedEventArgs e)
-            {
-                AssignStudentDialog asd = new AssignStudentDialog();
-                asd.ShowDialog();
-                Refresh();
-            }
-        }
+			 
+		}
 	}
 	
 }
