@@ -47,48 +47,7 @@ class Program
         userCar.color = ConsoleColor.Yellow;
         Random randomGenerator = new Random();
         List<Object> objects = new List<Object>();
-        while (true)
-        {
-            speed += acceleration;
-            if (speed > 400)
-            {
-                speed = 400;
-            }
-
-            bool hitted = false;
-            {
-                int chance = randomGenerator.Next(0, 100);
-                if (chance < 10)
-                {
-                    Object newObject = new Object();
-                    newObject.color = ConsoleColor.Cyan;
-                    newObject.c = '-';
-                    newObject.x = randomGenerator.Next(0, playfieldWidth);
-                    newObject.y = 0;
-                    objects.Add(newObject);
-                }
-                else if (chance < 20)
-                {
-                    Object newObject = new Object();
-                    newObject.color = ConsoleColor.Cyan;
-                    newObject.c = '*';
-                    newObject.x = randomGenerator.Next(0, playfieldWidth);
-                    newObject.y = 0;
-                    objects.Add(newObject);
-                }
-                else
-                {
-                    Object newCar = new Object();
-                    newCar.color = ConsoleColor.Green;
-                    newCar.x = randomGenerator.Next(0, playfieldWidth);
-                    newCar.y = 0;
-                    newCar.c = '#';
-                    objects.Add(newCar);
-                }
-            }
-
-          
-        }
+       
     }
 }
 }
