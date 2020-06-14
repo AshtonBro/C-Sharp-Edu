@@ -32,21 +32,10 @@ class Program
         Console.ForegroundColor = color;
         Console.Write(str);
     }
+
     static void Main()
     {
-        double speed = 100.0;
-        double acceleration = 0.5;
-        int playfieldWidth = 5;
-        int livesCount = 5;
-        Console.BufferHeight = Console.WindowHeight = 20;
-        Console.BufferWidth = Console.WindowWidth = 30;
-        Object userCar = new Object();
-        userCar.x = 2;
-        userCar.y = Console.WindowHeight - 1;
-        userCar.c = '@';
-        userCar.color = ConsoleColor.Yellow;
-        Random randomGenerator = new Random();
-        List<Object> objects = new List<Object>();
+        
        
     }
 }
