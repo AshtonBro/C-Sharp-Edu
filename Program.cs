@@ -2,12 +2,50 @@
 
 namespace AshtonBro.CodeBlog._2
 {
-    internal class Program
+	public class Person
+    {
+		public string SecondName { get; set; }
+		public string Name { get; set; }
+		public int X { get; set; }
+		public int Y { get; set; }
+
+		public Person(string secondName, string name)
+        {
+			if(!String.IsNullOrEmpty(secondName) && !String.IsNullOrEmpty(name))
+            {
+				SecondName = secondName;
+				Name = name;
+				X = 0;
+				Y = 0;
+
+            }
+
+        }
+
+		public string Run()
+        {
+			var rnd = new Random();
+			X += rnd.Next(-2, 2); 
+			Y += rnd.Next(-2, 2);
+
+			return $"{Name} ({X}, {Y})";
+		}
+    }
+
+    class Program
     {
         private static void Main()
         {
-			var str = PrintHello("Zhenya", 58);
-            Console.WriteLine(str);
+			var person1 = new Person("Wuik", "Jon");
+			var person2 = new Person("Capone", "Jogan");
+
+            for (int i = 0; i < 10; i++)
+            {
+				var position1 = person1.Run();
+                Console.WriteLine(position1);
+            }
+
+            Console.WriteLine();
 			Console.ReadLine();
 		}
 
