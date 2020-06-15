@@ -30,21 +30,7 @@ namespace AshtonBro.CodeBlog._2
 
 			return $"{Name} ({X}, {Y})";
 		}
-		// отличатся сигнатурой, перегрузка (имя метода и принимаемые аргументы) при вызове методо появляются стрелочки верз и вних это перегрузки
-		// 2 одинаковых имени дают выбор
-		public string Run(int x)
-        {
-			X += x;
-			Y += y;
-
-			return $"{Name} ({X} {Y})";
-        }
-
-		public string Run(double y)
-        {
-         
-            return $"{Name} ({X} {Y})";
-        }
+		
     }
 
     class Program
@@ -58,9 +44,9 @@ namespace AshtonBro.CodeBlog._2
             for (int i = 0; i < 10; i++)
             {
 				var position1 = person1.Run();
-                var position2 = person2.Run();
                 Console.WriteLine(position1);
-                Console.WriteLine(position2);
+
+                Console.WriteLine(person2.Run(person1));
             }
 
             Console.WriteLine();
@@ -76,7 +62,17 @@ namespace AshtonBro.CodeBlog._2
 			return "";
         }
 
-		
+		public int Factorial(int value)
+        {
+			if(value <= 1)
+            {
+				return 1;
+            }
+			else
+            {
+				return value * Factorial(value - 1);
+            }
+        }
 	}
 }
 
@@ -85,6 +81,21 @@ namespace AshtonBro.CodeBlog._2
 <---------------------------- Методы C# (Method C#) классов --------------------------------------->
 // модификатор доступа, тип возврашаемое значение, имя метода(тип аргумента имя аргуменат)
 
+// отличатся сигнатурой, перегрузка (имя метода и принимаемые аргументы) при вызове методо появляются стрелочки верз и вних это перегрузки
+		// 2 одинаковых имени дают выбор
+		public string Run(int x, int y)
+        {
+			X += x;
+			Y += y;
+
+			return $"{Name} ({X} {Y})";
+        }
+
+		public string Run(double y)
+        {
+         
+            return $"{Name} ({X} {Y})";
+        }
 
 
 
