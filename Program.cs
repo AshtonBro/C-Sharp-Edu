@@ -1,33 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Threading;
 
 namespace AshtonBro.CodeBlog._2
 {
-
-
-
-struct Object
-{
-    public int x;
-    public int y;
-    public char c;
-    public ConsoleColor color;
-}
-
-class Program
-{
-
-    static void Main()
+    internal class Program
     {
-        
-       
-    }
-}
+        private static void Main()
+        {
+			
+
+		}
+
+		public string PrintHello(string name, int age)
+        {
+            Console.WriteLine($"Hello, {name}. You have {age} ages");
+			return 1;
+        }
+
+		
+	}
 }
 
 /*
+ 
+<---------------------------- Методы C# (Method C#) классов --------------------------------------->
+// модификатор доступа, тип возврашаемое значение, имя метода(тип аргумента имя аргуменат)
+
+
+
+
+  
+ 
 <----------------------------Классы (class), конструкторы (constructor) и свойства (property)------------------------------------------------->
 <-----------------------------------------Объектно-ориентированное программирование (ООП) в C#. Инкапсуляция, наследование, полиморфизм #8---------------------------------------->
 	// Домашнее задание
@@ -35,7 +37,6 @@ class Program
 	// Создать классы со свойствами из выбранной предметно области
 	// Задать для них конструкторы
 
-	
 	public class Car
 	{
 		public string Model { get; set; }
@@ -62,7 +63,6 @@ class Program
 				EnginePower = enginepower;
 			}
 			else throw new Exception("This is Urban transport, is can't be too powerful");
-
         }
 	}
 
@@ -72,12 +72,8 @@ class Program
         public CarAdd(string model, string color, string engine, double enginepower)
 			: base(model, color, engine, enginepower)
 		{
-
-			
 		}
-
 	}
-
 
 	Ловим ошибки перед записью в переменную
 	public class Person
@@ -113,9 +109,7 @@ class Program
             {
 				Age = age;
             }
-			
         }
-		
 	}
 
 	public class Program
@@ -124,16 +118,15 @@ class Program
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 			Person person = new Person("Bob", "Brown", 450);
-			
+
             Console.WriteLine(String.Join(" ", person.Name, person.SecondName, person.Age));
 			Console.ReadLine();
 		}
 	}
 
-
 	public string Name { get; set; } = "Tom";
 
-	// Интерпаляция строк 
+	// Интерпаляция строк
 	$"{SecondName} {Name.Substring(0, 1)}.";
 
 	// Вычисляемые свойства, свойство которое зависит от других свойств
@@ -167,7 +160,6 @@ class Program
             set
             {
                 _name = value;
-               
             }
         }
 
@@ -187,10 +179,8 @@ class Program
                 {
                     throw new ArgumentNullException("The name isn't can empty");
                 }
-
             }
         }
-
 
 class Person
 		{
@@ -198,7 +188,6 @@ class Person
 			public string SecondName;
 
 			private decimal Money;
-
 		}
 
 		class Doctor : Person
@@ -210,7 +199,6 @@ class Person
 		{
 			int i = 0;
 			Int32 j = new Int32();
-
 
 			Person person = new Person();
 			person.FirstName = "Volodja";
@@ -234,7 +222,6 @@ class Person
 			Console.WriteLine(dd.FirstName);
 			Console.WriteLine(dd.Profession);
 			Console.ReadLine();
-
 		}
 	}
 
@@ -292,20 +279,15 @@ class Person
 
 			for (int i = 10 ; ; i += 5)
 			{
-				
 			}
 			Console.ReadLine();
 
-
 			while(условие) // повторять до дех пор пока выпонятся какой-то условие
-			{ 
-				
-			}	
-
-
-			do // если аналогично условие не верное, то хотябы один раз тело выполнится. 
 			{
+			}
 
+			do // если аналогично условие не верное, то хотябы один раз тело выполнится.
+			{
 			}
 			while (j < list.Count);
 
@@ -329,7 +311,6 @@ class Person
 			ages.Add(new Age() { Id = 4, Experians = 28, Years = 5 });
 			ages.Add(new Age() { Id = 8, Experians = 9, Years = 33 });
 
-
 			var result = ages.Where(f => f.Experians > 10 | f.Years > 15).OrderBy(f => f.Id);
 
 			foreach (var r in result)
@@ -340,9 +321,7 @@ class Person
 			Console.ReadLine();
 		}
 
-
 <------------------------------Коллекции C#: массивы (array) и списки (list). Перечисления (enum)--------------------->
-
 
  // Одномерный массив
 int[] array = new int[10];
@@ -381,7 +360,6 @@ List<int> ListTwo = new List<int>()
 
 ListTwo.AddRange(array);
 
-
 Console.WriteLine(array[0]);
 Console.WriteLine(list[0]);
 Console.WriteLine(Days.Fri);
@@ -411,14 +389,12 @@ List<string> listStr = new List<string>();
 for (int q = 0; q <= arrayStr.Length - 1; q++)
 {
 	listStr.Add(arrayStr[q]);
-				
 }
 
 // string.Join(",", array) сцепляет элементы созданной коллектции предварительно указав первым параметром сепаратор.
 Console.WriteLine(string.Join(",", listStr));
 Console.WriteLine(string.Join(",", arrayStr));
 Console.ReadLine();
-
 
 Console.WriteLine(array[0]);
 Console.WriteLine(list[0]);
@@ -427,7 +403,7 @@ Console.WriteLine(Days.Fri);
 Console.ReadLine();
 
 FirstClass[] cs = new FirstClass[10];
-List<FirstClass> css = new List<FirstClass>();           
+List<FirstClass> css = new List<FirstClass>();
 
  enum Days
 {
@@ -441,25 +417,22 @@ List<FirstClass> css = new List<FirstClass>();
 }
 
 Советы по кментариям:
-На начальном этапе писать коментарии практически ко всему, чтобы выучить и при повторном просмотре кода понять что мы тут написали, 
+На начальном этапе писать коментарии практически ко всему, чтобы выучить и при повторном просмотре кода понять что мы тут написали,
 конечно с практикой стараться писать комментарий все меньше, но при не стардартном поведении кода или функции всегда указывать комментарий
 
 Console.WriteLine(); // Вывод текста на консоль.
 
-
-* Много 
+* Много
 * строчный
-* коментарий 
+* коментарий
 *
 
-
-
-									 Приведение и преобразование типов C# 
+									 Приведение и преобразование типов C#
 <------------------------------------- Type casting and conversion C#------------------------>
 
 string s = "1"; You can't put string in int
 int i = s; // error
-int j = 5; 
+int j = 5;
 double d = j; // no error - int in double can be put, but on the contrary it can not be done
 int k = d; // error
 
@@ -483,7 +456,6 @@ int j = 2038;
 //byte b = (byte)ii; // error
 byte bb = (byte)j; // error too
 
-
 string s = "2048";
 //int jo = (int)s; // error
 
@@ -498,11 +470,10 @@ int qoqoqo = Int32.Parse(s);
 // Не явное преобразование
 // Чаще использую при работе со строками
 int integer = 107;
-string strieng = "str " + integer; // все в языке C# наследуется от типа object, и у него есть местод toString(), 
+string strieng = "str " + integer; // все в языке C# наследуется от типа object, и у него есть местод toString(),
 // конвертация, приведение, пробразование в строку есть у кажного типа обьекта в C#, всегда можно преобразовать в формат.
 // компилятор сам пониманиет что нужно преобразовать интеджер и склеить все строки, также это выглядило вот так
 string striengTwo = "str " + integer.ToString();
-
 
 // преобразование bool тип
 bool boolian = true;
@@ -510,7 +481,7 @@ string str = boolian.ToString();
 string secontStr = "false";
 bool secondBoolian = Convert.ToBoolean(secontStr);
 
-// tryParse 
+// tryParse
 if (int.TryParse(Console.ReadLine(), out int result))
 {
 	Console.WriteLine(result);
@@ -616,7 +587,7 @@ if (Object.ReferenceEquals(str, str4))
 Console.WriteLine(str4);
 // IMMUTABEL ARRAY  мы не можем поменять размер массива
 // 1 int = 4byte //select.count
-int[] myArray = new int[10] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; // При случае если мы знаем колличество массива заранее 
+int[] myArray = new int[10] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; // При случае если мы знаем колличество массива заранее
 myArray[0] = 333;
 myArray[1] = 555;
 
@@ -633,7 +604,7 @@ foreach (var elem in array3d)
 	Console.WriteLine(string.Join(", ",elem));
 }
 
-int[,] array2d = new int[3, 5]; // EMMUTABLE 
+int[,] array2d = new int[3, 5]; // EMMUTABLE
 array2d[1, 3] = 777;
 
 foreach (var elem in array2d)
@@ -678,8 +649,6 @@ AshtonBro.CodeBlog._2.Program p3 = new Program();
 	int xx = 333; //automatic variable
 }
 
-
-
 int testVariable = new int();
 testVariable = 333;
 int yOut;
@@ -697,7 +666,6 @@ catch (OutOfMemoryException ex)
 	Console.WriteLine(ex.Message);
 	EventLog.WriteEvent("Application", new EventInstance(333, 555));
 }
-
 catch (Exception ex)
 {
 	Console.WriteLine(ex.Message);
@@ -707,7 +675,7 @@ catch (Exception ex)
 }
 
 AshtonBro.CodeBlog._2.Program.myFunc(null);
-			
+
 Order o2 = new Order();
 o2.amount = 0;
 myFunc(o2);
@@ -717,7 +685,6 @@ Customer cc = new Customer();
 cc.id = 555;
 myFunc(cc);
 Console.WriteLine(cc.id);
-
 
 FUNCTIONS -------------------------------->
 class Customer // Reference Type
@@ -737,7 +704,6 @@ class Product
 {
 	public double Price;
 }
-
 
 public bool XFunc()
 {
@@ -814,7 +780,7 @@ enum myColor : int
 		{
 			return id;
 		}
-		
+
 	   // public int MyID { get; set; }
 		public string this[string Name]
 		{
@@ -827,7 +793,7 @@ enum myColor : int
 					Exception ex = new Exception("ID must be above zero");
 					throw ex;
 				}
-				id = value; } 
+				id = value; }
 		}
 	}
 	class Program
@@ -867,7 +833,6 @@ enum myColor : int
 
 			object obj = lst[0];
 			int xIn = (int)obj;
-
 		}
 	}
 
@@ -948,7 +913,6 @@ enum myColor : int
 		}
 	}
 
-
 // Inheritance наследование
 	//abstract class BankAccount // Чисто абстрактный класс - abstract
 	//{
@@ -958,7 +922,7 @@ enum myColor : int
 
 	interface IBankAccount
 	{
-	   // Интерфейс шаблон и прототипы функции 
+	   // Интерфейс шаблон и прототипы функции
 	   // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
 		double GetBalance();
 	}
@@ -981,7 +945,6 @@ enum myColor : int
 		}
 	   static void Main(string[] args)
 		{
-
 			ChildAccount newChild = new ChildAccount();
 
 			CalculateBalance(newChild); // Всё ок! мы наследовали методы и переменные с родителя
@@ -1003,7 +966,7 @@ enum myColor : int
 
 	interface IBankAccount
 	{
-	   // Интерфейс шаблон и прототипы функции 
+	   // Интерфейс шаблон и прототипы функции
 	   // Класс у которого нет тела и функции пустышка называется PURE ABSTRACT CLASS - INTERFACE
 		double GetBalance();
 	}
@@ -1024,19 +987,18 @@ enum myColor : int
 			get { return _amount; }
 			set { _amount = value; }
 		}
-	  
+
 		public double GetBalance()
 		{
 			return _amount + 3;
 		}
 		// при необходимости модифицирировать функуцию родителя пишем override к родителю добавляем виртальную функцию
-		
+
 		// Глобальные функция, можно вызвать на примую обращаяст к child
 		public static string GetStatic()
 		{
 			return "Static Func";
 		}
-		
 	}
 	class Program
 	{
@@ -1046,7 +1008,6 @@ enum myColor : int
 		}
 	   static void Main(string[] args)
 		{
-
 			var result = ChildAccount.GetStatic();
 			Console.WriteLine(result);
 
@@ -1057,7 +1018,6 @@ enum myColor : int
 			Console.ReadLine();
 		}
 	}
-
 
   // Introducing Generics (Template)
 
@@ -1091,22 +1051,15 @@ enum myColor : int
 			MyFunction("Я и это сьел");
 			MyFunction(DateTime.Now);
 
-
 			myGenericClass<int> cls1 = new myGenericClass<int>();
 			Console.WriteLine(cls1.GetUnknown());
 
 			myGenericClass<DateTime> cls2 = new myGenericClass<DateTime>();
 			Console.WriteLine(cls2.GetUnknown());
 
-
-
 			Console.ReadLine();
 		}
-
-		
-
 	}
-
 
  // Introducing Generics (Template)
 	class MyClass<T> where T : struct
@@ -1125,7 +1078,7 @@ enum myColor : int
 			//lst.Add(333);
 
 			List<int> lst = new List<int>();
-			lst.Add(163); // добавляем int 
+			lst.Add(163); // добавляем int
 			var result = lst[0]; // выдаём int
 
 			MyClass<int> cls1 = new MyClass<int>();
@@ -1139,20 +1092,18 @@ enum myColor : int
 			Console.WriteLine(result);
 			Console.ReadLine();
 		}
-
 	}
 
 <==================================== MS DAY 3 ==========================================>
 
  // Virtual abstract
-  
+
 	class BankAccount
 	{
 		int _data = 555;
 
 		public int Data { get => _data; set => _data = value; }
 		public virtual int GetData() { return _data; } //vtbl virtual function table
-
 	}
 
 	class ChildAccount : BankAccount
@@ -1181,7 +1132,6 @@ enum myColor : int
 
 		public int Data { get => _data; set => _data = value; }
 		public virtual int GetData() { return _data; } //vtbl virtual function table
-
 	}
 
 	// Также можно закрыть выводиться из CildAccount, сами сделали override а сами закрылись.
@@ -1236,11 +1186,9 @@ enum myColor : int
 			}
 			catch (LockOfMoney ex)
 			{
-
 			}
 			catch (Exception ex)
 			{
-
 			}
 			finally
 			{
@@ -1252,7 +1200,7 @@ enum myColor : int
   // Exception method
 	static class MyLibary
 	{
-		// Если к переменной подставить this 
+		// Если к переменной подставить this
 		public static string MyFunction(this int x)
 		{
 			return "Hello from " + x;
@@ -1275,7 +1223,7 @@ enum myColor : int
 // Exception method
 	static class MyLibary
 	{
-		// Если к переменной подставить this 
+		// Если к переменной подставить this
 		// Если подставить неявную передачу в качестве параметров то функцию можно вызвать у любого типа данных
 		public static string MyFunction<XXX>(this XXX x)
 		{
@@ -1299,7 +1247,7 @@ enum myColor : int
 
   // Reading and Writing local Data
 	// Манипуляция файловой системой
-   
+
 	class Program
 	{
 		static void Main(string[] args)
@@ -1313,7 +1261,6 @@ enum myColor : int
 				sw.WriteLine("Hello! This my own file created with cmd");
 				sw.Flush(); // сделает сброс буфера и сохраняет на диск
 				sw.Close(); // делает сброс буфера и закрывает программу
-
 			}
 			StreamReader sr = File.OpenText("MyDir\\My.txt"); // прочитываем текст
 			Console.WriteLine(sr.ReadToEnd());
@@ -1328,7 +1275,6 @@ enum myColor : int
 				Console.WriteLine(s.ReadToEnd());
 				sr.Close(); // закрывает файл очищаем буфер
 			}
-
 
 			Console.ReadLine();
 		}
@@ -1349,7 +1295,7 @@ enum myColor : int
 		static void Main(string[] args)
 		{
 			List<Customer> tbl = new List<Customer>()
-			{ 
+			{
 				new Customer() { ID = 333, Name="Bob", Address="London"},
 				new Customer() { ID = 365, Name="Mary", Address="London"},
 				new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
@@ -1370,7 +1316,6 @@ enum myColor : int
 			foreach (var c in customers)
 			{
 			Console.WriteLine(c.Name + "\t" + c.Address);
-
 			}
 			Console.ReadLine();
 		}
@@ -1392,7 +1337,7 @@ enum myColor : int
 		static void Main(string[] args)
 		{
 			List<Customer> tbl = new List<Customer>()
-			{ 
+			{
 			   new Customer() { ID = 333, Name="Bob", Address="London"},
 			   new Customer() { ID = 365, Name="Mary", Address="London"},
 			   new Customer() { ID = 321, Name="Anastasia", Address="Amsterdam"}
@@ -1415,7 +1360,6 @@ enum myColor : int
 			foreach (var c in customers)
 			{
 			Console.WriteLine(c.Name + "\t" + c.Address);
-
 			}
 			Console.ReadLine();
 		}
@@ -1423,7 +1367,7 @@ enum myColor : int
 
  // Serialization
 	// WCF Library
-	
+
 	•
 
 	Describe the purpose of serialization, and the formats that the .NET Framework supports.
@@ -1443,7 +1387,6 @@ enum myColor : int
 	•
 
 	Serialize an object as JSON.
-	 
 
 public class Program
 {
@@ -1480,12 +1423,10 @@ public class Program
 		foreach (var c in customers)
 		{
 			Console.WriteLine(c.Name + "\t" + c.Address);
-
 		}
 		Console.ReadLine();
 	}
 }
-
 
 //Creating and Using Entity Data Models
 
@@ -1495,10 +1436,9 @@ public class Program
 	 * CSDL => C# classes
 	 * MSL
 	 * SSDL => DATABASE
-	 * 
+	 *
 	 *   public class Program
 	{
-	 
 		static void Main(string[] args)
 		{
 			ModelContainer ctx = new ModelContainer();
@@ -1525,14 +1465,13 @@ public class Program
 			ctx.Orders.Add(o2);
 			ctx.Orders.Add(o3);
 
-			
-			var x = new { Id = 333, Data = "xx", Price = 3.14 }; // анонимные типы данных 
+			var x = new { Id = 333, Data = "xx", Price = 3.14 }; // анонимные типы данных
 
 			// LINQ = LAMBDA EXPRESSION
 			var query = from o1 in ctx.Orders
 						where o1.Product.Name == "Bread"
 						orderby o1.Id
-						select new 
+						select new
 						{ CustomerName = o1.Customer.Name,
 							ProductName = o1.Product.Name,
 							OrderAmount = o1.Amount};
@@ -1543,7 +1482,6 @@ public class Program
 			}
 
 			var query2 = ctx.Orders.Where(o1 => o1.Product.Name == "Bread").OrderBy( o1=> o1.Id).Select(o1 => o1);
-
 
 			foreach (var item in query2)
 			{
@@ -1566,14 +1504,13 @@ public class Program
 	 * After completing this module, you will be able to:
 	 * Send data to and receive data from web services and other remote data sources.
 	 * Access data by using WCF Data Services.
-	 * 
-	 
+	 *
+
 public class Program
 {
-
 	static void Main(string[] args)
 	{
-		WebRequest request = WebRequest.Create("http://www.rambler.ru"); // схема протокола, сомтри какой обработчик зарегистирован, должны уметь распоковывать упаковывать стандартным спосоом, должны отправлять принимать данные. 
+		WebRequest request = WebRequest.Create("http://www.rambler.ru"); // схема протокола, сомтри какой обработчик зарегистирован, должны уметь распоковывать упаковывать стандартным спосоом, должны отправлять принимать данные.
 		request.Method = "GET";
 
 		request.Credentials = new NetworkCredential("Bob", "{Pa$$w0rd");
@@ -1588,7 +1525,6 @@ public class Program
 		Console.ReadLine();
 	}
 }
-
 
 			// Server
 			ServiceHost svc = new ServiceHost(typeof(Service1));
@@ -1644,7 +1580,7 @@ namespace wpfApplication2
 		}
 	}
 
-// 
+//
 
 	public class MyControl : Control
 	{
@@ -1658,21 +1594,18 @@ namespace wpfApplication2
 	{
 		public MyDB()
 		{
-		
 		}
 		public string Date {get; set;}
 	}
 }
 
-
-
 	// Performing Operations Asynchronously
 
 	Asynchronous operations are closely related to tasks. The .NET Framework 4.5 includes some new features that make it easier to perform asynchronous operations. These operations transparently create new tasks and coordinate their actions, enabling you to concentrate on the business logic of your application. In particular, the async and await keywords enable you to invoke an asynchronous operation and wait for the result within a single method, without blocking the thread.
 	 *
-	 * 
-	 * 
-	 
+	 *
+	 *
+
 	public delegate string MyDelegate(int id);
 
 public class Program
@@ -1680,7 +1613,6 @@ public class Program
 	public static string MyFunction(int x)
 	{
 		return "Hello!";
-
 	}
 	static void Main(string[] args)
 	{
@@ -1710,13 +1642,11 @@ public class Program
 		result = d6.Invoke(323);
 	}
 }
- 
+
  // Performing Operations Asynchronously
 
-   
 	public class Program
 	{
-	
 		public static string MyFunction(int id)
 		{
 			Thread.Sleep(10000);
@@ -1738,17 +1668,15 @@ public class Program
 			Task[] tsk = new Task[3] {task1, task2, task3 };
 			Task.WaitAll(tsk);
 
-
 			Console.WriteLine(task1.Result);
 			Console.WriteLine(task2.Result);
 			Console.WriteLine(task3.Result);
-
 
 			Console.ReadLine();
 		}
 	}
 
-// тоже самое но короче 
+// тоже самое но короче
 
 var task1 = Task.Run(() => MyFunction(333));
 var task2 = Task.Run(() => MyFunction(555));
@@ -1757,14 +1685,12 @@ var task3 = Task.Run(() => MyFunction(888));
 Task[] tsk = new Task[3] {task1, task2, task3 };
 Task.WaitAll(tsk);
 
-
 Console.WriteLine(task1.Result);
 Console.WriteLine(task2.Result);
 Console.WriteLine(task3.Result);
 
-
 Console.ReadLine();
-	
+
  public static string MyFunction(int id)
 {
 	Thread.Sleep(1);
@@ -1799,15 +1725,13 @@ static void Main(string[] args)
 	//Console.WriteLine(task2.Result);
 	//Console.WriteLine(task3.Result);
 
-
 	Console.ReadLine();
 }
- 
+
  // Parallel
 
 public class Program
 {
-
 	public static string MyFunction(int id)
 	{
 		Thread.Sleep(1);
@@ -1859,17 +1783,15 @@ public class Program
 		//Console.WriteLine(task2.Result);
 		//Console.WriteLine(task3.Result);
 
-
 		Console.ReadLine();
 	}
 }
- 
+
  // Performing Operations Asynchronously
 	// Parallel Многопоточность
 
 	public class Program
 	{
-
 		static int count = 0;
 		static void MyFunctiony()
 		{
@@ -1877,7 +1799,6 @@ public class Program
 			tmp++;
 			Thread.Sleep(1000);
 			count = tmp;
-
 
 			//count++;
 		}
@@ -1892,7 +1813,6 @@ public class Program
 				Task.Run(() => MyFunctiony()),
 				Task.Run(() => MyFunctiony()),
 				Task.Run(() => MyFunctiony())
-
 			};
 			Task.WaitAll(tsk);
 
@@ -1900,9 +1820,8 @@ public class Program
 			Console.ReadLine();
 		}
 	}
- 
-<==================================== MS DAY 5 ==========================================>
 
+<==================================== MS DAY 5 ==========================================>
 
  // Integrating with Unmanaged Code
 	// Creating and Using Dynamic Objects
@@ -1910,19 +1829,18 @@ public class Program
 	// COM -> precompiled to CPU code (x86)
 	// COM -> rigistry in OS -> GUID Global unity indentify -> ole32.dll
 	// COM -> metadata C++ *.h (прототипы функции) -> IDL -> dll(tlb)
-	// 
+	//
 	// Void* pointer -> vtbl
 	// Unknow size -> How to free memory ??
 	//
 	//Tlbimp.exe -> idl (*.h) -> idl => class(.Net wrapper)
-	// RCW class (RunTime Call Wrapper) 
+	// RCW class (RunTime Call Wrapper)
 	// RCW лучше загружать готовые и не самопальные
-	
+
 	public class Program
 	{   [Guid("0002DF01-0000-0000-C000-000000000046")]
 		class MyIE
 		{
-
 		}
 		static void Main(string[] args)
 		{
@@ -1937,9 +1855,8 @@ public class Program
 
 			Console.ReadLine();
 		}
-
 	}
-	
+
 // Integrating with Unmanaged Code
 	// Managing the Lifetime of Objects and Controlling Unmanaged Resources
 
@@ -1961,14 +1878,13 @@ public class Program
 		{
 			Save();
 		}
-
 	}
 	struct MyStruct
 	{
 		public int data;
 	}
 	public class Program
-	{   
+	{
 		static void Main(string[] args)
 		{
 			Console.WriteLine("Finalise thread: " + Thread.CurrentThread.ManagedThreadId);
@@ -1992,16 +1908,14 @@ public class Program
 
 						Marshal.ReleaseComObject(cls);
 					}
-					
 				}// automatic clear stack
 			}
 			catch { }
 
 			clsTest = null;
 
-			GC.Collect(); // break app-> stacks analys and clear 
+			GC.Collect(); // break app-> stacks analys and clear
 		}
-
 	}
 
  // Integrating with Unmanaged Code
@@ -2026,8 +1940,6 @@ namespace myLib
 		{
 			return "Hello from myLib";
 		}
-
-
 	}
 }
 
@@ -2054,7 +1966,6 @@ namespace AshtonBro.CodeBlog._2
 			}
 			public string Data { get; set; }
 		}
-
 	}
 }
 
@@ -2073,15 +1984,12 @@ namespace AshtonBro.CodeBlog._2
 					{
 						Console.WriteLine(a.Data);
 					}
-
 				}
 
 				foreach (MethodInfo mi in item.GetMethods())
 				{
 					Console.WriteLine(mi.Name);
 				}
-
-			 
 			}
 
 			Type t = asm.GetType("MyLib.MyClass");
@@ -2094,7 +2002,6 @@ namespace AshtonBro.CodeBlog._2
 
 			var o = Activator.CreateInstance(t) as MyInterfaces.IMyInterfaces;
 
-
 			Console.WriteLine(o.TestAttributeFunction());
 		   // Console.WriteLine(o.MyFunction());
 			// Console.WriteLine(result.ToString());
@@ -2102,12 +2009,10 @@ namespace AshtonBro.CodeBlog._2
 			Console.ReadLine();
 		}
 	}
-	
 
 PRIVATE ASSEMBLY --> NAME
 
 STRONG NAME ASSEMBLY -> NAME + CRYPTO HASH + Version
-
 
 public class Program
 {
@@ -2115,7 +2020,7 @@ public class Program
 	{
 		var unit = new CodeCompileUnit();
 		var ns = new CodeNamespace("MyOrgGazprom"); // create namespace
-		unit.Namespaces.Add(ns); 
+		unit.Namespaces.Add(ns);
 		ns.Imports.Add(new CodeNamespaceImport("System")); // add using System;
 		var cls = new CodeTypeDeclaration("MyClass"); // Create new MyClass
 		ns.Types.Add(cls);
@@ -2135,7 +2040,6 @@ public class Program
 		writer.Close();
 	}
 }
-	
 
 	// Implementing Symmetric Encryption
 	// Implementing Asymmetric Encryption
@@ -2157,8 +2061,6 @@ public class Program
 			cs.Flush();
 			cs.Close();
 			fs.Close();
-
-
 
 			alg = new AesManaged();
 			alg.KeySize = 256;
@@ -2185,19 +2087,19 @@ public class Program
 		{
 			string data = "Hello RSA!";
 
-			// collision resistance 
+			// collision resistance
 
 			HMACSHA1 hashalg = new HMACSHA1();
 			byte[] hash = hashalg.ComputeHash(Encoding.UTF8.GetBytes(data));
 
-			RSACryptoServiceProvider alg = new RSACryptoServiceProvider(); // Определит количетсво byte 
+			RSACryptoServiceProvider alg = new RSACryptoServiceProvider(); // Определит количетсво byte
 
 			string pubPrivateKey = alg.ToXmlString(true);
 			string PubKey = alg.ToXmlString(false);
 
 			byte[] byteData = Encoding.UTF8.GetBytes(data);
 			var encryptedData = alg.Encrypt(byteData, true);
-			
+
 			alg = new RSACryptoServiceProvider();
 			alg.FromXmlString(pubPrivateKey);
 			byteData = alg.Decrypt(encryptedData, true);
@@ -2230,9 +2132,7 @@ public class Program
 		public int TeacherID { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
-
 	}
-
 
 	// TODO: Exercise 2: Task 1c: Create the Teacher struct
 
@@ -2244,7 +2144,6 @@ public class Program
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Class { get; set; }
-	  
 	}
 
   // TODO: Exercise 3: Task 1a: Define LogonFailed event
@@ -2308,7 +2207,7 @@ public class Program
 					// TODO: Exercise 3: Task 2d: Display the teacher name in the banner at the top of the page
 					txtName.Text = String.Format("Welcome {0} {1} !", SessionContext.CurrentTeacher.FirstName, SessionContext.CurrentTeacher.LastName);
 					// Display the list of students for the teacher
-					GotoStudentsPage();                    
+					GotoStudentsPage();
 					break;
 			}
 		}
@@ -2332,11 +2231,9 @@ ArrayList students = new ArrayList();
 
 			txtClass.Text = String.Format("Class {0}", SessionContext.CurrentTeacher.Class);
 
-
-
 		#region Event Members
 		public delegate void StudentSelectionHandler(object sender, StudentEventArgs e);
-		public event StudentSelectionHandler StudentSelected;        
+		public event StudentSelectionHandler StudentSelected;
 		#endregion
 
 		#region Event Handlers
@@ -2354,12 +2251,10 @@ ArrayList students = new ArrayList();
 					StudentSelected(sender, new StudentEventArgs(student));
 				}
 			}
-			
 		}
 		#endregion
 
-
-		  // TODO: Exercise 3: Task 4a: Display the details for the current student (held in SessionContext.CurrentStudent) 
+		  // TODO: Exercise 3: Task 4a: Display the details for the current student (held in SessionContext.CurrentStudent)
 			studentName.DataContext = SessionContext.CurrentStudent;
 			// TODO: Exercise 3: Task 4d: Create a list of the grades for the student and display this list on the page
 			if (SessionContext.UserRole == Role.Student)
@@ -2414,7 +2309,6 @@ ArrayList students = new ArrayList();
             Assessment = "A-";
             Comments = "Good";
         }
-
     }
 
     // TODO: Exercise 1: Task 2a: Convert Student into a class, make the password property write-only, add the VerifyPassword method, and define constructors
@@ -2481,7 +2375,7 @@ ArrayList students = new ArrayList();
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Class { get; set; }
-       
+
         public Teacher(int teacherID, string userName, string password, string firstName, string lastName, string _class)
         {
             this.TeacherID = teacherID;
@@ -2518,8 +2412,8 @@ ArrayList students = new ArrayList();
                 SessionContext.UserID = teacher.TeacherID;
                 SessionContext.UserRole = Role.Teacher;
                 SessionContext.UserName = teacher.UserName;
-                SessionContext.CurrentTeacher = teacher; 
-              
+                SessionContext.CurrentTeacher = teacher;
+
                 // Raise the LogonSuccess event and finish
                 LogonSuccess(this, null);
                 return;
@@ -2541,8 +2435,8 @@ ArrayList students = new ArrayList();
                     SessionContext.UserID = student.StudentID;
                     SessionContext.UserRole = Role.Student;
                     SessionContext.UserName = student.UserName;
-                    SessionContext.CurrentStudent = student; 
-                    
+                    SessionContext.CurrentStudent = student;
+
                     // Raise the LogonSuccess event and finish
                     LogonSuccess(this, null);
                     return;
@@ -2566,11 +2460,10 @@ ArrayList students = new ArrayList();
                 }
                 else
                 {
-                    throw new ArgumentException("AssessmentDate", "Assessment date is not recognized"); 
+                    throw new ArgumentException("AssessmentDate", "Assessment date is not recognized");
                 }
             }
         }
-
 
         // TODO: Exercise 2: Task 2b: Add validation to the SubjectName property
         private string _subjectName;
@@ -2593,7 +2486,7 @@ ArrayList students = new ArrayList();
         // TODO: Exercise 2: Task 2c: Add validation to the Assessment property
         private string _assessment;
         public string Assessment
-        { 
+        {
             get { return _assessment; }
             set
             {
@@ -2602,7 +2495,6 @@ ArrayList students = new ArrayList();
                     _assessment = value;
                 }
             }
-        
         }
 
 		  public int CompareTo(Student other)
@@ -2625,7 +2517,6 @@ ArrayList students = new ArrayList();
             {
                 throw new ArgumentException("Grade", "Grade to a different Student");
             }
-
         }
 
  */
