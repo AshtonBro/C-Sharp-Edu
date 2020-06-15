@@ -6,14 +6,18 @@ namespace AshtonBro.CodeBlog._2
     {
         private static void Main()
         {
-			
-
+			var str = PrintHello("Zhenya", 58);
+            Console.WriteLine(str);
+			Console.ReadLine();
 		}
 
-		public string PrintHello(string name, int age)
+		public static string PrintHello(string name, int age)
         {
-            Console.WriteLine($"Hello, {name}. You have {age} ages");
-			return 1;
+			if(!String.IsNullOrEmpty(name))
+            {
+			 Console.WriteLine($"Hello, {name}. You have {age} ages/");
+            }
+			return "";
         }
 
 		
