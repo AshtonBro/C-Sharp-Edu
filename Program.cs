@@ -38,19 +38,25 @@ namespace AshtonBro.CodeBlog._2
         private static void Main()
         {
 			Console.ForegroundColor = ConsoleColor.Green;
-			var person1 = new Person("Wuik", "Jon");
-			var person2 = new Person("Capone", "Jogan");
+            //var person1 = new Person("Wuik", "Jon");
+            //var person2 = new Person("Capone", "Jogan");
 
-            for (int i = 0; i < 10; i++)
-            {
-				var position1 = person1.Run();
-                Console.WriteLine(position1);
+            //         for (int i = 0; i < 10; i++)
+            //         {
+            //	var position1 = person1.Run();
+            //             Console.WriteLine(position1);
 
-                Console.WriteLine(person2.Run(person1));
-            }
+            //             Console.WriteLine(person2.Run(person1));
+            //         }
 
-            Console.WriteLine();
-			Console.ReadLine();
+            //         Console.WriteLine();
+
+
+
+            Console.WriteLine(Factorial(3));
+
+
+            Console.ReadLine();
 		}
 
 		public static string PrintHello(string name, int age)
@@ -62,7 +68,7 @@ namespace AshtonBro.CodeBlog._2
 			return "";
         }
 
-		public int Factorial(int value)
+		public static int Factorial(int value)
         {
 			if(value <= 1)
             {
