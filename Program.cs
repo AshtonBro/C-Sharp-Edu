@@ -30,19 +30,37 @@ namespace AshtonBro.CodeBlog._2
 
 			return $"{Name} ({X}, {Y})";
 		}
+		// отличатся сигнатурой, перегрузка (имя метода и принимаемые аргументы) при вызове методо появляются стрелочки верз и вних это перегрузки
+		// 2 одинаковых имени дают выбор
+		public string Run(int x)
+        {
+			X += x;
+			Y += y;
+
+			return $"{Name} ({X} {Y})";
+        }
+
+		public string Run(double y)
+        {
+         
+            return $"{Name} ({X} {Y})";
+        }
     }
 
     class Program
     {
         private static void Main()
         {
+			Console.ForegroundColor = ConsoleColor.Green;
 			var person1 = new Person("Wuik", "Jon");
 			var person2 = new Person("Capone", "Jogan");
 
             for (int i = 0; i < 10; i++)
             {
 				var position1 = person1.Run();
+                var position2 = person2.Run();
                 Console.WriteLine(position1);
+                Console.WriteLine(position2);
             }
 
             Console.WriteLine();
