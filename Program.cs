@@ -2,6 +2,80 @@
 
 namespace AshtonBro.CodeBlog._2
 {
+    class Program
+    {
+        private static void Main()
+        {
+			
+		}
+
+	}
+}
+
+/*
+ 
+<---------------------------- Методы C# (Method C#) классов --------------------------------------->
+// модификатор доступа, тип возврашаемое значение, имя метода(тип аргумента имя аргуменат)
+
+// отличатся сигнатурой, перегрузка (имя метода и принимаемые аргументы) при вызове методо появляются стрелочки верз и вних это перегрузки
+		// 2 одинаковых имени дают выбор
+		public string Run(int x, int y)
+        {
+			X += x;
+			Y += y;
+
+			return $"{Name} ({X} {Y})";
+        }
+
+		public string Run(double y)
+        {
+         
+            return $"{Name} ({X} {Y})";
+        }
+
+
+	public static string PrintHello(string name, int age)
+        {
+			if(!String.IsNullOrEmpty(name))
+            {
+			 Console.WriteLine($"Hello, {name}. You have {age} ages/");
+            }
+			return "";
+        }
+
+		public static int Factorial(int value)
+        {
+			if(value <= 1)
+            {
+				return 1;
+            }
+			else
+            {
+				return value * Factorial(value - 1);
+            }
+        }
+  
+	Console.ForegroundColor = ConsoleColor.Green;
+            var person1 = new Person("Wuik", "Jon");
+            var person2 = new Person("Capone", "Jogan");
+
+                     for (int i = 0; i < 10; i++)
+                     {
+            	var position1 = person1.Run();
+                         Console.WriteLine(position1);
+
+                         Console.WriteLine(person2.Run(person1));
+                     }
+
+                     Console.WriteLine();
+
+
+
+            Console.WriteLine(Factorial(3));
+
+
+            Console.ReadLine();
+
 	public class Person
     {
 		public string SecondName { get; set; }
@@ -32,80 +106,6 @@ namespace AshtonBro.CodeBlog._2
 		}
 		
     }
-
-    class Program
-    {
-        private static void Main()
-        {
-			Console.ForegroundColor = ConsoleColor.Green;
-            //var person1 = new Person("Wuik", "Jon");
-            //var person2 = new Person("Capone", "Jogan");
-
-            //         for (int i = 0; i < 10; i++)
-            //         {
-            //	var position1 = person1.Run();
-            //             Console.WriteLine(position1);
-
-            //             Console.WriteLine(person2.Run(person1));
-            //         }
-
-            //         Console.WriteLine();
-
-
-
-            Console.WriteLine(Factorial(3));
-
-
-            Console.ReadLine();
-		}
-
-		public static string PrintHello(string name, int age)
-        {
-			if(!String.IsNullOrEmpty(name))
-            {
-			 Console.WriteLine($"Hello, {name}. You have {age} ages/");
-            }
-			return "";
-        }
-
-		public static int Factorial(int value)
-        {
-			if(value <= 1)
-            {
-				return 1;
-            }
-			else
-            {
-				return value * Factorial(value - 1);
-            }
-        }
-	}
-}
-
-/*
- 
-<---------------------------- Методы C# (Method C#) классов --------------------------------------->
-// модификатор доступа, тип возврашаемое значение, имя метода(тип аргумента имя аргуменат)
-
-// отличатся сигнатурой, перегрузка (имя метода и принимаемые аргументы) при вызове методо появляются стрелочки верз и вних это перегрузки
-		// 2 одинаковых имени дают выбор
-		public string Run(int x, int y)
-        {
-			X += x;
-			Y += y;
-
-			return $"{Name} ({X} {Y})";
-        }
-
-		public string Run(double y)
-        {
-         
-            return $"{Name} ({X} {Y})";
-        }
-
-
-
-  
  
 <----------------------------Классы (class), конструкторы (constructor) и свойства (property)------------------------------------------------->
 <-----------------------------------------Объектно-ориентированное программирование (ООП) в C#. Инкапсуляция, наследование, полиморфизм #8---------------------------------------->
