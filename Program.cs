@@ -81,7 +81,17 @@ namespace AshtonBro.CodeBlog._2
 
         public static bool operator !=(Apple apple1, Apple apple2)
         {
-            return false;
+			return apple1.Name != apple2.Name;
+		}
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 
