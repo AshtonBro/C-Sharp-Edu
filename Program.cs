@@ -50,18 +50,35 @@ namespace AshtonBro.CodeBlog._2
 
         }
 
-		public Apple Add(Apple apple1, Apple apple2)
+		public static Apple Add(Apple apple1, Apple apple2)
         {
-			var calories = apple1.Calorie;
+			int calories = (int)Math.Round(((apple1.Calorie + apple2.Calorie) / 2.0));
+			var volume = apple1.Volume + apple2.Volume;
+			var apple = new Apple("Apple", calories, volume);
+
+			return apple;
         }
-    }
+
+		public static Apple operator +(Apple apple1, Apple apple2)
+        {
+            int calories = (int)Math.Round(((apple1.Calorie + apple2.Calorie) / 2.0));
+            var volume = apple1.Volume + apple2.Volume;
+            var apple = new Apple("Apple", calories, volume);
+
+            return apple;
+        }
+
+	}
 
     internal class Program
     {
         private static void Main()
         {
-            Apple apple = new Apple("Red apple", 53, 100);
+            Apple apple1 = new Apple("Red apple", 53, 100);
 			Apple apple2 = new Apple("Green apple", 90, 120);
+
+			var sumAplle = Apple.Add(apple1, apple2);
+			var sumAplle2 = apple1 + apple2;
 		}
     }
 }
