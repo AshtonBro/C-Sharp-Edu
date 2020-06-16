@@ -39,7 +39,7 @@ namespace AshtonBro.CodeBlog._2
 
         public override string ToString()
         {
-            return Name;
+			return $"{Name}. Calorie: {Calorie}. Volume: {Volume}";
         }
     }
 
@@ -79,6 +79,13 @@ namespace AshtonBro.CodeBlog._2
 
 			var sumAplle = Apple.Add(apple1, apple2);
 			var sumAplle2 = apple1 + apple2;
+
+            Console.WriteLine(apple1);
+            Console.WriteLine(apple2);
+            Console.WriteLine(sumAplle);
+            Console.WriteLine(sumAplle2);
+
+			Console.ReadLine();
 		}
     }
 }
