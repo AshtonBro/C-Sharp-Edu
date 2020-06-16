@@ -58,7 +58,7 @@ namespace AshtonBro.CodeBlog._2
 
 			return apple;
         }
-
+		// перегрузка операторов: +, -, *, /, %, ==, !=, < >, <= =>, ++, --, /=, *= (это возможные операторы которые мы можем переопределить по своему) 
 		public static Apple operator +(Apple apple1, Apple apple2)
         {
             int calories = (int)Math.Round(((apple1.Calorie + apple2.Calorie) / 2.0));
@@ -68,7 +68,22 @@ namespace AshtonBro.CodeBlog._2
             return apple;
         }
 
-	}
+        public static Apple operator +(Apple apple1, int volume)
+        {
+            var apple = new Apple(apple1.Name, apple1.Calorie, apple1.Calorie + volume);
+            return apple;
+        }
+
+		public static bool operator== (Apple apple1, Apple apple2)
+        {
+			return apple1.Name == apple2.Name;
+        }
+
+        public static bool operator !=(Apple apple1, Apple apple2)
+        {
+            return false;
+        }
+    }
 
     internal class Program
     {
@@ -80,10 +95,15 @@ namespace AshtonBro.CodeBlog._2
 			var sumAplle = Apple.Add(apple1, apple2);
 			var sumAplle2 = apple1 + apple2;
 
+			var sumAplle3 = apple1 + 100;
+
             Console.WriteLine(apple1);
             Console.WriteLine(apple2);
             Console.WriteLine(sumAplle);
             Console.WriteLine(sumAplle2);
+            Console.WriteLine(sumAplle3);
+            Console.WriteLine(apple1 == apple2);
+            Console.WriteLine(sumAplle == sumAplle2);
 
 			Console.ReadLine();
 		}
