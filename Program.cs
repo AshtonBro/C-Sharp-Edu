@@ -2,19 +2,53 @@
 
 namespace AshtonBro.CodeBlog._2
 {
-    class Program
+    public abstract class Product
+    {
+        public string Name { get; }
+        public int Calorie { get; }
+        public int Volume { get; set; }
+		public Product(string name, int calorie, int volume)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+				throw new ArgumentNullException(nameof(name));
+            }
+            if (calorie < 0)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (volume <= 0)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+			Name = name;
+			Calorie = calorie;
+			Volume = volume;
+
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
+
+    public class Apple : Product
+    {
+    }
+
+    internal class Program
     {
         private static void Main()
         {
-			
-		}
-
-	}
+            Apple apple = new Apple();
+        }
+    }
 }
 
 /*
  <---------------------------- Перегрузка операторов (operator) в C#--------------------------------------->
-
 
 <---------------------------- Методы C# (Method C#) классов --------------------------------------->
 // модификатор доступа, тип возврашаемое значение, имя метода(тип аргумента имя аргуменат)
@@ -31,10 +65,8 @@ namespace AshtonBro.CodeBlog._2
 
 		public string Run(double y)
         {
-         
             return $"{Name} ({X} {Y})";
         }
-
 
 	public static string PrintHello(string name, int age)
         {
@@ -56,7 +88,7 @@ namespace AshtonBro.CodeBlog._2
 				return value * Factorial(value - 1);
             }
         }
-  
+
 	Console.ForegroundColor = ConsoleColor.Green;
             var person1 = new Person("Wuik", "Jon");
             var person2 = new Person("Capone", "Jogan");
@@ -71,10 +103,7 @@ namespace AshtonBro.CodeBlog._2
 
                      Console.WriteLine();
 
-
-
             Console.WriteLine(Factorial(3));
-
 
             Console.ReadLine();
 
@@ -93,22 +122,19 @@ namespace AshtonBro.CodeBlog._2
 				Name = name;
 				X = 0;
 				Y = 0;
-
             }
-
         }
 
 		public string Run()
         {
 			var rnd = new Random();
-			X += rnd.Next(-2, 2); 
+			X += rnd.Next(-2, 2);
 			Y += rnd.Next(-2, 2);
 
 			return $"{Name} ({X}, {Y})";
 		}
-		
     }
- 
+
 <----------------------------Классы (class), конструкторы (constructor) и свойства (property)------------------------------------------------->
 <-----------------------------------------Объектно-ориентированное программирование (ООП) в C#. Инкапсуляция, наследование, полиморфизм #8---------------------------------------->
 	// Домашнее задание
