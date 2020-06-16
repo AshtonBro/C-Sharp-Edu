@@ -2,7 +2,22 @@
 
 namespace AshtonBro.CodeBlog._2
 {
-    public abstract class Product
+    internal class Program
+    {
+        private static void Main()
+        {
+          
+		}
+    }
+}
+
+/*
+ <---------------------------- Перегрузка операторов (operator) в C#--------------------------------------->
+// Домашнее задание
+
+// Реализовать +, -, >, <, >=, <=, ==, != для класса из предметной области
+
+ public abstract class Product
     {
         public string Name { get; }
 		//	Калорийность на 100гр продукта
@@ -83,6 +98,16 @@ namespace AshtonBro.CodeBlog._2
         {
             return false;
         }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
     internal class Program
@@ -108,11 +133,6 @@ namespace AshtonBro.CodeBlog._2
 			Console.ReadLine();
 		}
     }
-}
-
-/*
- <---------------------------- Перегрузка операторов (operator) в C#--------------------------------------->
-
 <---------------------------- Методы C# (Method C#) классов --------------------------------------->
 // модификатор доступа, тип возврашаемое значение, имя метода(тип аргумента имя аргуменат)
 
