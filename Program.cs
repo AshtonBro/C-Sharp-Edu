@@ -5,8 +5,17 @@ namespace AshtonBro.CodeBlog._2
     public abstract class Product
     {
         public string Name { get; }
+		//	Калорийность на 100гр продукта
         public int Calorie { get; }
+		// Обьём в граммах
         public int Volume { get; set; }
+		public double Energy
+        {
+			get
+            {
+				return Volume * Calorie / 100.0;
+            }
+        }
 		public Product(string name, int calorie, int volume)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -36,14 +45,24 @@ namespace AshtonBro.CodeBlog._2
 
     public class Apple : Product
     {
+        public Apple(string name, int calorie, int volume) : base(name, calorie, volume)
+        {
+
+        }
+
+		public Apple Add(Apple apple1, Apple apple2)
+        {
+			var calories = apple1.Calorie;
+        }
     }
 
     internal class Program
     {
         private static void Main()
         {
-            Apple apple = new Apple();
-        }
+            Apple apple = new Apple("Red apple", 53, 100);
+			Apple apple2 = new Apple("Green apple", 90, 120);
+		}
     }
 }
 
