@@ -1,37 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AshtonBro.CodeBlog._2
 {
-	public class Product
+
+	// Анонимный тип <T> (Tamplate)
+	public class Product<T, TT>
     {
         public string Name { get; }
-        public int Calorie { get; }
-        public int Volume { get; set; }
-        public double Energy
+        public T Calorie { get; }
+        public T Volume { get; set; }
+        public TT Energy { get; set; }
+        
+            
+        public Product(string name, T calorie, T volume, TT energy)
         {
-            get
-            {
-                return Volume * Calorie / 100.0;
-            }
-        }
-        public Product(string name, int calorie, int volume)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-            if (calorie < 0)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-            if (volume <= 0)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
+            //if (string.IsNullOrWhiteSpace(name))
+            //{
+            //    throw new ArgumentNullException(nameof(name));
+            //}
+            //if (calorie < 0)
+            //{
+            //    throw new ArgumentNullException(nameof(name));
+            //}
+            //if (volume <= 0)
+            //{
+            //    throw new ArgumentNullException(nameof(name));
+            //}
 
             Name = name;
             Calorie = calorie;
             Volume = volume;
+			Energy = energy;
 
         }
 
@@ -39,9 +39,11 @@ namespace AshtonBro.CodeBlog._2
     }
     class Program
     {
-        private static void Main(string[] e)
+        static void Main(string[] args)
         {
-          
+			var product = new Product<int>("Green Apple", 90, 100);
+			var product2 = new Product<decimal>("Banana", 90.2M, 100.10M);
+			var list = new List<int>();
 		}
     }
 }
