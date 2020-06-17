@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace AshtonBro.CodeBlog._2
 {
-	// Анонимный тип <T> (Tamplate)
 	public class Product <T>
 	{
         public string Name { get; }
@@ -46,7 +45,6 @@ namespace AshtonBro.CodeBlog._2
 			return default(T);
         }
     }
-
 
     class Program
     {
