@@ -4,61 +4,11 @@ using System.Collections.Generic;
 
 namespace AshtonBro.CodeBlog._2
 {
-	// Анонимный тип <T> (Tamplate)
-	public class Product <T>
-	{
-        public string Name { get; }
-        public T Volume { get; set; }
-        public T Energy { get; set; }
-        
-        public Product(string name, T volume, T energy)
-        {
-            Name = name;
-            Volume = volume;
-			Energy = default(T);
-        }
-    }
-
-	class Apple : Product
-	{
-		public Apple(string name, int calorie, int volume, int energy) : base(name, calorie, volume, energy)
-		{
-
-		}
-
-	}
-
-    class Banana : Product
-	{
-        public Banana(string name, int calorie, int volume, int energy) : base(name, calorie, volume, energy)
-        {
-
-        }
-    }
-
-	public class Eating<T, TT>
-		where T: Product<T>
-		where TT: IEnumerable
-	{
-		public int Volume { get; private set; }
-		public T Add(T product)
-        {
-			return default(T);
-        }
-    }
-
-
     class Program
     {
         static void Main(string[] args)
         {
-			var eating = new Eating<Banana, List<int>>();
-
-			var list = new List<int>();
 			
-			var map = new Dictionary<int, string>();
-			map.Add(5, "Пять");
-			map.Add(5, "Пять");
 		}
     }
 }
@@ -66,6 +16,12 @@ namespace AshtonBro.CodeBlog._2
 /*
 
  <---------------------------- Обобщения или шаблоны (Generic) в C# ---------------------------------------> 
+
+-HOME WORK
+В вашей предметной области определить базовый класс и несколько наследников
+Создать класс который будет в качестве универсального типо базовый класс
+Поэксперементировать с универсальными типами
+
  Значение по умолчании
  public Product(string name, T volume, T energy)
         {
