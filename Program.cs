@@ -3,7 +3,70 @@ using System.Collections.Generic;
 
 namespace AshtonBro.CodeBlog._2
 {
+	// Анонимный тип <T> (Tamplate)
+	public class Product <T>
+    {
+        public string Name { get; }
+        public int Calorie { get; }
+        public int Volume { get; set; }
+        public int Energy { get; set; }
+        
+        public Product(string name, int calorie, int volume, int energy)
+        {
+            Name = name;
+            Calorie = calorie;
+            Volume = volume;
+			Energy = energy;
+        }
+    }
 
+    class Apple : Product
+    { 
+
+		public Apple(string name, int calorie, int volume, int energy) : base(name, calorie, volume, energy)
+		{
+
+        }
+
+	}
+
+    class Banana : Product
+    {
+        public Banana(string name, int calorie, int volume, int energy) : base(name, calorie, volume, energy)
+        {
+
+        }
+    }
+
+	public class Eating<T>
+		where T: Product<T>
+	{
+		public int Volume { get; private set; }
+		public void Add(T product)
+        {
+			Volume += product.Volume * product.Energy;
+        }
+    }
+
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+			var eating = new Eating<Product<int>>();
+
+			var list = new List<int>();
+			
+			var map = new Dictionary<int, string>();
+			map.Add(5, "Пять");
+			map.Add(5, "Пять");
+		}
+    }
+}
+
+/*
+
+ <---------------------------- Обобщения или шаблоны (Generic) в C# ---------------------------------------> 
 	// Анонимный тип <T> (Tamplate)
 	public class Product<T, TT>
     {
@@ -53,12 +116,6 @@ namespace AshtonBro.CodeBlog._2
 			map.Add(5, "Пять");
 		}
     }
-}
-
-/*
-
- <---------------------------- Обобщения или шаблоны (Generic) в C# ---------------------------------------> 
-
 
  <---------------------------- Перегрузка операторов (operator) в C#--------------------------------------->
 // Домашнее задание
