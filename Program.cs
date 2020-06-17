@@ -15,18 +15,18 @@ namespace AshtonBro.CodeBlog._2
             
         public Product(string name, T calorie, T volume, TT energy)
         {
-            //if (string.IsNullOrWhiteSpace(name))
-            //{
-            //    throw new ArgumentNullException(nameof(name));
-            //}
-            //if (calorie < 0)
-            //{
-            //    throw new ArgumentNullException(nameof(name));
-            //}
-            //if (volume <= 0)
-            //{
-            //    throw new ArgumentNullException(nameof(name));
-            //}
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (calorie < 0)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (volume <= 0)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
 
             Name = name;
             Calorie = calorie;
@@ -41,9 +41,16 @@ namespace AshtonBro.CodeBlog._2
     {
         static void Main(string[] args)
         {
-			var product = new Product<int>("Green Apple", 90, 100);
-			var product2 = new Product<decimal>("Banana", 90.2M, 100.10M);
+			var product = new Product<int, decimal>("Green Apple", 90, 100, 120);
+			var product2 = new Product<decimal, int>("Banana", 90.2M, 100.10M, 23);
 			var list = new List<int>();
+			// дикшенери работает по принципу ключь, значение, ключь, значение - добавлять значения при помощи Add.
+			// ключь это уникальное значение и добваить в дикшенери такой же ключь у вас не получится
+			//map.Add(5, "Пять");
+			// map.Add(5, "Пять"); нельзя, выкинит эксепшен в ран тайме 
+			var map = new Dictionary<int, string>();
+			map.Add(5, "Пять");
+			map.Add(5, "Пять");
 		}
     }
 }
