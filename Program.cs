@@ -1,10 +1,80 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace AshtonBro.CodeBlog._2
 {
 	// Анонимный тип <T> (Tamplate)
 	public class Product <T>
+	{
+        public string Name { get; }
+        public T Volume { get; set; }
+        public T Energy { get; set; }
+        
+        public Product(string name, T volume, T energy)
+        {
+            Name = name;
+            Volume = volume;
+			Energy = default(T);
+        }
+    }
+
+	class Apple : Product
+	{
+		public Apple(string name, int calorie, int volume, int energy) : base(name, calorie, volume, energy)
+		{
+
+		}
+
+	}
+
+    class Banana : Product
+	{
+        public Banana(string name, int calorie, int volume, int energy) : base(name, calorie, volume, energy)
+        {
+
+        }
+    }
+
+	public class Eating<T, TT>
+		where T: Product<T>
+		where TT: IEnumerable
+	{
+		public int Volume { get; private set; }
+		public T Add(T product)
+        {
+			return default(T);
+        }
+    }
+
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+			var eating = new Eating<Banana, List<int>>();
+
+			var list = new List<int>();
+			
+			var map = new Dictionary<int, string>();
+			map.Add(5, "Пять");
+			map.Add(5, "Пять");
+		}
+    }
+}
+
+/*
+
+ <---------------------------- Обобщения или шаблоны (Generic) в C# ---------------------------------------> 
+ Значение по умолчании
+ public Product(string name, T volume, T energy)
+        {
+            Name = name;
+            Volume = volume;
+			Energy = default(T);
+        }
+
+public class Product
     {
         public string Name { get; }
         public int Calorie { get; }
@@ -20,13 +90,12 @@ namespace AshtonBro.CodeBlog._2
         }
     }
 
-    class Apple : Product
-    { 
-
+	class Apple : Product
+	{
 		public Apple(string name, int calorie, int volume, int energy) : base(name, calorie, volume, energy)
 		{
 
-        }
+		}
 
 	}
 
@@ -38,8 +107,9 @@ namespace AshtonBro.CodeBlog._2
         }
     }
 
-	public class Eating<T>
-		where T: Product<T>
+	public class Eating<T, TT>
+		where T: Product
+		where TT: IEnumerable
 	{
 		public int Volume { get; private set; }
 		public void Add(T product)
@@ -53,7 +123,7 @@ namespace AshtonBro.CodeBlog._2
     {
         static void Main(string[] args)
         {
-			var eating = new Eating<Product<int>>();
+			var eating = new Eating<Banana, List<int>>();
 
 			var list = new List<int>();
 			
@@ -62,11 +132,6 @@ namespace AshtonBro.CodeBlog._2
 			map.Add(5, "Пять");
 		}
     }
-}
-
-/*
-
- <---------------------------- Обобщения или шаблоны (Generic) в C# ---------------------------------------> 
 	// Анонимный тип <T> (Tamplate)
 	public class Product<T, TT>
     {
@@ -107,10 +172,14 @@ namespace AshtonBro.CodeBlog._2
 			var product = new Product<int, decimal>("Green Apple", 90, 100, 120);
 			var product2 = new Product<decimal, int>("Banana", 90.2M, 100.10M, 23);
 			var list = new List<int>();
+
+																			-------------------------------------------------------------------<
 			// дикшенери работает по принципу ключь, значение, ключь, значение - добавлять значения при помощи Add.
 			// ключь это уникальное значение и добваить в дикшенери такой же ключь у вас не получится
 			//map.Add(5, "Пять");
 			// map.Add(5, "Пять"); нельзя, выкинит эксепшен в ран тайме 
+
+
 			var map = new Dictionary<int, string>();
 			map.Add(5, "Пять");
 			map.Add(5, "Пять");
