@@ -4,6 +4,32 @@ using System.Collections.Generic;
 
 namespace AshtonBro.CodeBlog._2
 {
+	interface ICar
+    {
+		/// <summary>
+		/// Выполнить перемещение
+		/// </summary>
+		/// <param name="distance">Расстояние.</param>
+		/// <returns>Время движения.</returns> 
+		int Move(int distance);
+    }
+
+    class LadaSeven : ICar
+    {
+        public int Move(int distance)
+        {
+			return distance / 40;
+        }
+    }
+
+	class LadaVesta : ICar
+    {
+		public int Move(int distance)
+        {
+			return distance / 100;
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -14,6 +40,14 @@ namespace AshtonBro.CodeBlog._2
 }
 
 /*
+ <---------------------------- Интерфейсы C# (Interface) ---------------------------------------> 
+
+// без модификатора доступа, название интерфейса начинается с I 
+	interface ICar
+    {
+		void Move(int distance);
+    }
+
 
  <---------------------------- Обобщения или шаблоны (Generic) в C# ---------------------------------------> 
 
