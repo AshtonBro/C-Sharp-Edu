@@ -5,7 +5,6 @@ using System.Drawing;
 
 namespace AshtonBro.CodeBlog._2
 {
-
 	// Явное и не явное опеределние интерфейса
 	interface IPerson
     {
@@ -96,7 +95,6 @@ namespace AshtonBro.CodeBlog._2
             Console.WriteLine(((IPerson)cyborg).Move(100));
 
             Console.ReadLine();
-
 		}
 	}
 }
