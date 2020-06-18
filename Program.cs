@@ -14,6 +14,11 @@ namespace AshtonBro.CodeBlog._2
 
     public class Cyborg : ICar, IPerson
     {
+        public void Create()
+        {
+            throw new NotImplementedException();
+        }
+
         int ICar.Move(int distance)
         {
             return distance / 100;
@@ -24,7 +29,7 @@ namespace AshtonBro.CodeBlog._2
 			return distance / 5;
         }
     }
-    interface ICar
+    interface ICar : IObject
     {
 		/// <summary>
 		/// Выполнить перемещение
@@ -33,9 +38,20 @@ namespace AshtonBro.CodeBlog._2
 		/// <returns>Время движения.</returns> 
 		int Move(int distance);
     }
+	
+	// Последовательное наследование
+	interface IObject
+    {
+		void Create();
+    }
 
     class LadaSeven : ICar, IDisposable 
     {
+        public void Create()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Dispose()
         {
             throw new NotImplementedException();
@@ -49,7 +65,12 @@ namespace AshtonBro.CodeBlog._2
 
 	class LadaVesta : ICar
     {
-		public int Move(int distance)
+        public void Create()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Move(int distance)
         {
 			return distance / 100;
         }
@@ -70,7 +91,7 @@ namespace AshtonBro.CodeBlog._2
             }
 
 			// Явное и не явное опеределние интерфейса
-			var cyborg = new Cyborg();
+            var cyborg = new Cyborg();
             Console.WriteLine(((ICar)cyborg).Move(100));
             Console.WriteLine(((IPerson)cyborg).Move(100));
 
@@ -90,78 +111,6 @@ namespace AshtonBro.CodeBlog._2
     }
 
 
-	// Явное и не явное опеределние интерфейса
-	interface IPerson
-    {
-		int Move(int distance);
-    }
-
-    public class Cyborg : ICar, IPerson
-    {
-        int ICar.Move(int distance)
-        {
-            return distance / 100;
-        }
-
-		int IPerson.Move(int distance)
-        {
-			return distance / 5;
-        }
-    }
-    interface ICar
-    {
-		/// <summary>
-		/// Выполнить перемещение
-		/// </summary>
-		/// <param name="distance">Расстояние.</param>
-		/// <returns>Время движения.</returns> 
-		int Move(int distance);
-    }
-
-    class LadaSeven : ICar, IDisposable 
-    {
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Move(int distance)
-        {
-			return distance / 40;
-        }
-    }
-
-	class LadaVesta : ICar
-    {
-		public int Move(int distance)
-        {
-			return distance / 100;
-        }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-			Console.ForegroundColor = ConsoleColor.Green;
-			var cars = new List<ICar>();
-			cars.Add(new LadaSeven());
-			cars.Add(new LadaVesta());
-			
-			foreach (var car in cars)
-            {
-                Console.WriteLine(car.Move(450));
-            }
-
-			// Явное и не явное опеределние интерфейса
-			var cyborg = new Cyborg();
-            Console.WriteLine(((ICar)cyborg).Move(100));
-            Console.WriteLine(((IPerson)cyborg).Move(100));
-
-            Console.ReadLine();
-
-		}
-	}
  <---------------------------- Обобщения или шаблоны (Generic) в C# ---------------------------------------> 
 
 -HOME WORK
