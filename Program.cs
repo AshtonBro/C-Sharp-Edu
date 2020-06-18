@@ -14,8 +14,13 @@ namespace AshtonBro.CodeBlog._2
 		int Move(int distance);
     }
 
-    class LadaSeven : ICar
+    class LadaSeven : ICar, IDisposable 
     {
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
         public int Move(int distance)
         {
 			return distance / 40;
@@ -34,9 +39,16 @@ namespace AshtonBro.CodeBlog._2
     {
         static void Main(string[] args)
         {
-			
+			var cars = new List<ICar>();
+			cars.Add(new LadaSeven());
+			cars.Add(new LadaVesta());
+
+            foreach (var car in cars)
+            {
+				
+            }
 		}
-    }
+	}
 }
 
 /*
