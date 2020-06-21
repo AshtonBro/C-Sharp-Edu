@@ -2,9 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 
 namespace AshtonBro.CodeBlog._2
 {
+    // создаём своеё собственное исключение
+    class MyOwnException : Exception
+    {
+        public MyOwnException() : base("Моё исключение") {}
+		public MyOwnException(string message) : base(message) {}
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -15,8 +23,12 @@ namespace AshtonBro.CodeBlog._2
 				int i = 5;
             try
             {
-				throw new DivideByZeroException();
+				throw new MyOwnException();
             }
+			catch (MyOwnException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }			
 			catch (DivideByZeroException ex) when (i == 5)
             {
                 Console.WriteLine("Исключение: " + ex.Message + " и i == 5");
@@ -41,6 +53,36 @@ namespace AshtonBro.CodeBlog._2
 
 /*
  <---------------------------- Исключения (Exception) в C# ---------------------------------------> 
+
+		static void Main(string[] args)
+        {
+			Console.ForegroundColor = ConsoleColor.Green;
+
+
+				int i = 5;
+            try
+            {
+				throw new DivideByZeroException("i", "Пользователь делит на ноль");
+            }
+			catch (DivideByZeroException ex) when (i == 5)
+            {
+                Console.WriteLine("Исключение: " + ex.Message + " и i == 5");
+            }
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine("Исключение: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Исключение: " + ex.Message);
+				throw ;
+            }
+			finally
+            {
+				Console.WriteLine("Работа завершена");
+				Console.ReadLine();
+            }
+		}
 
 		static void Main(string[] args)
         {
