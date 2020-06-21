@@ -10,8 +10,27 @@ namespace AshtonBro.CodeBlog._2
         static void Main(string[] args)
         {
 			Console.ForegroundColor = ConsoleColor.Green;
-			int i = 5;
-			var j = i / 0;
+
+			int a = 200000000;
+			int b = 200000000;
+			int c = checked(a * b);
+            Console.WriteLine(c);
+
+            try
+            {
+                int i = 5;
+                var j = i / 1;
+                Console.WriteLine(j);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+			finally
+            {
+				Console.WriteLine("Работа завершена");
+				Console.ReadLine();
+            }
 		}
 	}
 }
@@ -19,7 +38,26 @@ namespace AshtonBro.CodeBlog._2
 /*
  <---------------------------- Исключения (Exception) в C# ---------------------------------------> 
 
+		static void Main(string[] args)
+        {
+			Console.ForegroundColor = ConsoleColor.Green;
 
+            try
+            {
+                int i = 5;
+                var j = i / 1;
+                Console.WriteLine(j);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+			finally
+            {
+				Console.WriteLine("Работа завершена");
+				Console.ReadLine();
+            }
+		}
 
  
  <---------------------------- Интерфейсы C# (Interface) ---------------------------------------> 
