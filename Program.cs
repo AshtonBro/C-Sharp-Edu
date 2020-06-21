@@ -7,7 +7,7 @@ using System.Text;
 namespace AshtonBro.CodeBlog._2
 {
     // создаём своеё собственное исключение
-    class MyOwnException : Exception
+    class MyOwnException : ArgumentException
     {
         public MyOwnException() : base("Моё исключение") {}
 		public MyOwnException(string message) : base(message) {}
@@ -19,8 +19,25 @@ namespace AshtonBro.CodeBlog._2
         {
 			Console.ForegroundColor = ConsoleColor.Green;
 
+			int result = 0;
 
-				int i = 5;
+			while(true)
+            {
+				var input = Console.ReadLine();
+				if(int.TryParse(input, out result))
+                {
+                    Console.WriteLine($"Корректно преобразованный в int: {result}");
+					break;
+                }
+				else
+                {
+                    Console.WriteLine($"Некоректный ввод, введите целове число");
+                }
+            }
+
+            Console.WriteLine(result);
+			int i = 5;
+
             try
             {
 				throw new MyOwnException();
@@ -53,6 +70,67 @@ namespace AshtonBro.CodeBlog._2
 
 /*
  <---------------------------- Исключения (Exception) в C# ---------------------------------------> 
+
+		 // создаём своеё собственное исключение
+    class MyOwnException : ArgumentException
+    {
+        public MyOwnException() : base("Моё исключение") {}
+		public MyOwnException(string message) : base(message) {}
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+			Console.ForegroundColor = ConsoleColor.Green;
+
+			int result = 0;
+
+			while(true)
+            {
+				var input = Console.ReadLine();
+				if(int.TryParse(input, out result))
+                {
+                    Console.WriteLine($"Корректно преобразованный в int: {result}");
+					break;
+                }
+				else
+                {
+                    Console.WriteLine($"Некоректный ввод, введите целове число");
+                }
+            }
+
+            Console.WriteLine(result);
+			int i = 5;
+
+            try
+            {
+				throw new MyOwnException();
+            }
+			catch (MyOwnException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }			
+			catch (DivideByZeroException ex) when (i == 5)
+            {
+                Console.WriteLine("Исключение: " + ex.Message + " и i == 5");
+            }
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine("Исключение: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Исключение: " + ex.Message);
+				throw ;
+            }
+			finally
+            {
+				Console.WriteLine("Работа завершена");
+				Console.ReadLine();
+            }
+		}
+	}
 
 		static void Main(string[] args)
         {
