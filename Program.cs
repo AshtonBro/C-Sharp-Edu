@@ -6,13 +6,41 @@ using System.Text;
 
 namespace AshtonBro.CodeBlog._2
 {
- 
+
+    class MyException : Exception
+    {
+        public MyException() : base ("Вызвалось собственное исключение")
+        {
+        }
+
+		public MyException(string message) : base(message)
+        {
+
+        }
+
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
 			Console.ForegroundColor = ConsoleColor.Green;
 
+            try
+            {
+				throw new MyException();
+
+			}
+            catch (MyException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+			finally
+            {
+                Console.WriteLine("Работа звершена");
+				Console.ReadLine();
+			}
+			
 		}
 	}
 }
