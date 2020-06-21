@@ -10,12 +10,18 @@ namespace AshtonBro.CodeBlog._2
         static void Main(string[] args)
         {
 			Console.ForegroundColor = ConsoleColor.Green;
-			
+			int i = 5;
+			var j = i / 0;
 		}
 	}
 }
 
 /*
+ <---------------------------- Исключения (Exception) в C# ---------------------------------------> 
+
+
+
+ 
  <---------------------------- Интерфейсы C# (Interface) ---------------------------------------> 
 
 // Домашнее задание
