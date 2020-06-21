@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 
 namespace AshtonBro.CodeBlog._2
 {
-
     class MyException : Exception
     {
         public MyException() : base ("Вызвалось собственное исключение")
@@ -15,7 +15,10 @@ namespace AshtonBro.CodeBlog._2
 
 		public MyException(string message) : base(message)
         {
+        }
 
+		public MyException(string message, Exception inner) : base (message, inner)
+        {
         }
 
     }
@@ -28,14 +31,30 @@ namespace AshtonBro.CodeBlog._2
 
             try
             {
-				throw new MyException();
-
+				throw new MyException("Вызываю моё исключение", new NullReferenceException());
+				int q = 6;
+				int j = q / 0;
+				var x = new List<int>();
+				x.ElementAt(5);
 			}
-            catch (MyException ex)
+			catch (MyException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("В блоке catch вызываем MyExpetion");
+                Console.WriteLine("Ошибка: {0}", ex.Message);
+                if (ex.InnerException == null)
+                    Console.WriteLine("Inner равен null: {0}", ex.InnerException);
+				if(ex.InnerException != null)
+                    Console.WriteLine("Inner неравен null: {0}", ex.InnerException);
             }
-			finally
+			catch (DivideByZeroException ex)
+            {
+                Console.WriteLine($"Деление на ноль: {ex.Message}");
+            }
+			catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($"За пределами индекса: {ex.Message}");
+            }
+            finally
             {
                 Console.WriteLine("Работа звершена");
 				Console.ReadLine();
