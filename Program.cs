@@ -9,8 +9,12 @@ namespace AshtonBro.CodeBlog._2
     // создаём своеё собственное исключение
     class MyOwnException : ArgumentException
     {
-        public MyOwnException() : base("Моё исключение") {}
-		public MyOwnException(string message) : base(message) {}
+        public MyOwnException() : base("Моё исключение")
+		{
+		}
+		public MyOwnException(string message) : base(message)
+		{
+		}
     }
 
     class Program
