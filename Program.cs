@@ -11,20 +11,24 @@ namespace AshtonBro.CodeBlog._2
         {
 			Console.ForegroundColor = ConsoleColor.Green;
 
-			int a = 200000000;
-			int b = 200000000;
-			int c = checked(a * b);
-            Console.WriteLine(c);
 
+				int i = 5;
             try
             {
-                int i = 5;
-                var j = i / 1;
-                Console.WriteLine(j);
+				throw new DivideByZeroException();
+            }
+			catch (DivideByZeroException ex) when (i == 5)
+            {
+                Console.WriteLine("Исключение: " + ex.Message + " и i == 5");
+            }
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine("Исключение: " + ex.Message);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Исключение: " + ex.Message);
+				throw ;
             }
 			finally
             {
