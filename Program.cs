@@ -7,7 +7,54 @@ using System.Text;
 
 namespace AshtonBro.CodeBlog._2
 {
-    class MyException : Exception
+	public delegate void MyFirstDelegate();
+    class Program
+    {
+		static void Main(string[] args)
+        {
+			Console.ForegroundColor = ConsoleColor.Green;
+
+			MyFirstDelegate myDelegate = Method1;
+			myDelegate += Method3;
+
+
+			myDelegate();
+			Console.ReadLine();
+			
+        }
+
+		public static void Method1()
+        {
+            Console.WriteLine("Запустился Метод 1");
+			
+        }
+
+        public static int Method2()
+        {
+            Console.WriteLine("Запустился Метод 2");
+			return 0;
+		}
+        public static void Method3()
+        {
+            Console.WriteLine("Запустился Метод 3");
+        }
+        public static int Method4()
+        {
+            Console.WriteLine("Запустился Метод 4");
+			return 0;
+        }
+    } 
+}
+
+/*
+ <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
+
+	public delegate тип_возвращаемого_значения имя_делегата(тип_аргумента аргумент)
+
+
+ <---------------------------- Исключения (Exception) в C# ---------------------------------------> 
+
+	class MyException : Exception
     {
         public MyException() : base ("Вызвалось собственное исключение")
         {
@@ -62,15 +109,6 @@ namespace AshtonBro.CodeBlog._2
 			
 		}
 	}
-}
-
-/*
- <---------------------------- Исключения (Exception) в C# ---------------------------------------> 
-
-	TODO: Создать свой класс исключения
-	TODO: Сгенерировать своё исключение
-	TODO: Добавить проверку в работе с классами try/catch/catch/catch/finally
-	TODO: Отловить своё и другие исключения
 
 	// создаём своеё собственное исключение
     class MyOwnException : ArgumentException
