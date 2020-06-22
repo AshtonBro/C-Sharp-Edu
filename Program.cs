@@ -16,10 +16,17 @@ namespace AshtonBro.CodeBlog._2
 
 			MyFirstDelegate myDelegate = Method1;
 			myDelegate += Method3;
+            myDelegate();
 
+            MyFirstDelegate myDelegate2 = new MyFirstDelegate(Method3);
+			myDelegate2 += Method3; // add method in delegate 
+			myDelegate2 -= Method3; // remove method in delegate 
+			myDelegate2.Invoke();
 
-			myDelegate();
-			Console.ReadLine();
+			MyFirstDelegate myDelegate3 = myDelegate + myDelegate2; // Можем объединить делегаты в одном делегате;
+			myDelegate3.Invoke();
+
+            Console.ReadLine();
 			
         }
 
