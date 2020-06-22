@@ -50,6 +50,12 @@ namespace AshtonBro.CodeBlog._2
             Func<string, char, int> func;
 			Func<int> func2;
 
+
+			Func<int, int> func3 = MethodValue;
+			// такая форма записи проверяет если фанк пустой то игнорируем если метод внутри есть то вызываем. это обработка исключения
+			func3?.Invoke(7);  // расшифровка if (func3 != null) { func3(7); }
+
+
             Console.ReadLine();
         }
 
