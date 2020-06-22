@@ -10,6 +10,7 @@ namespace AshtonBro.CodeBlog._2
 	public delegate void MyFirstDelegate();
     class Program
     {
+		public delegate int ValueDelegate(int i);
 		static void Main(string[] args)
         {
 			Console.ForegroundColor = ConsoleColor.Green;
@@ -26,8 +27,22 @@ namespace AshtonBro.CodeBlog._2
 			MyFirstDelegate myDelegate3 = myDelegate + myDelegate2; // Можем объединить делегаты в одном делегате;
 			myDelegate3.Invoke();
 
-            Console.ReadLine();
-			
+			var valueDelegate = new ValueDelegate(MethodValue);
+			valueDelegate += MethodValue; // --
+			valueDelegate += MethodValue; //  | Метод вызывает все пять раз, но возвращается полученное значение только от последнего метода
+			valueDelegate += MethodValue; //  | рандомное число 30 получли 5 раз
+			valueDelegate += MethodValue; // --
+
+			valueDelegate((new Random()).Next(10, 50));
+
+
+			Console.ReadLine();
+        }
+
+		public static int MethodValue(int i)
+        {
+            Console.WriteLine(i);
+			return i;
         }
 
 		public static void Method1()
