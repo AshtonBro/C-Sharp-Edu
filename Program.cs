@@ -7,10 +7,15 @@ using System.Text;
 
 namespace AshtonBro.CodeBlog._2
 {
-	public delegate void MyFirstDelegate();
+	
     class Program
     {
 		public delegate int ValueDelegate(int i);
+
+		// группа делегатов Action которые не возвращают на значения, но могут принимать от 0 до 16 возможных значений
+		public Action ActionDelegate; // одинаковые по сигнатуре ↓
+		public delegate void MyFirstDelegate(); // одинаковые по сигнатуре ↑
+		public delegate void Actions(int i); // сокращенно Action<int> action1 = Method2;
 		static void Main(string[] args)
         {
 			Console.ForegroundColor = ConsoleColor.Green;
@@ -30,11 +35,15 @@ namespace AshtonBro.CodeBlog._2
 			var valueDelegate = new ValueDelegate(MethodValue);
 			valueDelegate += MethodValue; // --
 			valueDelegate += MethodValue; //  | Метод вызывает все пять раз, но возвращается полученное значение только от последнего метода
-			valueDelegate += MethodValue; //  | рандомное число 30 получли 5 раз
+			valueDelegate += MethodValue; //  | рандомное число 30 получили 5 раз
 			valueDelegate += MethodValue; // --
 
 			valueDelegate((new Random()).Next(10, 50));
 
+			Action action = Method1; // сокращенный способ объявления делегата возвращающего ничего (тоже самое что: public delegate void MyFirstDelegate();)
+			action();
+
+			Action<int, int, string> action1 = Method2; // от 1 до 16 перегрузок
 
 			Console.ReadLine();
         }
@@ -72,7 +81,7 @@ namespace AshtonBro.CodeBlog._2
  <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
 
 	public delegate тип_возвращаемого_значения имя_делегата(тип_аргумента аргумент)
-
+	public delegate void MyFirstDelegate();
 
  <---------------------------- Исключения (Exception) в C# ---------------------------------------> 
 
