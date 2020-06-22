@@ -16,6 +16,8 @@ namespace AshtonBro.CodeBlog._2
 		public Action ActionDelegate; // одинаковые по сигнатуре ↓
 		public delegate void MyFirstDelegate(); // одинаковые по сигнатуре ↑
 		public delegate void Actions(int i); // сокращенно Action<int> action1 = Method2;
+		public delegate bool Predicate<T>(T value); // Predicate<int> myPredict;
+		public delegate int Func(string value); // Func<string, int> funct;
 		static void Main(string[] args)
         {
 			Console.ForegroundColor = ConsoleColor.Green;
@@ -40,12 +42,15 @@ namespace AshtonBro.CodeBlog._2
 
 			valueDelegate((new Random()).Next(10, 50));
 
-			Action action = Method1; // сокращенный способ объявления делегата возвращающего ничего (тоже самое что: public delegate void MyFirstDelegate();)
+			Action action = Method1; // сокращенный способ объявления делегата возвращающего ничего (тоже самое что: public delegate void MyFirstDelegate();) от 1 до 16 перегрузок
 			action();
 
-			Action<int, int, string> action1 = Method2; // от 1 до 16 перегрузок
+            Predicate<int> myPredict;
 
-			Console.ReadLine();
+            Func<string, char, int> func;
+			Func<int> func2;
+
+            Console.ReadLine();
         }
 
 		public static int MethodValue(int i)
@@ -57,7 +62,6 @@ namespace AshtonBro.CodeBlog._2
 		public static void Method1()
         {
             Console.WriteLine("Запустился Метод 1");
-			
         }
 
         public static int Method2()
@@ -74,6 +78,12 @@ namespace AshtonBro.CodeBlog._2
             Console.WriteLine("Запустился Метод 4");
 			return 0;
         }
+
+        public static int Method5(int i, int j)
+        {
+            Console.WriteLine("Запустился Метод 5");
+			return i + j;
+        }
     } 
 }
 
@@ -82,6 +92,9 @@ namespace AshtonBro.CodeBlog._2
 
 	public delegate тип_возвращаемого_значения имя_делегата(тип_аргумента аргумент)
 	public delegate void MyFirstDelegate();
+	Action<int, int, string> action1 = Method5; // от 1 до 16 перегрузок
+
+
 
  <---------------------------- Исключения (Exception) в C# ---------------------------------------> 
 
