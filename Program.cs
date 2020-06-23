@@ -9,54 +9,36 @@ namespace AshtonBro.CodeBlog._2
 {
     class Program
     {
-		class Person
-        {
-			public event EventHandler GoToSleep;
-			public event EventHandler DoWork;
-
-			public string Name { get; set; }
-			public void TakeTime(DateTime now)
-            {
-				if(now.Hour <= 8)
-                {
-					GoToSleep?.Invoke(this, null);
-                }
-				else
-                {
-					DoWork?.Invoke(this, null);
-                }
-            }
-        }
-
         static void Main(string[] args)
         {
-			Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Green;
 
-			Person person = new Person();
-			person.Name = "Janet";
-            person.GoToSleep += Person_GoToSleep;
-            person.DoWork += Person_DoWork;	 
-
-			person.TakeTime(DateTime.Parse("23.06.2020 21:13:01"));
-            person.TakeTime(DateTime.Parse("23.06.2020 4:13:01"));
-
+            var sum = Sum(5, 5, Calc1);
+            var sum2 = Sum(5, 5, Calc2);
+            var sum3 = Calc1(5, 5);
+            var sum4 = Calc2(5, 5);
+            Console.WriteLine("Delegate " + sum);
+            Console.WriteLine("Delegate " + sum2);
+            Console.WriteLine("Method " + sum3);
+            Console.WriteLine("Method " + sum4);
             Console.ReadLine();
         }
 
-        private static void Person_DoWork(object sender, EventArgs e)
-		{ 
-			if(sender is Person)
-            {
-				Console.WriteLine($"{((Person)sender).Name} работает в это время");
-			}
-			
-		}
+        private static int Sum(int a, int b, Func<int, int, int> calc)
+        {
+            return calc(a, b);
+        }
 
-        private static void Person_GoToSleep(object sender, EventArgs e)
-		{
-            Console.WriteLine($"{((Person)sender).Name} идёт спать");
-		}
-    } 
+        private static int Calc1(int i, int j)
+        {
+            return i + j;
+        }
+
+        private static int Calc2(int i, int j)
+        {
+            return i * j;
+        }
+    }
 }
 
 /*
