@@ -7,7 +7,191 @@ using System.Text;
 
 namespace AshtonBro.CodeBlog._2
 {
+    public delegate void MyEvDelegate();
+    // События (События обычно создаются через делегаты)
+    public event MyEvDelegate Event;
+    public event Action EventAction;
+
     class Program
+    {
+        class Person
+        {
+            public event EventHandler GoToSleep;
+            public event EventHandler DoWork;
+
+            public string Name { get; set; }
+            public void TakeTime(DateTime now)
+            {
+                if (now.Hour <= 8)
+                {
+                    GoToSleep?.Invoke(this, null);
+                }
+                else
+                {
+                    DoWork?.Invoke(this, null);
+                }
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            Person person = new Person();
+            person.Name = "Janet";
+            person.GoToSleep += Person_GoToSleep;
+            person.DoWork += Person_DoWork;
+
+            person.TakeTime(DateTime.Parse("23.06.2020 21:13:01"));
+            person.TakeTime(DateTime.Parse("23.06.2020 4:13:01"));
+
+            Console.ReadLine();
+        }
+
+        private static void Person_DoWork(object sender, EventArgs e)
+        {
+            if (sender is Person)
+            {
+                Console.WriteLine($"{((Person)sender).Name} работает в это время");
+            }
+
+        }
+
+        private static void Person_GoToSleep(object sender, EventArgs e)
+        {
+            Console.WriteLine($"{((Person)sender).Name} идёт спать");
+        }
+    }
+
+    public delegate тип_возвращаемого_значения имя_делегата(тип_аргумента аргумент)
+
+    public delegate void MyFirstDelegate();
+    Action<int, int, string> action1 = Method5; // от 1 до 16 перегрузок
+
+    class Program
+    {
+        public delegate int ValueDelegate(int i);
+
+        // группа делегатов Action которые не возвращают на значения, но могут принимать от 0 до 16 возможных значений
+        public Action ActionDelegate; // одинаковые по сигнатуре ↓
+        public delegate void MyFirstDelegate(); // одинаковые по сигнатуре ↑
+        public delegate void Actions(int i); // сокращенно Action<int> action1 = Method2;
+        public delegate bool Predicate<T>(T value); // Predicate<int> myPredict;
+        public delegate int Func(string value); // Func<string, int> funct;
+        static void Main(string[] args)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            MyFirstDelegate myDelegate = Method1;
+            myDelegate += Method3;
+            myDelegate();
+
+            MyFirstDelegate myDelegate2 = new MyFirstDelegate(Method3);
+            myDelegate2 += Method3; // add method in delegate 
+            myDelegate2 -= Method3; // remove method in delegate 
+            myDelegate2.Invoke();
+
+            MyFirstDelegate myDelegate3 = myDelegate + myDelegate2; // Можем объединить делегаты в одном делегате;
+            myDelegate3.Invoke();
+
+            var valueDelegate = new ValueDelegate(MethodValue);
+            valueDelegate += MethodValue; // --
+            valueDelegate += MethodValue; //  | Метод вызывает все пять раз, но возвращается полученное значение только от последнего метода
+            valueDelegate += MethodValue; //  | рандомное число 30 получили 5 раз
+            valueDelegate += MethodValue; // --
+
+            valueDelegate((new Random()).Next(10, 50));
+
+            Action action = Method1; // сокращенный способ объявления делегата возвращающего ничего (тоже самое что: public delegate void MyFirstDelegate();) от 1 до 16 перегрузок
+            action();
+
+            Predicate<int> myPredict;
+
+            Func<string, char, int> func;
+            Func<int> func2;
+
+
+            Func<int, int> func3 = MethodValue;
+            // такая форма записи проверяет если фанк пустой то игнорируем если метод внутри есть то вызываем. это обработка исключения
+            func3?.Invoke(7);  // расшифровка if (func3 != null) { func3(7); }
+
+
+            Console.ReadLine();
+        }
+
+        public static int MethodValue(int i)
+        {
+            Console.WriteLine(i);
+            return i;
+        }
+
+        public static void Method1()
+        {
+            Console.WriteLine("Запустился Метод 1");
+        }
+
+        public static int Method2()
+        {
+            Console.WriteLine("Запустился Метод 2");
+            return 0;
+        }
+        public static void Method3()
+        {
+            Console.WriteLine("Запустился Метод 3");
+        }
+        public static int Method4()
+        {
+            Console.WriteLine("Запустился Метод 4");
+            return 0;
+        }
+
+        public static int Method5(int i, int j)
+        {
+            Console.WriteLine("Запустился Метод 5");
+            return i + j;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+			Console.ForegroundColor = ConsoleColor.Green;
+
+			var sum = Sum(5, 5, Calc1);
+			var sum2 = Sum(5, 5, Calc2);
+			var sum3 = Calc1(5, 5);
+            var sum4 = Calc2(5, 5);
+			Console.WriteLine("Delegate " + sum);
+			Console.WriteLine("Delegate " + sum2);
+            Console.WriteLine("Method " + sum3);
+            Console.WriteLine("Method " + sum4);
+            Console.ReadLine();
+		}
+
+		private static int Sum(int a, int b, Func<int, int, int> calc)
+        {
+			return calc(a, b);
+        }
+
+		private static int Calc1(int i, int j)
+        {
+			return i + j;
+        }
+
+        private static int Calc2(int i, int j)
+        {
+            return i * j;
+        }
+    }
+}
+/*
+ <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
+	public delegate void MyEvDelegate();
+	// События (События обычно создаются через делегаты)
+    public event MyEvDelegate Event;
+	public event Action EventAction;
+
+	class Program
     {
 		class Person
         {
@@ -57,16 +241,6 @@ namespace AshtonBro.CodeBlog._2
             Console.WriteLine($"{((Person)sender).Name} идёт спать");
 		}
     } 
-}
-
-/*
- <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
-	public delegate void MyEvDelegate();
-	// События (События обычно создаются через делегаты)
-    public event MyEvDelegate Event;
-	public event Action EventAction;
-
-
 
 	public delegate тип_возвращаемого_значения имя_делегата(тип_аргумента аргумент)
 	public delegate void MyFirstDelegate();
@@ -156,6 +330,35 @@ namespace AshtonBro.CodeBlog._2
         }
     } 
 
+    static void Main(string[] args)
+        {
+			Console.ForegroundColor = ConsoleColor.Green;
+
+			var sum = Sum(5, 5, Calc1);
+			var sum2 = Sum(5, 5, Calc2);
+			var sum3 = Calc1(5, 5);
+            var sum4 = Calc2(5, 5);
+			Console.WriteLine("Delegate " + sum);
+			Console.WriteLine("Delegate " + sum2);
+            Console.WriteLine("Method " + sum3);
+            Console.WriteLine("Method " + sum4);
+            Console.ReadLine();
+		}
+
+		private static int Sum(int a, int b, Func<int, int, int> calc)
+        {
+			return calc(a, b);
+        }
+
+		private static int Calc1(int i, int j)
+        {
+			return i + j;
+        }
+
+        private static int Calc2(int i, int j)
+        {
+            return i * j;
+        }
  <---------------------------- Исключения (Exception) в C# ---------------------------------------> 
 
 	class MyException : Exception
