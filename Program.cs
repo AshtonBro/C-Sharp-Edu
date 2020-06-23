@@ -40,7 +40,6 @@ namespace AshtonBro.CodeBlog._2
 			person.TakeTime(DateTime.Parse("23.06.2020 21:13:01"));
             person.TakeTime(DateTime.Parse("23.06.2020 4:13:01"));
 
-
             Console.ReadLine();
         }
 
