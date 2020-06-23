@@ -7,8 +7,73 @@ using System.Text;
 
 namespace AshtonBro.CodeBlog._2
 {
-	
     class Program
+    {
+		class Person
+        {
+			public event EventHandler GoToSleep;
+			public event EventHandler DoWork;
+
+			public string Name { get; set; }
+			public void TakeTime(DateTime now)
+            {
+				if(now.Hour <= 8)
+                {
+					GoToSleep?.Invoke(this, null);
+                }
+				else
+                {
+					DoWork?.Invoke(this, null);
+                }
+            }
+        }
+
+        static void Main(string[] args)
+        {
+			Console.ForegroundColor = ConsoleColor.Green;
+
+			Person person = new Person();
+			person.Name = "Janet";
+            person.GoToSleep += Person_GoToSleep;
+            person.DoWork += Person_DoWork;	 
+
+			person.TakeTime(DateTime.Parse("23.06.2020 21:13:01"));
+            person.TakeTime(DateTime.Parse("23.06.2020 4:13:01"));
+
+
+            Console.ReadLine();
+        }
+
+        private static void Person_DoWork(object sender, EventArgs e)
+		{ 
+			if(sender is Person)
+            {
+				Console.WriteLine($"{((Person)sender).Name} работает в это время");
+			}
+			
+		}
+
+        private static void Person_GoToSleep(object sender, EventArgs e)
+		{
+            Console.WriteLine($"{((Person)sender).Name} идёт спать");
+		}
+    } 
+}
+
+/*
+ <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
+	public delegate void MyEvDelegate();
+	// События (События обычно создаются через делегаты)
+    public event MyEvDelegate Event;
+	public event Action EventAction;
+
+
+
+	public delegate тип_возвращаемого_значения имя_делегата(тип_аргумента аргумент)
+	public delegate void MyFirstDelegate();
+	Action<int, int, string> action1 = Method5; // от 1 до 16 перегрузок
+
+	class Program
     {
 		public delegate int ValueDelegate(int i);
 
@@ -91,16 +156,6 @@ namespace AshtonBro.CodeBlog._2
 			return i + j;
         }
     } 
-}
-
-/*
- <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
-
-	public delegate тип_возвращаемого_значения имя_делегата(тип_аргумента аргумент)
-	public delegate void MyFirstDelegate();
-	Action<int, int, string> action1 = Method5; // от 1 до 16 перегрузок
-
-
 
  <---------------------------- Исключения (Exception) в C# ---------------------------------------> 
 
