@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Unicode;
 
 namespace AshtonBro.CodeBlog._2
 {
@@ -12,10 +13,14 @@ namespace AshtonBro.CodeBlog._2
     {
         static void Main(string[] args)
         {
-			using(var sw = StreamWriter)
+			using(var sw = new StreamWriter("stream.txt", true, Encoding.UTF8))
             {
-
+				var str = "Hello";
+				sw.Write(str);
+				sw.WriteLine(str + "User");
             }
+
+
         }
     }
 }
@@ -27,6 +32,19 @@ namespace AshtonBro.CodeBlog._2
 	// Прочитать/Записать
 	// Закрыть
 
+	using(var sw = new StreamWriter("stream.txt", true)) // Добавляем true вторым параметрам и тем замым разрешаем дописывать в файл, false перезаписывает - не дополняет
+    {
+		var str = "Hello";
+		sw.Write(str);
+		sw.WriteLine(str + "User");
+    }
+
+	using(var sw = new StreamWriter("stream.txt")) // так мы создаём файл сохраняем в него стринг и при запуске перезаписываем файл
+    {
+		var str = "Hello";
+		sw.Write(str);
+		sw.WriteLine(str + "User");
+    }
 
 
  <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
