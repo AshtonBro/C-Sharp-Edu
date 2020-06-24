@@ -11,32 +11,7 @@ namespace AshtonBro.CodeBlog._2
     {
         static void Main(string[] args)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-
-            var sum = Sum(5, 5, Calc1);
-            var sum2 = Sum(5, 5, Calc2);
-            var sum3 = Calc1(5, 5);
-            var sum4 = Calc2(5, 5);
-            Console.WriteLine("Delegate " + sum);
-            Console.WriteLine("Delegate " + sum2);
-            Console.WriteLine("Method " + sum3);
-            Console.WriteLine("Method " + sum4);
-            Console.ReadLine();
-        }
-
-        private static int Sum(int a, int b, Func<int, int, int> calc)
-        {
-            return calc(a, b);
-        }
-
-        private static int Calc1(int i, int j)
-        {
-            return i + j;
-        }
-
-        private static int Calc2(int i, int j)
-        {
-            return i * j;
+           
         }
     }
 }
