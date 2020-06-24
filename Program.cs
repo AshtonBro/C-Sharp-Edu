@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -11,12 +12,23 @@ namespace AshtonBro.CodeBlog._2
     {
         static void Main(string[] args)
         {
-           
+			using(var sw = StreamWriter)
+            {
+
+            }
         }
     }
 }
 
 /*
+ 
+ <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
+	// Открыть
+	// Прочитать/Записать
+	// Закрыть
+
+
+
  <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
 	public delegate void MyEvDelegate();
 	// События (События обычно создаются через делегаты)
