@@ -30,6 +30,9 @@ namespace AshtonBro.CodeBlog._2
                     Console.WriteLine(sr.ReadLine() + " <<Прочтено>>");
                 }
 
+
+				sr.DiscardBufferedData();
+				sr.BaseStream.Seek(0, SeekOrigin.Begin);
 				var str = sr.ReadToEnd(); // ReadToEnd прочитать файл от начало до конца
                 Console.WriteLine(str);
             }
