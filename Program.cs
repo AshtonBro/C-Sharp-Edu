@@ -13,14 +13,16 @@ namespace AshtonBro.CodeBlog._2
     {
         static void Main(string[] args)
         {
-			using(var sw = new StreamWriter("stream.txt", true, Encoding.UTF8))
+			Console.OutputEncoding = Encoding.Unicode;
+
+			using(var sw = new StreamWriter("stream.txt", true, Encoding.Unicode))
             {
-				var str = "Hello";
-				sw.Write(str);
-				sw.WriteLine(str + "User");
+				sw.Write("Hello ");
+				sw.WriteLine("Hello User");
+				sw.WriteLine("Привет Кириллица в потоках");
             }
 
-			using(var sr = new StreamReader("stream.txt"))
+			using(var sr = new StreamReader("stream.txt", Encoding.Unicode))
             {
 				var str = sr.ReadToEnd(); // ReadToEnd прочитать файл от начало до конца
                 Console.WriteLine(str);
