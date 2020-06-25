@@ -20,7 +20,12 @@ namespace AshtonBro.CodeBlog._2
 				sw.WriteLine(str + "User");
             }
 
-
+			using(var sr = new StreamReader("stream.txt"))
+            {
+				var str = sr.ReadToEnd(); // ReadToEnd прочитать файл от начало до конца
+                Console.WriteLine(str);
+            }
+			Console.ReadLine();
         }
     }
 }
@@ -32,14 +37,31 @@ namespace AshtonBro.CodeBlog._2
 	// Прочитать/Записать
 	// Закрыть
 
-	using(var sw = new StreamWriter("stream.txt", true)) // Добавляем true вторым параметрам и тем замым разрешаем дописывать в файл, false перезаписывает - не дополняет
+	static void Main(string[] args)
+    {
+		using(var sw = new StreamWriter("stream.txt", true, Encoding.UTF8))
+        {
+			var str = "Hello";
+			sw.Write(str);
+			sw.WriteLine(str + "User");
+        }
+
+		using(var sr = new StreamReader("stream.txt"))
+        {
+			var str = sr.ReadToEnd(); // ReadToEnd прочитать файл от начало до конца
+            Console.WriteLine(str);
+        }
+		Console.ReadLine();
+    }
+
+	using(var sw = new StreamWriter("stream.txt", true)) // Добавляем true вторым параметрам и тем самым разрешаем дописывать в файл, false перезаписывает - не дополняет
     {
 		var str = "Hello";
 		sw.Write(str);
 		sw.WriteLine(str + "User");
     }
 
-	using(var sw = new StreamWriter("stream.txt")) // так мы создаём файл сохраняем в него стринг и при запуске перезаписываем файл
+	using(var sw = new StreamWriter("stream.txt")) // так мы создаём файл сохраняем в него string и при запуске перезаписываем файл
     {
 		var str = "Hello";
 		sw.Write(str);
