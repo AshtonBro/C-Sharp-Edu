@@ -24,12 +24,10 @@ namespace AshtonBro.CodeBlog._2
 
 			using(var sr = new StreamReader("stream.txt", Encoding.Unicode))
             {
-				
 				while(!sr.EndOfStream) // читать файл построчно
                 {
                     Console.WriteLine(sr.ReadLine() + " <<Прочтено>>");
                 }
-
 
 				sr.DiscardBufferedData();
 				sr.BaseStream.Seek(0, SeekOrigin.Begin);
@@ -54,19 +52,28 @@ namespace AshtonBro.CodeBlog._2
 	// Прочитать/Записать
 	// Закрыть
 
-	  static void Main(string[] args)
+	          static void Main(string[] args)
         {
 			Console.OutputEncoding = Encoding.Unicode;
 
-			using(var sw = new StreamWriter("stream.txt", true, Encoding.Unicode))
+			using(var sw = new StreamWriter("stream.txt", false, Encoding.Unicode))
             {
-				sw.Write("Hello ");
+				sw.WriteLine("Hello ");
 				sw.WriteLine("Hello User");
 				sw.WriteLine("Привет Кириллица в потоках");
             }
 
 			using(var sr = new StreamReader("stream.txt", Encoding.Unicode))
             {
+				
+				while(!sr.EndOfStream) // читать файл построчно
+                {
+                    Console.WriteLine(sr.ReadLine() + " <<Прочтено>>");
+                }
+
+
+				sr.DiscardBufferedData();
+				sr.BaseStream.Seek(0, SeekOrigin.Begin);
 				var str = sr.ReadToEnd(); // ReadToEnd прочитать файл от начало до конца
                 Console.WriteLine(str);
             }
