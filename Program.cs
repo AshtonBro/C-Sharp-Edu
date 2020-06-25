@@ -15,6 +15,46 @@ namespace AshtonBro.CodeBlog._2
         {
 			Console.OutputEncoding = Encoding.Unicode;
 
+			using(var sw = new StreamWriter("stream.txt", false, Encoding.Unicode))
+            {
+				sw.WriteLine("Hello ");
+				sw.WriteLine("Hello User");
+				sw.WriteLine("Привет Кириллица в потоках");
+            }
+
+			using(var sr = new StreamReader("stream.txt", Encoding.Unicode))
+            {
+				
+				while(!sr.EndOfStream) // читать файл построчно
+                {
+                    Console.WriteLine(sr.ReadLine() + " <<Прочтено>>");
+                }
+
+				var str = sr.ReadToEnd(); // ReadToEnd прочитать файл от начало до конца
+                Console.WriteLine(str);
+            }
+			Console.ReadLine();
+        }
+    }
+}
+
+/*
+ 
+ <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
+
+	TODO: Создать приложение, которое запрашивает данные пользователя
+	TODO: Записывает введённые данные в файл
+	TODO: По команде читает данные из файла
+
+
+	// Открыть
+	// Прочитать/Записать
+	// Закрыть
+
+	  static void Main(string[] args)
+        {
+			Console.OutputEncoding = Encoding.Unicode;
+
 			using(var sw = new StreamWriter("stream.txt", true, Encoding.Unicode))
             {
 				sw.Write("Hello ");
@@ -29,32 +69,6 @@ namespace AshtonBro.CodeBlog._2
             }
 			Console.ReadLine();
         }
-    }
-}
-
-/*
- 
- <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
-	// Открыть
-	// Прочитать/Записать
-	// Закрыть
-
-	static void Main(string[] args)
-    {
-		using(var sw = new StreamWriter("stream.txt", true, Encoding.UTF8))
-        {
-			var str = "Hello";
-			sw.Write(str);
-			sw.WriteLine(str + "User");
-        }
-
-		using(var sr = new StreamReader("stream.txt"))
-        {
-			var str = sr.ReadToEnd(); // ReadToEnd прочитать файл от начало до конца
-            Console.WriteLine(str);
-        }
-		Console.ReadLine();
-    }
 
 	using(var sw = new StreamWriter("stream.txt", true)) // Добавляем true вторым параметрам и тем самым разрешаем дописывать в файл, false перезаписывает - не дополняет
     {
