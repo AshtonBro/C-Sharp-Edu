@@ -15,28 +15,6 @@ namespace AshtonBro.CodeBlog._2
         {
 			Console.OutputEncoding = Encoding.Unicode;
 
-			using(var sw = new StreamWriter("stream.txt", false, Encoding.Unicode))
-            {
-				sw.WriteLine("Hello ");
-				sw.WriteLine("Hello User");
-				sw.WriteLine("Привет Кириллица в потоках");
-            }
-
-			using(var sr = new StreamReader("stream.txt", Encoding.Unicode))
-            {
-				
-				while(!sr.EndOfStream) // читать файл построчно
-                {
-                    Console.WriteLine(sr.ReadLine() + " <<Прочтено>>");
-                }
-
-
-				sr.DiscardBufferedData();
-				sr.BaseStream.Seek(0, SeekOrigin.Begin);
-				var str = sr.ReadToEnd(); // ReadToEnd прочитать файл от начало до конца
-                Console.WriteLine(str);
-            }
-			Console.ReadLine();
         }
     }
 }
