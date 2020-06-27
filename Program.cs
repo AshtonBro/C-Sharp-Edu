@@ -20,7 +20,20 @@ namespace AshtonBro.CodeBlog._2
             thread.Start();
 
             Thread thread2 = new Thread(new ParameterizedThreadStart(DoWork2));
-			thread.Start(int.MaxValue);
+			thread2.Start(int.MaxValue);
+
+			int j = 0;
+            for (int i = 0; i < int.MaxValue; i++)
+            {
+                j++;
+
+                if (j % 10000 == 0)
+                {
+                    Console.WriteLine("Main");
+                }
+            }
+
+			Console.ReadLine();
         }
 
 		static void DoWork()
@@ -28,7 +41,12 @@ namespace AshtonBro.CodeBlog._2
 			int j = 0;
             for (int i = 0; i < int.MaxValue; i++)
             {
-                Console.WriteLine(j++); 
+                j++;
+
+				if(j % 10000 == 0)
+                {
+                    Console.WriteLine("DoWork");
+                }
             }
         }
 
@@ -38,7 +56,12 @@ namespace AshtonBro.CodeBlog._2
             int j = 0;
             for (int i = 0; i < (int)max; i++)
             {
-                Console.WriteLine(j++);
+                j++;
+
+                if (j % 10000 == 0)
+                {
+                    Console.WriteLine("DoWork2");
+                }
             }
         }
 
