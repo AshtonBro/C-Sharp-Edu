@@ -13,6 +13,8 @@ namespace AshtonBro.CodeBlog._2
 {
     class Program
     {
+		public static object locker = new object();
+
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.Unicode;
@@ -31,20 +33,23 @@ namespace AshtonBro.CodeBlog._2
 
 		static bool SaveFile(string path)
         {
-			var rnd = new Random();
-			var text = "";
-            for (int i = 0; i < 50000; i++)
-            {
-				text += rnd.Next();
-            }
+            lock(locker)
+			{
+                var rnd = new Random();
+                var text = "";
+                for (int i = 0; i < 50000; i++)
+                {
+                    text += rnd.Next();
+                }
 
-			using (var sw = new StreamWriter(path, false, Encoding.UTF8))
-            {
-				sw.WriteLine();
-            }
+                using (var sw = new StreamWriter(path, false, Encoding.UTF8))
+                {
+                    sw.WriteLine();
+                }
 
-			return true;
-        }
+                return true;
+            }
+		}
 
 		static async Task DoWorkAsync()
         {
@@ -82,6 +87,9 @@ namespace AshtonBro.CodeBlog._2
 
 /*
 <---------------------------- Асинхронность (async, await) и многопоточность (thread) в C# ---------------------------------------> 
+
+	// Dead log
+	
 
 
 	// Сделали функцию записывающию в файл txt текст затем сделали её асинхронное
