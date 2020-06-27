@@ -14,25 +14,7 @@ namespace AshtonBro.CodeBlog._2
     class Program
     {
 		public static object locker = new object();
-		public static int i1 = 0;
-		public static int i2 = 0;
-
-		static void M1()
-        {
-            for (int i = 0; i <= i1; i++)
-            {
-
-            }
-        }
-
-        static void M2()
-        {
-            for (int i = 0; i >= i1; i--)
-            {
-
-            }
-        }
-
+	
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.Unicode;
