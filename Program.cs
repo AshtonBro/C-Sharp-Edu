@@ -16,29 +16,32 @@ namespace AshtonBro.CodeBlog._2
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.Unicode;
+			Console.WriteLine("Before DoWorkAsync");
+			DoWorkAsync();
+			Console.WriteLine("After DoWorkAsync");
 
+			for (int i = 0; i < 10; i++)
+            {
+              Console.WriteLine("Main");
+            }
 
-
-
-            Console.ReadLine();
+			Console.WriteLine("End Main");
+			Console.ReadLine();
         }
 
 		static async Task DoWorkAsync()
         {
+			Console.WriteLine("Begin async");
 			await Task.Run(() => DoWork()); // лямбда, анонимная конструкция
+            Console.WriteLine("End async");
         }
 
 		static void DoWork()
         {
 			int j = 0;
-            for (int i = 0; i < int.MaxValue; i++)
+            for (int i = 0; i < 10; i++)
             {
-                j++;
-
-				if(j % 10000 == 0)
-                {
-                    Console.WriteLine("DoWork");
-                }
+               Console.WriteLine("DoWork");
             }
         }
 
@@ -79,6 +82,37 @@ namespace AshtonBro.CodeBlog._2
                     Console.WriteLine("Main");
                 }
             }
+
+
+		static void DoWork()
+        {
+			int j = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                j++;
+
+				if(j % 10000 == 0)
+                {
+                    Console.WriteLine("DoWork");
+                }
+            }
+        }
+
+        static void DoWork2(object max)
+        {
+
+            int j = 0;
+            for (int i = 0; i < (int)max; i++)
+            {
+                j++;
+
+                if (j % 10000 == 0)
+                {
+                    Console.WriteLine("DoWork2");
+                }
+            }
+        }
+
 
 
  <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
