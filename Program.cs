@@ -16,6 +16,94 @@ namespace AshtonBro.CodeBlog._2
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.Unicode;
+
+			var result = SaveFileAsync("stream.txt");
+			var input = Console.ReadLine();
+			Console.WriteLine(result.Result);
+			Console.ReadLine();
+        }
+
+		static async Task<bool> SaveFileAsync(string path)
+        {
+			var result = await Task.Run(() => SaveFile(path));
+			return result;
+        }
+
+		static bool SaveFile(string path)
+        {
+			var rnd = new Random();
+			var text = "";
+            for (int i = 0; i < 50000; i++)
+            {
+				text += rnd.Next();
+            }
+
+			using (var sw = new StreamWriter(path, false, Encoding.UTF8))
+            {
+				sw.WriteLine();
+            }
+
+			return true;
+        }
+
+		static async Task DoWorkAsync()
+        {
+			Console.WriteLine("Begin async");
+			await Task.Run(() => DoWork(15)); // лямбда, анонимная конструкция
+            Console.WriteLine("End async");
+        }
+
+		static void DoWork(int max)
+        {
+			int j = 0;
+            for (int i = 0; i < max; i++)
+            {
+               Console.WriteLine("DoWork");
+            }
+        }
+
+        static void DoWork2(object max)
+        {
+
+            int j = 0;
+            for (int i = 0; i < (int)max; i++)
+            {
+                j++;
+
+                if (j % 10000 == 0)
+                {
+                    Console.WriteLine("DoWork2");
+                }
+            }
+        }
+
+    }
+}
+
+/*
+<---------------------------- Асинхронность (async, await) и многопоточность (thread) в C# ---------------------------------------> 
+
+
+	// можем передавать параметр
+	static async Task DoWorkAsync()
+        {
+			Console.WriteLine("Begin async");
+			await Task.Run(() => DoWork(15)); // лямбда, анонимная конструкция
+            Console.WriteLine("End async");
+        }
+
+		static void DoWork(int max)
+        {
+			int j = 0;
+            for (int i = 0; i < max; i++)
+            {
+               Console.WriteLine("DoWork");
+            }
+        }
+
+	static void Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.Unicode;
 			Console.WriteLine("Before DoWorkAsync");
 			DoWorkAsync();
 			Console.WriteLine("After DoWorkAsync");
@@ -44,27 +132,6 @@ namespace AshtonBro.CodeBlog._2
                Console.WriteLine("DoWork");
             }
         }
-
-        static void DoWork2(object max)
-        {
-
-            int j = 0;
-            for (int i = 0; i < (int)max; i++)
-            {
-                j++;
-
-                if (j % 10000 == 0)
-                {
-                    Console.WriteLine("DoWork2");
-                }
-            }
-        }
-
-    }
-}
-
-/*
-<---------------------------- Асинхронность (async, await) и многопоточность (thread) в C# ---------------------------------------> 
 
             Thread thread = new Thread(new ThreadStart(DoWork));
             thread.Start();
