@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Unicode;
+using System.Threading;
 
 namespace AshtonBro.CodeBlog._2
 {
@@ -15,12 +16,27 @@ namespace AshtonBro.CodeBlog._2
         {
 			Console.OutputEncoding = Encoding.Unicode;
 
+			Thread thread = new Thread(new ThreadStart(DoWork));
+			thread.Start();
         }
+
+		static void DoWork()
+        {
+			int j = 0;
+            for (int i = 0; i < int.MaxValue; i++)
+            {
+                Console.WriteLine(j++); 
+            }
+        }
+
     }
 }
 
 /*
- 
+<---------------------------- Асинхронность (async, await) и многопоточность (thread) в C# ---------------------------------------> 
+
+
+
  <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
 
 	TODO: Создать приложение, которое запрашивает данные пользователя
