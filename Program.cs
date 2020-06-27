@@ -16,8 +16,11 @@ namespace AshtonBro.CodeBlog._2
         {
 			Console.OutputEncoding = Encoding.Unicode;
 
-			Thread thread = new Thread(new ThreadStart(DoWork));
-			thread.Start();
+            Thread thread = new Thread(new ThreadStart(DoWork));
+            thread.Start();
+
+            Thread thread2 = new Thread(new ParameterizedThreadStart(DoWork2));
+			thread.Start(int.MaxValue);
         }
 
 		static void DoWork()
@@ -26,6 +29,16 @@ namespace AshtonBro.CodeBlog._2
             for (int i = 0; i < int.MaxValue; i++)
             {
                 Console.WriteLine(j++); 
+            }
+        }
+
+        static void DoWork2(object max)
+        {
+
+            int j = 0;
+            for (int i = 0; i < (int)max; i++)
+            {
+                Console.WriteLine(j++);
             }
         }
 
