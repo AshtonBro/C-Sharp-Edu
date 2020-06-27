@@ -13,6 +13,34 @@ namespace AshtonBro.CodeBlog._2
 {
     class Program
     {
+		
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.Unicode;
+
+			
+        }
+
+		
+    }
+}
+
+/*
+<---------------------------- Асинхронность (async, await) и многопоточность (thread) в C# ---------------------------------------> 
+	TODO: 1 - В своей предметной области создать метод со сложными вычислениями
+	TODO: 1 - Сделать для этого метода обертку в виде async-метода
+	TODO: 1 - Переписать свой код в асинхронном варианте
+
+	TODO: 2 - Создать вручную поток (thread) 
+	TODO: 2 - Сделать для него повышенный приоритет
+	TODO: 2 - Запустить выполнение и попробовать завершить приложение
+
+	TODO: 3 - Использовать lock
+
+
+	// Dead log
+	class Program
+    {
 		public static object locker = new object();
 		public static int i1 = 0;
 		public static int i2 = 0;
@@ -42,8 +70,6 @@ namespace AshtonBro.CodeBlog._2
 			Console.WriteLine(result.Result);
 			Console.ReadLine();
         }
-
-
 
 		static async Task<bool> SaveFileAsync(string path)
         {
@@ -103,13 +129,6 @@ namespace AshtonBro.CodeBlog._2
         }
 
     }
-}
-
-/*
-<---------------------------- Асинхронность (async, await) и многопоточность (thread) в C# ---------------------------------------> 
-
-	// Dead log
-	
 
 
 	// Сделали функцию записывающию в файл txt текст затем сделали её асинхронное
