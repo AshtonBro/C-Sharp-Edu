@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Unicode;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace AshtonBro.CodeBlog._2
 {
@@ -14,26 +15,17 @@ namespace AshtonBro.CodeBlog._2
     {
         static void Main(string[] args)
         {
-			Console.OutputEncoding = Encoding.Unicode;
+            Console.OutputEncoding = Encoding.Unicode;
 
-            Thread thread = new Thread(new ThreadStart(DoWork));
-            thread.Start();
 
-            Thread thread2 = new Thread(new ParameterizedThreadStart(DoWork2));
-			thread2.Start(int.MaxValue);
 
-			int j = 0;
-            for (int i = 0; i < int.MaxValue; i++)
-            {
-                j++;
 
-                if (j % 10000 == 0)
-                {
-                    Console.WriteLine("Main");
-                }
-            }
+            Console.ReadLine();
+        }
 
-			Console.ReadLine();
+		static async Task DoWorkAsync()
+        {
+			await Task.Run(() => DoWork()); // лямбда, анонимная конструкция
         }
 
 		static void DoWork()
@@ -71,6 +63,22 @@ namespace AshtonBro.CodeBlog._2
 /*
 <---------------------------- Асинхронность (async, await) и многопоточность (thread) в C# ---------------------------------------> 
 
+            Thread thread = new Thread(new ThreadStart(DoWork));
+            thread.Start();
+
+            Thread thread2 = new Thread(new ParameterizedThreadStart(DoWork2));
+            thread2.Start(int.MaxValue);
+
+            int j = 0;
+            for (int i = 0; i < int.MaxValue; i++)
+            {
+                j++;
+
+                if (j % 10000 == 0)
+                {
+                    Console.WriteLine("Main");
+                }
+            }
 
 
  <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
