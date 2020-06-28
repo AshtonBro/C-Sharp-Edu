@@ -34,7 +34,12 @@ namespace ClientTcp
                 sizeData = tcpSocket.Receive(buffer);
                 answer.Append(Encoding.UTF8.GetString(buffer, 0, sizeData));
             }
-            while (tcpSocket.Available > 0);
+            while (tcpSocket.Available > 0); // получаем сообщение, раскодировали
+
+            Console.WriteLine(answer.ToString());
+
+            tcpSocket.Shutdown(SocketShutdown.Both);
+            tcpSocket.Close();
         }
     }
 }

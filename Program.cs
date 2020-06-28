@@ -10,7 +10,7 @@ namespace AshtonBro.CodeBlog._1
     {
         static void Main(string[] args)
         {
-         
+          
         }
     }
 }
