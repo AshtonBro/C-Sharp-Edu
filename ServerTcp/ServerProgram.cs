@@ -55,13 +55,28 @@ namespace ServerTcp
 
             udpSocket.Bind(udpEndPoint);
 
-            var buffer = new byte[256]; // хранилище данных
-            var sizeData = 0; // переменная в которую будем записывать реальное кол-во байт
-            var data = new StringBuilder();
+            while (true)
+            { 
+                var buffer = new byte[256]; // хранилище данных
+                var sizeData = 0; // переменная в которую будем записывать реальное кол-во байт
+                var data = new StringBuilder();
 
-            EndPoint senderUdpEndPoint = new IPEndPoint(IPAddress.Any, 0); // экземпляр адреса в который будем записывать данные (сохранить данные подключения, адрес клиента)
-            sizeData = udpSocket.ReceiveFrom(buffer, ref senderUdpEndPoint); // через реферальный аргумент передаём наш sender
+                EndPoint senderUdpEndPoint = new IPEndPoint(IPAddress.Any, 0); // экземпляр адреса в который будем записывать данные (сохранить данные подключения, адрес клиента)
 
+                do
+                {
+                    sizeData = udpSocket.ReceiveFrom(buffer, ref senderUdpEndPoint); // через реферальный аргумент передаём наш sender
+                    data.Append(Encoding.UTF8.GetString(buffer));
+                }
+                while (udpSocket.Available > 0);
+
+                udpSocket.SendTo(Encoding.UTF8.GetBytes("Сообщение получено"), senderUdpEndPoint);
+                
+                Console.WriteLine(data);
+            }
+
+            //udpSocket.Shutdown(SocketShutdown.Both);
+            //udpSocket.Close();
         }
     }
 }
