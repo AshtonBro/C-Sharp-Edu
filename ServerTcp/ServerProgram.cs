@@ -45,7 +45,7 @@ namespace ServerTcp
             //}
             #endregion
 
-
+            Console.WriteLine("Сервер запущен...");
             const string ip = "127.0.0.1";
             const int port = 8081;
 
@@ -56,7 +56,7 @@ namespace ServerTcp
             udpSocket.Bind(udpEndPoint);
 
             while (true)
-            { 
+            {
                 var buffer = new byte[256]; // хранилище данных
                 var sizeData = 0; // переменная в которую будем записывать реальное кол-во байт
                 var data = new StringBuilder();
@@ -71,8 +71,8 @@ namespace ServerTcp
                 while (udpSocket.Available > 0);
 
                 udpSocket.SendTo(Encoding.UTF8.GetBytes("Сообщение получено"), senderUdpEndPoint);
-                
-                Console.WriteLine(data);
+
+                Console.WriteLine($"Сообщение получено: {data}");
             }
 
             //udpSocket.Shutdown(SocketShutdown.Both);
