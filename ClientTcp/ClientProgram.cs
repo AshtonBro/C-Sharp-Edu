@@ -9,38 +9,42 @@ namespace ClientTcp
     {
         static void Main(string[] args)
         {
-            const string ip = "127.0.0.1";
-            const int port = 8080;
+            #region TCP
+            //const string ip = "127.0.0.1";
+            //const int port = 8080;
 
-            var tcpEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-
-            var tcpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            //var tcpEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
             
-            Console.Write("Введите сообщение: ");
-            var message = Console.ReadLine(); // ввели сообщение
+            //var tcpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            var data = Encoding.UTF8.GetBytes(message); // получили и закодировали данные
+            //Console.Write("Введите сообщение: ");
+            //var message = Console.ReadLine(); // ввели сообщение
 
-            tcpSocket.Connect(tcpEndPoint); // открыть сокет, сделать подключение для этого сокета
-            tcpSocket.Send(data); // Отправляем наш массив байт
+            //var data = Encoding.UTF8.GetBytes(message); // получили и закодировали данные
 
-            var buffer = new byte[256]; // Получаем ответ
-            var sizeData = 0; 
-            var answer = new StringBuilder(); // Ответ сервера
+            //tcpSocket.Connect(tcpEndPoint); // открыть сокет, сделать подключение для этого сокета
+            //tcpSocket.Send(data); // Отправляем наш массив байт
 
-            do 
-            {
-                sizeData = tcpSocket.Receive(buffer);
-                answer.Append(Encoding.UTF8.GetString(buffer, 0, sizeData));
-            }
-            while (tcpSocket.Available > 0); // получаем сообщение, раскодировали
+            //var buffer = new byte[256]; // Получаем ответ
+            //var sizeData = 0; 
+            //var answer = new StringBuilder(); // Ответ сервера
 
-            Console.WriteLine(answer.ToString());
+            //do 
+            //{
+            //    sizeData = tcpSocket.Receive(buffer);
+            //    answer.Append(Encoding.UTF8.GetString(buffer, 0, sizeData));
+            //}
+            //while (tcpSocket.Available > 0); // получаем сообщение, раскодировали
 
-            tcpSocket.Shutdown(SocketShutdown.Both);
-            tcpSocket.Close();
+            //Console.WriteLine(answer.ToString());
 
-            Console.ReadLine();
+            //tcpSocket.Shutdown(SocketShutdown.Both);
+            //tcpSocket.Close();
+
+            //Console.ReadLine();
+            #endregion
+
+
         }
     }
 }
