@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace AshtonBro.CodeBlog._2
+namespace AshtonBro.CodeBlog._1
 {
     class Program
     {
