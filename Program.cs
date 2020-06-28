@@ -11,59 +11,23 @@ using System.Threading.Tasks;
 
 namespace AshtonBro.CodeBlog._2
 {
-	class Car
-    {
-		public string Model { get; set; }
-		public double Engine { get; set; }
-		public int EnginePower { get; set; }
-
-		public Car(string _model, double _engine, int _enginePower)
-        {
-			if(!String.IsNullOrEmpty(_model) && _model.Length < 20)
-            {
-				Model = _model;
-            }
-			else
-            {
-				throw new ArgumentException("Не корректный ввод параметра");
-            }
-
-			if(_engine > 0.0  && _engine < 10.0)
-            {
-				Engine = _engine;
-            }
-            else
-            {
-                throw new ArgumentException("Не корректный ввод параметра");
-            }
-
-            if (_enginePower > 0 && _enginePower < 2000)
-            {
-				EnginePower = _enginePower;
-            }
-			else
-            {
-				throw new ArgumentException("Не корректный ввод параметра")
-            }
-        }
-
-    }
-
     class Program
     {
-		
         static void Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.Unicode;
+			Console.ForegroundColor = ConsoleColor.Green;
 
 			
         }
-
-		
     }
 }
 
 /*
+ <---------------------------- Сокеты (socket) и клиент-серверное взаимодействие по протоколам TCP и UDP в C# --------------------------------------->
+
+
+
+  
 <---------------------------- Асинхронность (async, await) и многопоточность (thread) в C# ---------------------------------------> 
 
 	TODO: 1 - В своей предметной области создать метод со сложными вычислениями
