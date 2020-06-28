@@ -9,14 +9,28 @@ namespace AshtonBro.CodeBlog._2
         static void Main(string[] args)
         {
             // задать адрес приложения Ip адрес и порт
-
             const string ip = "127.0.0.1";
             const int port = 8080;
 
             var tcpEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
 
             var tcpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			tcpSocket.Bind(tcpEndPoint); // связываем endPoint с Socket, мы говорим нашему socket, что необходимо слушать
+			tcpSocket.Listen(5);
 
+			while(true) // клиент пришел, создали листенера, данные обработали, отправили ответ и уничтожили. Далее обрабатываем следующего
+            {
+				// обработчик на приём сообщения
+				var listener = tcpSocket.Accept(); // создаётся новый сокет для подключения клиента
+				var data = new byte[256]; // хранилище данных
+				var sizeData = 0; // переменная в которую будем записывать реальное кол-во байт
+
+				do // проверяем условия что мы получили запрос
+				{
+					sizeData = listener.Receive(data);
+				}
+				while (listener.Available > 0);
+            }
 
         }
     }
