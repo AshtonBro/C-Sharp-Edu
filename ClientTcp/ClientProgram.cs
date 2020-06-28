@@ -15,13 +15,12 @@ namespace ClientTcp
             var tcpEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
 
             var tcpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            tcpSocket.Bind(tcpEndPoint);
-            tcpSocket.Listen(5);
-
+            
             Console.Write("Введите сообщение: ");
             var message = Console.ReadLine(); // ввели сообщение
 
             var data = Encoding.UTF8.GetBytes(message); // получили и закодировали данные
+
             tcpSocket.Connect(tcpEndPoint); // открыть сокет, сделать подключение для этого сокета
             tcpSocket.Send(data); // Отправляем наш массив байт
 
@@ -40,6 +39,8 @@ namespace ClientTcp
 
             tcpSocket.Shutdown(SocketShutdown.Both);
             tcpSocket.Close();
+
+            Console.ReadLine();
         }
     }
 }

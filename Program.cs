@@ -18,6 +18,49 @@ namespace AshtonBro.CodeBlog._1
 /*
  <---------------------------- Сокеты (socket) и клиент-серверное взаимодействие по протоколам TCP и UDP в C# --------------------------------------->
 
+
+	!!! КЛИЕНТ !!!
+
+	class ClientTcp
+    {
+        static void Main(string[] args)
+        {
+            const string ip = "127.0.0.1";
+            const int port = 8080;
+
+            var tcpEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+
+            var tcpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            
+            Console.Write("Введите сообщение: ");
+            var message = Console.ReadLine(); // ввели сообщение
+
+            var data = Encoding.UTF8.GetBytes(message); // получили и закодировали данные
+
+            tcpSocket.Connect(tcpEndPoint); // открыть сокет, сделать подключение для этого сокета
+            tcpSocket.Send(data); // Отправляем наш массив байт
+
+            var buffer = new byte[256]; // Получаем ответ
+            var sizeData = 0; 
+            var answer = new StringBuilder(); // Ответ сервера
+
+            do 
+            {
+                sizeData = tcpSocket.Receive(buffer);
+                answer.Append(Encoding.UTF8.GetString(buffer, 0, sizeData));
+            }
+            while (tcpSocket.Available > 0); // получаем сообщение, раскодировали
+
+            Console.WriteLine(answer.ToString());
+
+            tcpSocket.Shutdown(SocketShutdown.Both);
+            tcpSocket.Close();
+
+            Console.ReadLine();
+        }
+    }
+
+
 	!!! СЕРВЕР !!!
 
 	class ServerTCP
