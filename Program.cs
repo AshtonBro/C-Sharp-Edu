@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Unicode;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Net;
+using System.Net.Sockets;
 
 namespace AshtonBro.CodeBlog._2
 {
@@ -15,9 +8,16 @@ namespace AshtonBro.CodeBlog._2
     {
         static void Main(string[] args)
         {
-			Console.ForegroundColor = ConsoleColor.Green;
+            // задать адрес приложения Ip адрес и порт
 
-			
+            const string ip = "127.0.0.1";
+            const int port = 8080;
+
+            var tcpEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+
+            var tcpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+
         }
     }
 }
