@@ -44,6 +44,7 @@ namespace ClientTcp
             //Console.ReadLine();
             #endregion
 
+            #region UDP
             const string ip = "127.0.0.1";
             const int port = 8082;
 
@@ -75,6 +76,7 @@ namespace ClientTcp
 
                 Console.WriteLine(data);
             }
+            #endregion
         }
     }
 }

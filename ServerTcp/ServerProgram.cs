@@ -45,6 +45,7 @@ namespace ServerTcp
             //}
             #endregion
 
+            #region UDP
             Console.WriteLine("Сервер запущен...");
             const string ip = "127.0.0.1";
             const int port = 8081;
@@ -77,6 +78,7 @@ namespace ServerTcp
 
             //udpSocket.Shutdown(SocketShutdown.Both);
             //udpSocket.Close();
+            #endregion
         }
     }
 }
