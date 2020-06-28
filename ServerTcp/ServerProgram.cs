@@ -70,9 +70,9 @@ namespace ServerTcp
                 }
                 while (udpSocket.Available > 0);
 
-                udpSocket.SendTo(Encoding.UTF8.GetBytes("Сообщение получено"), senderUdpEndPoint);
+                udpSocket.SendTo(Encoding.UTF8.GetBytes("От Сервера: Сообщение получено"), senderUdpEndPoint);
 
-                Console.WriteLine($"Сообщение получено: {data}");
+                Console.WriteLine($"Сообщение от клиента: {data}");
             }
 
             //udpSocket.Shutdown(SocketShutdown.Both);

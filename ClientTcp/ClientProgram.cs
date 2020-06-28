@@ -64,7 +64,7 @@ namespace ClientTcp
                 var sizeData = 0; 
                 var data = new StringBuilder();
 
-                EndPoint senderUdpEndPoint = new IPEndPoint(IPAddress.Any, 0); // экземпляр адреса в который будем записывать данные (сохранить данные подключения, адрес клиента)
+                EndPoint senderUdpEndPoint = new IPEndPoint(IPAddress.Parse(ip), 8081); // экземпляр адреса в который будем записывать данные (сохранить данные подключения, адрес клиента)
 
                 do
                 {
