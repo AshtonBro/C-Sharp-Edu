@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AshtonBro.CodeBlog._1
 {
@@ -13,18 +14,32 @@ namespace AshtonBro.CodeBlog._1
         {
             Console.ForegroundColor = ConsoleColor.Green;
 
-            var result = SaveFileTxt("myStream.txt");
+            var result = AsyncSaveFileTxt("myStream.txt");
             var input = Console.ReadLine();
             Console.WriteLine(result);
             Console.ReadLine();
 
         }
 
+		static Task<bool> AsyncSaveFileTxt(string path)
+        {
+			var result = Task.Run(() => SaveFileTxt(path));
+			return result;
+        }
+
         static bool SaveFileTxt(string path)
         {
+			var rnd = new Random();
+			var text = "";
+
+            for (int i = 0; i < 10000; i++)
+            {
+				text += rnd.Next(i);
+            }
+
             using (var sw = new StreamWriter(path, false, Encoding.UTF8))
             {
-                sw.WriteLine();
+                sw.WriteLine(text);
             }
 
             return true;
