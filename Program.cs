@@ -14,12 +14,8 @@ namespace AshtonBro.CodeBlog._1
     {
 		static void Main(string[] args)
         {
-            //Console.Write("Введите имя группы");
-
 			using(var context = new MyDbContext())
             {
-				//context.Bands.RemoveRange(context.Bands); очистить таблицу
-
 				var band = new Band()
 				{
 					Name = "System of a down",
@@ -78,6 +74,7 @@ namespace AshtonBro.CodeBlog._1
 Далее уже если мы постоянно добавляем или изменяем таблицы также в этом же диспетчере вводим команду add-migration AddBandCountry что является коммитом после команды add-migration
 далее вводим update-database.
 
+context.Bands.RemoveRange(context.Bands); очистить таблицу
 
 
 namespace AshtonBro.Code
