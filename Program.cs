@@ -8,53 +8,37 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace AshtonBro.CodeBlog._1
+namespace AshtonBro.Code
 {
     class Program
     {
 		static void Main(string[] args)
         {
-            //Console.Write("Введите имя группы");
-
 			using(var context = new MyDbContext())
             {
-				//context.Bands.RemoveRange(context.Bands); очистить таблицу
+				//	//Country = "Armenia"
+				//	//Country = "USA"
+				//	//Country = "Germany"
 
-				var band = new Band()
+				var bands = new List<Band>
 				{
-					Name = "System of a down",
-					Year = 2001,
-					Country = "Armenia"
+                new Band() { Name = "System of a down", Year = 2001, Country = "Armenia" },
+                new Band() { Name = "Nirvana", Year = 1987, Country = "USA" },
+                new Band() { Name = "Rammstain", Year = 1996, Country = "Germany" }
 				};
 
-                var band2 = new Band()
-                {
-                    Name = "Nirvana",
-                    Year = 1987,
-					Country = "USA"
-                };
-
-                var band3 = new Band()
-                {
-                    Name = "Rammstain",
-                    Year = 1996,
-					Country = "Germany"
-                };
-
-                context.Bands.Add(band);
-				context.Bands.Add(band2);
-				context.Bands.Add(band3);
+				context.Bands.AddRange(bands);
 				context.SaveChanges();
 
-				var songs = new List<Song>
-				{
-					new Song() { Name = "Toxicity", BandId = band.BandId },
-					new Song() { Name = "Smells like Teen Spirit", BandId = band2.BandId },
-					new Song() { Name = "In bloom", BandId = band2.BandId },
-					new Song() { Name = "Mutter", BandId = band3.BandId}
+                var songs = new List<Song>
+                {
+                    new Song() { Name = "Toxicity", BandId = 22 },
+                    new Song() { Name = "Smells like Teen Spirit", BandId = 23 },
+                    new Song() { Name = "In bloom", BandId = 23 },
+                    new Song() { Name = "Mutter", BandId = 24 }
                 };
 
-				context.Songs.AddRange(songs);
+                context.Songs.AddRange(songs);
 				context.SaveChanges();
 
                 foreach (var song in songs)
@@ -78,7 +62,7 @@ namespace AshtonBro.CodeBlog._1
 Далее уже если мы постоянно добавляем или изменяем таблицы также в этом же диспетчере вводим команду add-migration AddBandCountry что является коммитом после команды add-migration
 далее вводим update-database.
 
-
+context.Bands.RemoveRange(context.Bands); очистить таблицу
 
 namespace AshtonBro.Code
 {
