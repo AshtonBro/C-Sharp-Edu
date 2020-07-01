@@ -7,7 +7,7 @@ namespace AshtonBro.Code
         public int BandId { get; set; }
         public string Name { get; set; }
         public int?  Year { get; set; }
-
+        public string Country { get; set; }
         public virtual ICollection<Song> Songs { get; set; }
     }
 }
