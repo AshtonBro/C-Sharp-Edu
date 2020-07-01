@@ -7,7 +7,7 @@ namespace AshtonBro.Code
 {
     public class MyDbContext : DbContext
     {
-        protected MyDbContext() : base("DbConnectionString")
+        public MyDbContext() : base("DbConnectionString")
         {
         }
 
