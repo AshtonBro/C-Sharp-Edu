@@ -1,9 +1,11 @@
-﻿using System;
+﻿using AshtonBro.Code;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AshtonBro.CodeBlog._1
@@ -12,14 +14,122 @@ namespace AshtonBro.CodeBlog._1
     {
 		static void Main(string[] args)
         {
+            //Console.Write("Введите имя группы");
 
+			using(var context = new MyDbContext())
+            {
+				var band = new Band()
+				{
+					Name = "System of a down",
+					Year = 2001
+				};
+
+                var band2 = new Band()
+                {
+                    Name = "Nirvana",
+                    Year = 1987
+                };
+
+                context.Bands.Add(band);
+				context.Bands.Add(band2);
+
+				context.SaveChanges();
+
+				var songs = new List<Song>
+				{
+					new Song() { Name = "Smells like Teen Spirit", BandId = band2.BandId },
+					new Song() { Name = "In bloom", BandId = band2.BandId },
+					new Song() { Name = "Toxicity", BandId = band.BandId },
+					new Song() { Name = "Mutter", BandId = 1 }
+                };
+
+				context.Songs.AddRange(songs);
+				context.SaveChanges();
+
+                Console.WriteLine($"id: {band.BandId}, Name: {band.Name}, Year: {band.Year}");
+				Console.WriteLine($"id: {band2.BandId}, Name: {band2.Name}, Year: {band2.Year}");
+				Console.ReadLine();
+
+            }
         }
 
     }
 }
 
 /*
- <---------------------------- Сокеты (socket) и клиент-серверное взаимодействие по протоколам TCP и UDP в C# --------------------------------------->
+<---------------------------- SQL базы данных и Entity Framework в C#  --------------------------------------->
+
+namespace AshtonBro.Code
+{
+    public class Song
+    {
+        public int SongId { get; set; }
+        public string Name { get; set; }
+        public int BandId { get; set; }
+
+        public virtual Band Band { get; set; }
+    }
+}
+
+namespace AshtonBro.Code
+{
+    public class Band
+    {
+        public int BandId { get; set; }
+        public string Name { get; set; }
+        public int?  Year { get; set; }
+
+        public virtual ICollection<Song> Songs { get; set; }
+    }
+}
+
+
+namespace AshtonBro.Code
+{
+    public class MyDbContext : DbContext
+    {
+        protected MyDbContext() : base("DbConnectionString")
+        {
+        }
+
+        public DbSet<Band> Bands { get; set; }
+        public DbSet<Song> Songs { get; set; }
+    }
+}
+
+app.config
+
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+    <section name="entityFramework"
+       type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  </configSections>
+  
+  <connectionStrings>
+    <add name="DbConnectionString"
+         connectionString="data source=ASHTON\ASHTON;initial catalog=MusicAlboms;integrated security=True;" 
+         providerName="System.Data.SqlClient" />
+  </connectionStrings>
+
+  <entityFramework>
+    
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
+      <parameters>
+        <parameter value="mssqlocaldb" />
+      </parameters>
+    </defaultConnectionFactory>
+    
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+    
+  </entityFramework>
+</configuration>
+
+
+<---------------------------- Сокеты (socket) и клиент-серверное взаимодействие по протоколам TCP и UDP в C# --------------------------------------->
 
 	TODO: Разделить приложение в своей предметной области на клиентскую и серверную части
 	TODO: Реализовать отправку сообщений одним из двух протоколов
