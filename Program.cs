@@ -18,6 +18,8 @@ namespace AshtonBro.CodeBlog._1
 
 			using(var context = new MyDbContext())
             {
+				//context.Bands.RemoveRange(context.Bands); очистить таблицу
+
 				var band = new Band()
 				{
 					Name = "System of a down",
@@ -30,9 +32,15 @@ namespace AshtonBro.CodeBlog._1
                     Year = 1987
                 };
 
+                var band3 = new Band()
+                {
+                    Name = "Rammstain",
+                    Year = 1996
+                };
+
                 context.Bands.Add(band);
 				context.Bands.Add(band2);
-
+				context.Bands.Add(band3);
 				context.SaveChanges();
 
 				var songs = new List<Song>
@@ -40,14 +48,17 @@ namespace AshtonBro.CodeBlog._1
 					new Song() { Name = "Smells like Teen Spirit", BandId = band2.BandId },
 					new Song() { Name = "In bloom", BandId = band2.BandId },
 					new Song() { Name = "Toxicity", BandId = band.BandId },
-					new Song() { Name = "Mutter", BandId = 1 }
+					new Song() { Name = "Mutter", BandId = band3.BandId}
                 };
 
 				context.Songs.AddRange(songs);
 				context.SaveChanges();
 
-                Console.WriteLine($"id: {band.BandId}, Name: {band.Name}, Year: {band.Year}");
-				Console.WriteLine($"id: {band2.BandId}, Name: {band2.Name}, Year: {band2.Year}");
+                foreach (var song in songs)
+                {
+					Console.WriteLine($"Songs: {song.Name}, Name: {song.Band?.Name}, Year: {song.Band.Year}");
+				}
+
 				Console.ReadLine();
 
             }
