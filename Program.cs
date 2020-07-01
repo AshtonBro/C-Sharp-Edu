@@ -10,39 +10,9 @@ namespace AshtonBro.CodeBlog._1
 {
     class Program
     {
-        static void Main(string[] args)
+		static void Main(string[] args)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
 
-            var result = AsyncSaveFileTxt("myStream.txt");
-            var input = Console.ReadLine();
-            Console.WriteLine(result);
-            Console.ReadLine();
-
-        }
-
-		static Task<bool> AsyncSaveFileTxt(string path)
-        {
-			var result = Task.Run(() => SaveFileTxt(path));
-			return result;
-        }
-
-        static bool SaveFileTxt(string path)
-        {
-			var rnd = new Random();
-			var text = "";
-
-            for (int i = 0; i < 10000; i++)
-            {
-				text += rnd.Next(i);
-            }
-
-            using (var sw = new StreamWriter(path, false, Encoding.UTF8))
-            {
-                sw.WriteLine(text);
-            }
-
-            return true;
         }
 
     }
@@ -203,15 +173,57 @@ namespace AshtonBro.CodeBlog._1
   
 <---------------------------- Асинхронность (async, await) и многопоточность (thread) в C# ---------------------------------------> 
 
-	TODO: 1 - В своей предметной области создать метод со сложными вычислениями
-	TODO: 1 - Сделать для этого метода обертку в виде async-метода
-	TODO: 1 - Переписать свой код в асинхронном варианте
+	TOD: 1 - В своей предметной области создать метод со сложными вычислениями
+	TOD: 1 - Сделать для этого метода обертку в виде async-метода
+	TOD: 1 - Переписать свой код в асинхронном варианте
 
-	TODO: 2 - Создать вручную поток (thread) 
-	TODO: 2 - Сделать для него повышенный приоритет
-	TODO: 2 - Запустить выполнение и попробовать завершить приложение
+	TOD: 2 - Создать вручную поток (thread) 
+	TOD: 2 - Сделать для него повышенный приоритет
+	TOD: 2 - Запустить выполнение и попробовать завершить приложение
 
-	TODO: 3 - Использовать lock
+	TOD: 3 - Использовать lock
+
+  class Program
+    {
+		public static object locker = new object();
+		static void Main(string[] args)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            var result = AsyncSaveFileTxt("myStream.txt");
+
+            Console.WriteLine(result);
+            Console.ReadLine();
+
+        }
+
+		static Task<bool> AsyncSaveFileTxt(string path)
+        {
+			var result = Task.Run(() => SaveFileTxt(path));
+			return result;
+        }
+
+        static bool SaveFileTxt(string path)
+        {
+			lock(locker)
+            {
+                var rnd = new Random();
+                var text = "";
+
+                for (int i = 0; i < 10000; i++)
+                {
+                    text += rnd.Next(i);
+                }
+
+                using (var sw = new StreamWriter(path, false, Encoding.UTF8))
+                {
+                    sw.WriteLine(text);
+                }
+
+                return true;
+            }
+		}
+
+    }
 
 
 	// Dead log
