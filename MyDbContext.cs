@@ -10,5 +10,8 @@ namespace AshtonBro.Code
         protected MyDbContext() : base("DbConnectionString")
         {
         }
+
+        public DbSet<Band> Bands { get; set; }
+        public DbSet<Song> Songs { get; set; }
     }
 }
