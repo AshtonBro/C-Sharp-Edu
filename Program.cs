@@ -23,19 +23,22 @@ namespace AshtonBro.CodeBlog._1
 				var band = new Band()
 				{
 					Name = "System of a down",
-					Year = 2001
+					Year = 2001,
+					Country = "Armenia"
 				};
 
                 var band2 = new Band()
                 {
                     Name = "Nirvana",
-                    Year = 1987
+                    Year = 1987,
+					Country = "USA"
                 };
 
                 var band3 = new Band()
                 {
                     Name = "Rammstain",
-                    Year = 1996
+                    Year = 1996,
+					Country = "Germany"
                 };
 
                 context.Bands.Add(band);
@@ -45,9 +48,9 @@ namespace AshtonBro.CodeBlog._1
 
 				var songs = new List<Song>
 				{
+					new Song() { Name = "Toxicity", BandId = band.BandId },
 					new Song() { Name = "Smells like Teen Spirit", BandId = band2.BandId },
 					new Song() { Name = "In bloom", BandId = band2.BandId },
-					new Song() { Name = "Toxicity", BandId = band.BandId },
 					new Song() { Name = "Mutter", BandId = band3.BandId}
                 };
 
@@ -69,6 +72,13 @@ namespace AshtonBro.CodeBlog._1
 
 /*
 <---------------------------- SQL базы данных и Entity Framework в C#  --------------------------------------->
+
+При изменении и добавлении новой таблицы в класс, необходимо разрешить миграцию и обновить базу данных
+Если мы работаем с базой данной в проекте единожный в Консоле диспетчера пакетов необходимо ввести команду enable-migrations
+Далее уже если мы постоянно добавляем или изменяем таблицы также в этом же диспетчере вводим команду add-migration AddBandCountry что является коммитом после команды add-migration
+далее вводим update-database.
+
+
 
 namespace AshtonBro.Code
 {
