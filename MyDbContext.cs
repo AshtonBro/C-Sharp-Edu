@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Text;
 
 namespace AshtonBro.Code
 {
-    class MyDbContext
+    public class MyDbContext : DbContext
     {
+        protected MyDbContext() : base("DbConnectionString")
+        {
+        }
     }
 }
