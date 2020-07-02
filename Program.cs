@@ -14,41 +14,7 @@ namespace AshtonBro.Code
     {
 		static void Main(string[] args)
         {
-			using(var context = new MyDbContext())
-            {
-				//	//Country = "Armenia"
-				//	//Country = "USA"
-				//	//Country = "Germany"
-
-				var bands = new List<Band>
-				{
-                new Band() { Name = "System of a down", Year = 2001, Country = "Armenia" },
-                new Band() { Name = "Nirvana", Year = 1987, Country = "USA" },
-                new Band() { Name = "Rammstain", Year = 1996, Country = "Germany" }
-				};
-
-				context.Bands.AddRange(bands);
-				context.SaveChanges();
-
-                var songs = new List<Song>
-                {
-                    new Song() { Name = "Toxicity", BandId = 22 },
-                    new Song() { Name = "Smells like Teen Spirit", BandId = 23 },
-                    new Song() { Name = "In bloom", BandId = 23 },
-                    new Song() { Name = "Mutter", BandId = 24 }
-                };
-
-                context.Songs.AddRange(songs);
-				context.SaveChanges();
-
-                foreach (var song in songs)
-                {
-					Console.WriteLine($"Songs: {song.Name}, Name: {song.Band?.Name}, Year: {song.Band.Year}");
-				}
-
-				Console.ReadLine();
-
-            }
+			
         }
 
     }
@@ -58,7 +24,7 @@ namespace AshtonBro.Code
 <---------------------------- SQL базы данных и Entity Framework в C#  --------------------------------------->
 
 При изменении и добавлении новой таблицы в класс, необходимо разрешить миграцию и обновить базу данных
-Если мы работаем с базой данной в проекте единожный в Консоле диспетчера пакетов необходимо ввести команду enable-migrations
+Если мы работаем с базой данной в проекте единожды в Консоле диспетчера пакетов необходимо ввести команду enable-migrations
 Далее уже если мы постоянно добавляем или изменяем таблицы также в этом же диспетчере вводим команду add-migration AddBandCountry что является коммитом после команды add-migration
 далее вводим update-database.
 
@@ -101,6 +67,49 @@ namespace AshtonBro.Code
         public DbSet<Song> Songs { get; set; }
     }
 }
+
+ class Program
+    {
+		static void Main(string[] args)
+        {
+			using(var context = new MyDbContext())
+            {
+                //Country = "Armenia"
+                //Country = "USA"
+                //Country = "Germany"
+
+                var bands = new List<Band>
+                {
+                    new Band() { Name = "AC/DC", Year = 1976 },
+                    new Band() { Name = "Omph", Year = 2002 },
+                    new Band() { Name = "CORN", Year = 1995 }
+                };
+
+                context.Bands.AddRange(bands);
+                context.SaveChanges();
+
+                var songs = new List<Song>
+                {
+                    new Song() { Name = "Toxicity", BandId = 16 },
+                    new Song() { Name = "Smells like Teen Spirit", BandId = 17 },
+                    new Song() { Name = "In bloom", BandId = 17 },
+                    new Song() { Name = "Mutter", BandId = 18 }
+                };
+
+                context.Songs.AddRange(songs);
+                context.SaveChanges();
+
+                foreach (var song in songs)
+                {
+                    Console.WriteLine($"Songs: {song.Name}, Name: {song.Band?.Name}, Year: {song.Band.Year}");
+                }
+
+                Console.ReadLine();
+
+            }
+        }
+
+    }
 
 app.config
 
