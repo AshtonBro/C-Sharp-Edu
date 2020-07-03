@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -14,13 +15,57 @@ namespace AshtonBro.Code
     {
 		static void Main(string[] args)
         {
-			
+			Console.ForegroundColor = ConsoleColor.Green;
+			var collection = new List<int>();
+
+            for (int i = 0; i < 30; i++)
+            {
+				collection.Add(i);
+            }
+
+			var result = from item in collection
+						 where item < 5 
+						 select item;
+
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
+			Console.ReadLine();
         }
 
     }
 }
 
 /*
+ 
+<---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
+
+
+
+Поиск условия в коллекции с помощью LINQ
+static void Main(string[] args)
+{
+	Console.ForegroundColor = ConsoleColor.Green;
+	var collection = new List<int>();
+
+    for (int i = 0; i < 30; i++)
+    {
+		collection.Add(i);
+    }
+
+	var result = from item in collection
+					where item < 5 
+					select item;
+
+    foreach (var item in result)
+    {
+        Console.WriteLine(item);
+    }
+	Console.ReadLine();
+}
+
 <---------------------------- SQL базы данных и Entity Framework в C#  --------------------------------------->
 
 При изменении и добавлении новой таблицы в класс, необходимо разрешить миграцию и обновить базу данных
