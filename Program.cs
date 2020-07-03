@@ -28,6 +28,9 @@ namespace AshtonBro.Code
 						 select item;
 
 
+
+			var result2 = collection.Where(item => item < 5).Where(item => item % 2 == 0).OrderByDescending(item => item);
+
             foreach (var item in result)
             {
                 Console.WriteLine(item);
@@ -42,9 +45,10 @@ namespace AshtonBro.Code
  
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
 
+При коллекции IEnumerable есть возможность поиска значений c помощью LINQ
+var result2 = collection.Where(item => item < 5).Where(item => item % 2 == 0).OrderByDescending(item => item);
 
-
-Поиск условия в коллекции с помощью LINQ
+Поиск условия в коллекции с помощью lambda
 static void Main(string[] args)
 {
 	Console.ForegroundColor = ConsoleColor.Green;
