@@ -85,6 +85,7 @@ namespace AshtonBro.Code
             Console.WriteLine("----------------");
 
 
+			products.Reverse();
 
             Console.ReadLine();
         }
@@ -95,6 +96,8 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
+также можем использовать Reverse(); он просто разворачивает список верх ногами или задом на перед
+products.Reverse();
 
 Упорядочивание с помощью GroupBy  
 Dictionary<int, List<Product>>
