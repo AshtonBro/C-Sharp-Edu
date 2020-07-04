@@ -55,6 +55,7 @@ namespace AshtonBro.Code
             {
                 Console.WriteLine(item);
             }
+			Console.WriteLine("----------------");
 
 			var selectCollection = products.Select(product => product.Energy);
 
@@ -62,7 +63,17 @@ namespace AshtonBro.Code
             {
                 Console.WriteLine(item);
             }
-            Console.ReadLine();
+			Console.WriteLine("----------------");
+
+			var orderByCollection = products.OrderBy(products => products.Energy);
+			foreach (var item in orderByCollection)
+            {
+                Console.WriteLine(item);
+            }
+			Console.WriteLine("----------------");
+
+
+			Console.ReadLine();
         }
 
     }
@@ -71,6 +82,13 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
+
+Сортировка коллекции через OrderBy
+var orderByCollection = products.OrderBy(products => products.Energy);
+foreach (var item in orderByCollection)
+{
+    Console.WriteLine(item);
+}
 
 Преобразование из одного типа в другой через LINQ
 select в LINQ преобразовывает в тип, не как в SQL
