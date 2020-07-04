@@ -50,27 +50,23 @@ namespace AshtonBro.Code
 			{
 				Console.WriteLine(item);
 			}
-			Console.WriteLine("----------------");
 
 			foreach (var item in result2)
 			{
 				Console.WriteLine(item);
 			}
-			Console.WriteLine("----------------");
 
 			var selectCollection = products.Select(product => product.Energy);
 			foreach (var item in selectCollection)
 			{
 				Console.WriteLine(item);
 			}
-			Console.WriteLine("----------------");
 
 			var orderByCollection = products.OrderBy(products => products.Energy).ThenBy(products => products.Name);
 			foreach (var item in orderByCollection)
 			{
 				Console.WriteLine(item);
 			}
-			Console.WriteLine("----------------");
 
 			var groupByCollection = products.GroupBy(products => products.Energy);
 			foreach (var group in groupByCollection)
@@ -81,14 +77,12 @@ namespace AshtonBro.Code
 					Console.WriteLine($"\t{item}");
 				}
 			}
-			Console.WriteLine("----------------");
 
 			products.Reverse();
 			foreach (var item in products)
 			{
 				Console.WriteLine(item);
 			}
-			Console.WriteLine("----------------");
 
 			Console.WriteLine(products.All(item => item.Energy == 10));
 			Console.WriteLine(products.Any(item => item.Energy == 10));
@@ -96,7 +90,6 @@ namespace AshtonBro.Code
 			Console.WriteLine(products.Contains(products[3]));
 			var prod = new Product();
 			Console.WriteLine(products.Contains(prod));
-			Console.WriteLine("----------------");
 
 			var array = new int[] {1, 2, 3, 4 };
 			var array2 = new int[] { 3, 4, 5, 6 };
@@ -110,14 +103,13 @@ namespace AshtonBro.Code
             {
                 Console.WriteLine(item);
             }
-			Console.WriteLine("----------------");
 
 			var intersect = array.Intersect(array2);
             foreach (var item in intersect)
             {
                 Console.WriteLine(item);
             }
-			Console.WriteLine("----------------");
+
 			var exepct = array.Except(array2);
             foreach (var item in exepct)
             {
@@ -133,6 +125,12 @@ namespace AshtonBro.Code
 			var aggregate = array.Aggregate((x, y) => x * y);
             Console.WriteLine(aggregate);
 
+			var sum3 = array.Skip(2).Take(2).Sum();
+
+			var first = array.FirstOrDefault();
+			var last = array.LastOrDefault();
+			var single = products.Single(prod => prod.Energy == 10);
+
 			Console.ReadLine();
         }
 
@@ -142,6 +140,21 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
+Single() Из все коллекции выберем первый элемент у которого значение будет ровно 10
+var single = products.Single(prod => prod.Energy == 10);
+
+Операции выбора
+FirstOrDefault лучше чем просто First - FirstOrDefault забирает первый элемент из коллекции, в том случае, если массив пустой, то присваивает дефолтное значение, для int это 0;
+var first = array.FirstOrDefault();
+LastOrDefault лучше чем просто Last - LastOrDefault забирает последний элемент из коллекции, в том случае, если массив пустой, то присваивает дефолтное значение, для int это 0;
+var last = array.LastOrDefault();
+
+Take операция забирает заданное количество элементов с начало массива
+var sum3 = array.Take(2).Sum();
+
+Skip пропускает заданное количество элементов в массиве
+var sum3 = array.Skip(2).Sum();
+
 Агрегатные функции
 var sum = array.Sum();
 var min = array.Min();
