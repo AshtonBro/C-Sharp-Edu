@@ -23,7 +23,7 @@ namespace AshtonBro.Code
     class Program
     {
 		static Random rnd = new Random();
-		static List<Product> collection = new List<Product>();
+		static List<Product> products = new List<Product>();
 
 		static void Main(string[] args)
         {
@@ -37,21 +37,28 @@ namespace AshtonBro.Code
 					Energy = rnd.Next(10, 500)
 				};
 
-				collection.Add(product);
+				products.Add(product);
             }
 			
-			var result = from item in collection
+			var result = from item in products
 						 where item.Energy < 200 
 						 select item;
 
-			var result2 = collection.Where(item => item.Energy < 200);
+			var result2 = products.Where(item => item.Energy < 200 || item.Energy > 400);
 
             foreach (var item in result)
             {
                 Console.WriteLine(item);
             }
-			Console.WriteLine("-------------------");
+			Console.WriteLine("----------------");
 			foreach (var item in result2)
+            {
+                Console.WriteLine(item);
+            }
+
+			var selectCollection = products.Select(product => product.Energy);
+
+            foreach (var item in selectCollection)
             {
                 Console.WriteLine(item);
             }
@@ -64,7 +71,23 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
-Выборка из класса \
+
+Преобразование из одного типа в другой через LINQ
+select в LINQ преобразовывает в тип, не как в SQL
+получаем коллекцию целых чисел
+
+var selectCollection = products.Select(product => product.Energy);
+
+foreach (var item in selectCollection)
+{
+    Console.WriteLine(item);
+}
+Console.ReadLine();
+
+
+
+
+Выборка из класса
 
 class Product
     {
@@ -99,13 +122,13 @@ class Product
 						 where item.Energy < 200 
 						 select item;
 
-			var result2 = collection.Where(item => item.Energy < 200);
+			var result2 = collection.Where(item => item.Energy < 200 || item.Energy > 400);
 
             foreach (var item in result)
             {
                 Console.WriteLine(item);
             }
-			Console.WriteLine("-------------------");
+			Console.WriteLine("----------------");
 			foreach (var item in result2)
             {
                 Console.WriteLine(item);
