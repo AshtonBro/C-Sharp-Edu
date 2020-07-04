@@ -27,11 +27,11 @@ namespace AshtonBro.Code
 		static List<Product> products = new List<Product>();
 
 		static void Main(string[] args)
-        {
+		{
 			Console.ForegroundColor = ConsoleColor.Green;
 
-            for (int i = 0; i < 10; i++)
-            {
+			for (int i = 0; i < 10; i++)
+			{
 				var product = new Product()
 				{
 					Name = $"Продукт {i}",
@@ -39,65 +39,79 @@ namespace AshtonBro.Code
 				};
 
 				products.Add(product);
-            }
-			
+			}
+
 			var result = from item in products
-						 where item.Energy < 200 
+						 where item.Energy < 200
 						 select item;
 
 			var result2 = products.Where(item => item.Energy < 200 || item.Energy > 400);
-
-            foreach (var item in result)
-            {
-                Console.WriteLine(item);
-            }
+			foreach (var item in result)
+			{
+				Console.WriteLine(item);
+			}
 			Console.WriteLine("----------------");
+
 			foreach (var item in result2)
-            {
-                Console.WriteLine(item);
-            }
+			{
+				Console.WriteLine(item);
+			}
 			Console.WriteLine("----------------");
 
 			var selectCollection = products.Select(product => product.Energy);
-
-            foreach (var item in selectCollection)
-            {
-                Console.WriteLine(item);
-            }
+			foreach (var item in selectCollection)
+			{
+				Console.WriteLine(item);
+			}
 			Console.WriteLine("----------------");
 
 			var orderByCollection = products.OrderBy(products => products.Energy).ThenBy(products => products.Name);
 			foreach (var item in orderByCollection)
-            {
-                Console.WriteLine(item);
-            }
+			{
+				Console.WriteLine(item);
+			}
 			Console.WriteLine("----------------");
 
 			var groupByCollection = products.GroupBy(products => products.Energy);
-            foreach (var group in groupByCollection)
-            {
-                Console.WriteLine($"Key: {group.Key}");
+			foreach (var group in groupByCollection)
+			{
+				Console.WriteLine($"Key: {group.Key}");
 				foreach (var item in group)
 				{
 					Console.WriteLine($"\t{item}");
 				}
-            }
-            Console.WriteLine("----------------");
+			}
+			Console.WriteLine("----------------");
 
 			products.Reverse();
-            foreach (var item in products)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine("----------------");
+			foreach (var item in products)
+			{
+				Console.WriteLine(item);
+			}
+			Console.WriteLine("----------------");
 
-            Console.WriteLine(products.All(item => item.Energy == 10));
+			Console.WriteLine(products.All(item => item.Energy == 10));
 			Console.WriteLine(products.Any(item => item.Energy == 10));
 
 			Console.WriteLine(products.Contains(products[3]));
+			var prod = new Product();
+			Console.WriteLine(products.Contains(prod));
+			Console.WriteLine("----------------");
 
-			Console.ReadLine();
+			var array = new int[] {1, 2, 3, 4 };
+			var array2 = new int[] { 3, 4, 5, 6 };
+			foreach (var item in array)
+            {
+                Console.WriteLine(item);
+            }
 
+			var union = array.Union(array2);
+
+            foreach (var item in union)
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadLine();
         }
 
     }
@@ -106,6 +120,27 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
+Операции со множествами
+Union обЪеденяет двух множеств
+
+var array = new int[] {1, 2, 3, 4 };
+var array2 = new int[] { 3, 4, 5, 6 };
+foreach (var item in array)
+{
+    Console.WriteLine(item);
+}
+
+var union = array.Union(array2);
+
+foreach (var item in union)
+{
+    Console.WriteLine(item);
+}
+Console.ReadLine();
+
+Distinct удаляет из коллекции все дублирующиеся(повторяющиеся) элементы, т.е. 1,2,3,1,2,3 на выходе получим 1,2,3
+
+
 Операция Contains возвращает true если условие например (5) есть в указанной коллекции, если нет такого значения в коллекции то false
 products.Contains(products[3])
 
