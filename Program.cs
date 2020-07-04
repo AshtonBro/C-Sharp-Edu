@@ -115,7 +115,6 @@ namespace AshtonBro.Code
             {
                 Console.WriteLine(item);
             }
-			Console.WriteLine("----------------");
 
 			var sum = array.Sum();
 			var min = array.Min();
