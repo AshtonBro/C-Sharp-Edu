@@ -130,6 +130,7 @@ namespace AshtonBro.Code
 			var first = array.FirstOrDefault();
 			var last = array.LastOrDefault();
 			var single = products.Single(prod => prod.Energy == 10);
+			var elementAt = products.ElementAt(5);
 
 			Console.ReadLine();
         }
@@ -140,12 +141,16 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
-Single() Из все коллекции выберем первый элемент у которого значение будет ровно 10
+Операции выбора
+ElementAt получаем элемент из коллекции по индексу
+var elementAt = products.ElementAt(5);
+
+Single() Из всей коллекции выберем первый и ЕДИНСТВЕННЫЙ элемент у которого значение будет ровно 10, если встречается два или более равные 10 получаем exception
 var single = products.Single(prod => prod.Energy == 10);
 
-Операции выбора
 FirstOrDefault лучше чем просто First - FirstOrDefault забирает первый элемент из коллекции, в том случае, если массив пустой, то присваивает дефолтное значение, для int это 0;
 var first = array.FirstOrDefault();
+
 LastOrDefault лучше чем просто Last - LastOrDefault забирает последний элемент из коллекции, в том случае, если массив пустой, то присваивает дефолтное значение, для int это 0;
 var last = array.LastOrDefault();
 
