@@ -12,127 +12,13 @@ using System.Threading.Tasks;
 
 namespace AshtonBro.Code
 {
-	class Product
-    {
-        public string Name { get; set; }
-        public int Energy { get; set; }
-        public override string ToString()
-        {
-			return $"{Name}: ({Energy})";
-        }
-    }
     class Program
     {
-		static Random rnd = new Random();
-		static List<Product> products = new List<Product>();
-
+		
 		static void Main(string[] args)
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 
-			for (int i = 0; i < 10; i++)
-			{
-				var product = new Product()
-				{
-					Name = $"Продукт {i}",
-					Energy = rnd.Next(10, 120)
-				};
-
-				products.Add(product);
-			}
-
-			var result = from item in products
-						 where item.Energy < 200
-						 select item;
-
-			var result2 = products.Where(item => item.Energy < 200 || item.Energy > 400);
-			foreach (var item in result)
-			{
-				Console.WriteLine(item);
-			}
-
-			foreach (var item in result2)
-			{
-				Console.WriteLine(item);
-			}
-
-			var selectCollection = products.Select(product => product.Energy);
-			foreach (var item in selectCollection)
-			{
-				Console.WriteLine(item);
-			}
-
-			var orderByCollection = products.OrderBy(products => products.Energy).ThenBy(products => products.Name);
-			foreach (var item in orderByCollection)
-			{
-				Console.WriteLine(item);
-			}
-
-			var groupByCollection = products.GroupBy(products => products.Energy);
-			foreach (var group in groupByCollection)
-			{
-				Console.WriteLine($"Key: {group.Key}");
-				foreach (var item in group)
-				{
-					Console.WriteLine($"\t{item}");
-				}
-			}
-
-			products.Reverse();
-			foreach (var item in products)
-			{
-				Console.WriteLine(item);
-			}
-
-			Console.WriteLine(products.All(item => item.Energy == 10));
-			Console.WriteLine(products.Any(item => item.Energy == 10));
-
-			Console.WriteLine(products.Contains(products[3]));
-			var prod = new Product();
-			Console.WriteLine(products.Contains(prod));
-
-			var array = new int[] {1, 2, 3, 4 };
-			var array2 = new int[] { 3, 4, 5, 6 };
-			foreach (var item in array)
-            {
-                Console.WriteLine(item);
-            }
-
-			var union = array.Union(array2);
-            foreach (var item in union)
-            {
-                Console.WriteLine(item);
-            }
-
-			var intersect = array.Intersect(array2);
-            foreach (var item in intersect)
-            {
-                Console.WriteLine(item);
-            }
-
-			var exepct = array.Except(array2);
-            foreach (var item in exepct)
-            {
-                Console.WriteLine(item);
-            }
-			Console.WriteLine("----------------");
-
-			var sum = array.Sum();
-			var min = array.Min();
-			var max = array.Max();
-			var min2 = products.Min(prod => prod.Energy);
-			var max2 = products.Max(prod => prod.Energy);
-			var aggregate = array.Aggregate((x, y) => x * y);
-            Console.WriteLine(aggregate);
-
-			var sum3 = array.Skip(2).Take(2).Sum();
-
-			var first = array.FirstOrDefault();
-			var last = array.LastOrDefault();
-			var single = products.Single(prod => prod.Energy == 10);
-			var elementAt = products.ElementAt(5);
-
-			Console.ReadLine();
         }
 
     }
@@ -380,6 +266,131 @@ static void Main(string[] args)
     }
 	Console.ReadLine();
 }
+
+
+class Product
+    {
+        public string Name { get; set; }
+        public int Energy { get; set; }
+        public override string ToString()
+        {
+			return $"{Name}: ({Energy})";
+        }
+    }
+    class Program
+    {
+		static Random rnd = new Random();
+		static List<Product> products = new List<Product>();
+
+		static void Main(string[] args)
+		{
+			Console.ForegroundColor = ConsoleColor.Green;
+
+			for (int i = 0; i < 10; i++)
+			{
+				var product = new Product()
+				{
+					Name = $"Продукт {i}",
+					Energy = rnd.Next(10, 120)
+				};
+
+				products.Add(product);
+			}
+
+			var result = from item in products
+						 where item.Energy < 200
+						 select item;
+
+			var result2 = products.Where(item => item.Energy < 200 || item.Energy > 400);
+			foreach (var item in result)
+			{
+				Console.WriteLine(item);
+			}
+
+			foreach (var item in result2)
+			{
+				Console.WriteLine(item);
+			}
+
+			var selectCollection = products.Select(product => product.Energy);
+			foreach (var item in selectCollection)
+			{
+				Console.WriteLine(item);
+			}
+
+			var orderByCollection = products.OrderBy(products => products.Energy).ThenBy(products => products.Name);
+			foreach (var item in orderByCollection)
+			{
+				Console.WriteLine(item);
+			}
+
+			var groupByCollection = products.GroupBy(products => products.Energy);
+			foreach (var group in groupByCollection)
+			{
+				Console.WriteLine($"Key: {group.Key}");
+				foreach (var item in group)
+				{
+					Console.WriteLine($"\t{item}");
+				}
+			}
+
+			products.Reverse();
+			foreach (var item in products)
+			{
+				Console.WriteLine(item);
+			}
+
+			Console.WriteLine(products.All(item => item.Energy == 10));
+			Console.WriteLine(products.Any(item => item.Energy == 10));
+
+			Console.WriteLine(products.Contains(products[3]));
+			var prod = new Product();
+			Console.WriteLine(products.Contains(prod));
+
+			var array = new int[] {1, 2, 3, 4 };
+			var array2 = new int[] { 3, 4, 5, 6 };
+			foreach (var item in array)
+            {
+                Console.WriteLine(item);
+            }
+
+			var union = array.Union(array2);
+            foreach (var item in union)
+            {
+                Console.WriteLine(item);
+            }
+
+			var intersect = array.Intersect(array2);
+            foreach (var item in intersect)
+            {
+                Console.WriteLine(item);
+            }
+
+			var exepct = array.Except(array2);
+            foreach (var item in exepct)
+            {
+                Console.WriteLine(item);
+            }
+
+			var sum = array.Sum();
+			var min = array.Min();
+			var max = array.Max();
+			var min2 = products.Min(prod => prod.Energy);
+			var max2 = products.Max(prod => prod.Energy);
+			var aggregate = array.Aggregate((x, y) => x * y);
+            Console.WriteLine(aggregate);
+
+			var sum3 = array.Skip(2).Take(2).Sum();
+
+			var first = array.FirstOrDefault();
+			var last = array.LastOrDefault();
+			var single = products.Single(prod => prod.Energy == 10);
+			var elementAt = products.ElementAt(5);
+
+			Console.ReadLine();
+        }
+
+    }
 
 <---------------------------- SQL базы данных и Entity Framework в C#  --------------------------------------->
 
