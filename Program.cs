@@ -11,7 +11,110 @@ using System.Threading.Tasks;
 
 namespace AshtonBro.Code
 {
+	class Product
+    {
+        public string Name { get; set; }
+        public int Energy { get; set; }
+        public override string ToString()
+        {
+			return $"{Name}: ({Energy})";
+        }
+    }
     class Program
+    {
+		static Random rnd = new Random();
+		static List<Product> collection = new List<Product>();
+
+		static void Main(string[] args)
+        {
+			Console.ForegroundColor = ConsoleColor.Green;
+
+            for (int i = 0; i < 10; i++)
+            {
+				var product = new Product()
+				{
+					Name = "Продукт " + i,
+					Energy = rnd.Next(10, 500)
+				};
+
+				collection.Add(product);
+            }
+			
+			var result = from item in collection
+						 where item.Energy < 200 
+						 select item;
+
+			var result2 = collection.Where(item => item.Energy < 200);
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
+			Console.WriteLine("-------------------");
+			foreach (var item in result2)
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadLine();
+        }
+
+    }
+}
+
+/*
+ 
+<---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
+Выборка из класса \
+
+class Product
+    {
+        public string Name { get; set; }
+        public int Energy { get; set; }
+        public override string ToString()
+        {
+			return $"{Name}: ({Energy})";
+        }
+    }
+    class Program
+    {
+		static Random rnd = new Random();
+		static List<Product> collection = new List<Product>();
+
+		static void Main(string[] args)
+        {
+			Console.ForegroundColor = ConsoleColor.Green;
+
+            for (int i = 0; i < 10; i++)
+            {
+				var product = new Product()
+				{
+					Name = "Продукт " + i,
+					Energy = rnd.Next(10, 500)
+				};
+
+				collection.Add(product);
+            }
+			
+			var result = from item in collection
+						 where item.Energy < 200 
+						 select item;
+
+			var result2 = collection.Where(item => item.Energy < 200);
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
+			Console.WriteLine("-------------------");
+			foreach (var item in result2)
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadLine();
+        }
+
+    }
+class Program
     {
 		static void Main(string[] args)
         {
@@ -27,23 +130,20 @@ namespace AshtonBro.Code
 						 where item < 5 
 						 select item;
 
-
-
-			var result2 = collection.Where(item => item < 5).Where(item => item % 2 == 0).OrderByDescending(item => item);
+			var result2 = collection.Where(item => item < 5);
 
             foreach (var item in result)
             {
                 Console.WriteLine(item);
             }
-			Console.ReadLine();
+
+            foreach (var item in result2)
+            {
+                Console.WriteLine(item);
+            }
+            Console.ReadLine();
         }
-
     }
-}
-
-/*
- 
-<---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
 
 При коллекции IEnumerable есть возможность поиска значений c помощью LINQ
 var result2 = collection.Where(item => item < 5).Where(item => item % 2 == 0).OrderByDescending(item => item);
