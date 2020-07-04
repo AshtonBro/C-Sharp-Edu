@@ -106,12 +106,34 @@ namespace AshtonBro.Code
             }
 
 			var union = array.Union(array2);
-
             foreach (var item in union)
             {
                 Console.WriteLine(item);
             }
-            Console.ReadLine();
+			Console.WriteLine("----------------");
+
+			var intersect = array.Intersect(array2);
+            foreach (var item in intersect)
+            {
+                Console.WriteLine(item);
+            }
+			Console.WriteLine("----------------");
+			var exepct = array.Except(array2);
+            foreach (var item in exepct)
+            {
+                Console.WriteLine(item);
+            }
+			Console.WriteLine("----------------");
+
+			var sum = array.Sum();
+			var min = array.Min();
+			var max = array.Max();
+			var min2 = products.Min(prod => prod.Energy);
+			var max2 = products.Max(prod => prod.Energy);
+			var aggregate = array.Aggregate((x, y) => x * y);
+            Console.WriteLine(aggregate);
+
+			Console.ReadLine();
         }
 
     }
@@ -120,9 +142,33 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
-Операции со множествами
-Union обЪеденяет двух множеств
+Агрегатные функции
+var sum = array.Sum();
+var min = array.Min();
+var max = array.Max();
+var min2 = products.Min(prod => prod.Energy);
+var max2 = products.Max(prod => prod.Energy);
+var aggregate = array.Aggregate((x, y) => x * y);
 
+Операции со множествами
+Операция Except возвращает те элементы которые есть в первом множестве, но нет во втором множестве(из первого множества вычли второе множество)
+операция вернёт 3,4
+var except = array.Except(array2);
+foreach (var item in except)
+{
+    Console.WriteLine(item);
+}
+
+Операция Intersect возвращает те значения которым два массива пересекаются new int[] {1, 2, 3, 4 }; и new int[] { 3, 4, 5, 6 }; 
+операция вернёт 3,4
+var intersect = array.Intersect(array2);
+foreach (var item in intersect)
+{
+    Console.WriteLine(item);
+}
+
+
+Union обЪеденяет двух множеств
 var array = new int[] {1, 2, 3, 4 };
 var array2 = new int[] { 3, 4, 5, 6 };
 foreach (var item in array)
