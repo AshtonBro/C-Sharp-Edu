@@ -33,7 +33,7 @@ namespace AshtonBro.Code
             {
 				var product = new Product()
 				{
-					Name = "Продукт " + i,
+					Name = $"Продукт {i}",
 					Energy = rnd.Next(10, 500)
 				};
 
@@ -65,7 +65,7 @@ namespace AshtonBro.Code
             }
 			Console.WriteLine("----------------");
 
-			var orderByCollection = products.OrderBy(products => products.Energy);
+			var orderByCollection = products.OrderBy(products => products.Energy).ThenBy(products => products.Name);
 			foreach (var item in orderByCollection)
             {
                 Console.WriteLine(item);
@@ -82,6 +82,9 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
+
+Дополнительное упорядочивание ThenBy, работает вместо с OrderBy и инициализируется после OrderBy.
+var orderByCollection = products.OrderBy(products => products.Energy).ThenBy(products => products.Name);
 
 Сортировка коллекции через OrderBy
 var orderByCollection = products.OrderBy(products => products.Energy);
