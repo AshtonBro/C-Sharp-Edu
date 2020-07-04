@@ -1,6 +1,7 @@
 ﻿using AshtonBro.Code;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -72,8 +73,20 @@ namespace AshtonBro.Code
             }
 			Console.WriteLine("----------------");
 
+			var groupByCollection = products.GroupBy(products => products.Energy);
+            foreach (var group in groupByCollection)
+            {
+                Console.WriteLine($"Key: {group.Key}");
+				foreach (var item in group)
+				{
+					Console.WriteLine($"\t{item}");
+				}
+            }
+            Console.WriteLine("----------------");
 
-			Console.ReadLine();
+
+
+            Console.ReadLine();
         }
 
     }
@@ -82,6 +95,39 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
+
+Упорядочивание с помощью GroupBy  
+Dictionary<int, List<Product>>
+var groupByCollection = products.GroupBy(products => products.Energy);
+foreach (var group in groupByCollection)
+{
+    Console.WriteLine($"Key: {group.Key}");
+	foreach (var item in group)
+	{
+		Console.WriteLine($"\t{item}");
+	}
+}
+Key: 195
+        Продукт 0: (195)
+Key: 316
+        Продукт 1: (316)
+Key: 421
+        Продукт 2: (421)
+Key: 277
+        Продукт 3: (277)
+Key: 85
+        Продукт 4: (85)
+Key: 209
+        Продукт 5: (209)
+Key: 153
+        Продукт 6: (153)
+Key: 185
+        Продукт 7: (185)
+Key: 149
+        Продукт 8: (149)
+Key: 432
+        Продукт 9: (432)
+
 
 Дополнительное упорядочивание ThenBy, работает вместо с OrderBy и инициализируется после OrderBy.
 var orderByCollection = products.OrderBy(products => products.Energy).ThenBy(products => products.Name);
