@@ -35,7 +35,7 @@ namespace AshtonBro.Code
 				var product = new Product()
 				{
 					Name = $"Продукт {i}",
-					Energy = rnd.Next(10, 500)
+					Energy = rnd.Next(10, 120)
 				};
 
 				products.Add(product);
@@ -84,10 +84,20 @@ namespace AshtonBro.Code
             }
             Console.WriteLine("----------------");
 
-
 			products.Reverse();
+            foreach (var item in products)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("----------------");
 
-            Console.ReadLine();
+            Console.WriteLine(products.All(item => item.Energy == 10));
+			Console.WriteLine(products.Any(item => item.Energy == 10));
+
+			Console.WriteLine(products.Contains(products[3]));
+
+			Console.ReadLine();
+
         }
 
     }
@@ -96,6 +106,15 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
+Операция Contains возвращает true если условие например (5) есть в указанной коллекции, если нет такого значения в коллекции то false
+products.Contains(products[3])
+
+Операции All и Any 
+All - возвращает true если условия соответствуют все элементы в коллекции, else false
+Any - возвращает true если условия соответствуют хотя бы для одного элемента в коллекции, else false
+products.All(item => item.Energy == 10) false
+products.Any(item => item.Energy == 10) true
+
 также можем использовать Reverse(); он просто разворачивает список верх ногами или задом на перед
 products.Reverse();
 
