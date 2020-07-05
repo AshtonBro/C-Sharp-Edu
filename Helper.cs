@@ -27,5 +27,13 @@ namespace AshtonBro.Code
             }
             return result;
         }
+
+        public static Road CreateRandomRoad(this Road road, int min, int max)
+        {
+            var rnd = new Random(DateTime.Now.Millisecond);
+            road.Number = "M" + rnd.Next(1, 100);
+            road.Lenght = rnd.Next(min, max);
+            return road;
+        }
     }
 }
