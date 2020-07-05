@@ -1,6 +1,7 @@
-﻿using AshtonBro.Code;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Common;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,10 @@ using System.Threading.Tasks;
 
 namespace AshtonBro.Code
 {
+	class Road
+    {
+		
+    }
     class Program
     {
 		
@@ -19,14 +24,91 @@ namespace AshtonBro.Code
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 
+			while(true)
+            {
+				Console.Write("Введите число: ");
+				var input = Console.ReadLine();
+
+				if (int.TryParse(input, out int result))
+				{
+					var isEven = IsEvenValue(result);
+
+					if (isEven)
+					{
+						Console.WriteLine($"{result} - Четное.");
+					}
+					else
+					{
+						Console.WriteLine($"{result} - Нечетное.");
+					}
+
+				}
+				if(input.Contains("q"))
+                {
+					break;
+                }
+			}
+
+			Console.ReadLine();
+	
+		}
+
+		static bool IsEvenValue(int i)
+        {
+			return i % 2 == 0;
         }
 
-    }
+
+	}
 }
 
 /*
- 
+
+<---------------------------- Методы расширения (Extension Method) в C# --------------------------------------->
+
+static void Main(string[] args)
+{
+	Console.ForegroundColor = ConsoleColor.Green;
+
+	while(true)
+    {
+		Console.Write("Введите число: ");
+		var input = Console.ReadLine();
+
+		if (int.TryParse(input, out int result))
+		{
+			var isEven = IsEvenValue(result);
+
+			if (isEven)
+			{
+				Console.WriteLine($"{result} - Четное.");
+			}
+			else
+			{
+				Console.WriteLine($"{result} - Нечетное.");
+			}
+
+		}
+		if(input.Contains("q"))
+        {
+			break;
+        }
+	}
+
+	Console.ReadLine();
+	
+}
+
+static bool IsEvenValue(int i)
+{
+	return i % 2 == 0;
+}
+
+
 <---------------------------- LINQ и работа с коллекциями в C#  --------------------------------------->
+
+TODO: Перебрать коллекцию из DATABASE с помощью LINQ
+
 Операции выбора
 ElementAt получаем элемент из коллекции по индексу
 var elementAt = products.ElementAt(5);
@@ -4205,4 +4287,53 @@ ArrayList students = new ArrayList();
             }
         }
 
+
+
+----------------------------------------------------
+static void Main(string[] args)
+{
+	Console.ForegroundColor = ConsoleColor.Green;
+
+	string provider = ConfigurationManager.AppSettings["provider"];
+	string connectionString = ConfigurationManager.AppSettings["connectionString"];
+
+	DbProviderFactory factory = DbProviderFactories.GetFactory(provider);
+
+	using (DbConnection connection = factory.CreateConnection())
+	{
+		if (connection == null)
+		{
+			Console.WriteLine("Connection Error");
+			Console.ReadLine();
+			return;
+		}
+
+		connection.ConnectionString = connectionString;
+
+		connection.Open();
+
+		DbCommand command = factory.CreateCommand();
+
+		if (command == null)
+		{
+			Console.WriteLine("Command Error");
+			Console.ReadLine();
+			return;
+		}
+
+		command.Connection = connection;
+
+		command.CommandText = "Select * From Sales.Customers";
+
+		using (DbDataReader dataReader = command.ExecuteReader())
+		{
+			while (dataReader.Read())
+			{
+				Console.WriteLine($"{dataReader["custId"]}" + $"{ dataReader["city"]}");
+			}
+		}
+		Console.ReadLine();
+	}
+
+		}
  */
