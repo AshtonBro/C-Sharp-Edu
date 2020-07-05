@@ -1,15 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Common;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using AshtonBro.Code;
 
 namespace AshtonBro.Code
 {
@@ -31,9 +21,7 @@ namespace AshtonBro.Code
 
 				if (int.TryParse(input, out int result))
 				{
-					var isEven = IsEvenValue(result);
-
-					if (isEven)
+					if (result.IsEvenValue())
 					{
 						Console.WriteLine($"{result} - Четное.");
 					}
@@ -52,12 +40,6 @@ namespace AshtonBro.Code
 			Console.ReadLine();
 	
 		}
-
-		static bool IsEvenValue(int i)
-        {
-			return i % 2 == 0;
-        }
-
 
 	}
 }
