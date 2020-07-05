@@ -30,11 +30,22 @@ namespace AshtonBro.Code
 						Console.WriteLine($"{result} - Нечетное.");
 					}
 
+					int h = 182;
+					h.IsDevidedValue(7);
+
 				}
-				if(input.Contains("q"))
+				else
                 {
-					break;
+					if (input.Contains("q"))
+					{
+						Console.WriteLine("Программа завершена");
+						break;
+					}
+
+					Console.WriteLine("Введите корректное число");
                 }
+
+				
 			}
 
 			Console.ReadLine();
