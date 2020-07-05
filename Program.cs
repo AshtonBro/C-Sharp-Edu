@@ -1,12 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using AshtonBro.Code;
 
 namespace AshtonBro.Code
 {
-	class Road
+	public sealed class Road
     {
-		
+        public string Number { get; set; }
+        public int Lenght { get; set; }
+
+        public override string ToString()
+        {
+			return $"Дорога: {Number}, Общей протяженностью: {Lenght}";
+        }
     }
+
     class Program
     {
 		
@@ -33,6 +41,8 @@ namespace AshtonBro.Code
 					int h = 182;
 					h.IsDevidedValue(7);
 
+					var list = new List<Road>();
+
 				}
 				else
                 {
@@ -44,12 +54,22 @@ namespace AshtonBro.Code
 
 					Console.WriteLine("Введите корректное число");
                 }
-
-				
 			}
 
 			Console.ReadLine();
-	
+
+			var roads = new List<Road>();
+
+            for (int i = 0; i < 10; i++)
+            {
+				var road = new Road();
+				road.CreateRandomRoad(1000, 10000);
+				roads.Add(road);
+            }
+
+			var roadsName = roads.ConvertToString();
+            Console.WriteLine(roadsName);
+			Console.ReadLine();
 		}
 
 	}
