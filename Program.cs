@@ -8,7 +8,6 @@ namespace AshtonBro.Code
     {
         public string Number { get; set; }
         public int Lenght { get; set; }
-
         public override string ToString()
         {
 			return $"Дорога: {Number}, Общей протяженностью: {Lenght}";
@@ -17,7 +16,6 @@ namespace AshtonBro.Code
 
     class Program
     {
-		
 		static void Main(string[] args)
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
@@ -40,9 +38,7 @@ namespace AshtonBro.Code
 
 					int h = 182;
 					h.IsDevidedValue(7);
-
 					var list = new List<Road>();
-
 				}
 				else
                 {

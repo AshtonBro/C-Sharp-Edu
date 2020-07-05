@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 // можно собрать все методы расширения в одном файле
 namespace AshtonBro.Code
