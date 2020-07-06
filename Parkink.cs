@@ -77,11 +77,15 @@ namespace AshtonBro.Code
             }
         }
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<Car> GetEnumerator()
         {
             return _cars.GetEnumerator();
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _cars.GetEnumerator();
+        }
     }
 
     public class ParkingEnumerator : IEnumerator
