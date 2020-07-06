@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace AshtonBro.Code
 {
-    class Parkink
+    class Parkink : IEnumerable
     {
         private List<Car> _cars = new List<Car>();
         private const int MAX_CARS = 100;
@@ -74,6 +75,27 @@ namespace AshtonBro.Code
             {
                 _cars.Remove(car);
             }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return _cars.GetEnumerator();
+        }
+
+    }
+
+    public class ParkingEnumerator : IEnumerator
+    {
+        public object Current => throw new NotImplementedException();
+
+        public bool MoveNext()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Reset()
+        {
+            throw new NotImplementedException();
         }
     }
 }
