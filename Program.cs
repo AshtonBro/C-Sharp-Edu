@@ -22,11 +22,15 @@ namespace AshtonBro.Code
             foreach (var car in cars)
             {
 				parking.Add(car);
-				Console.WriteLine(car);
 			}
 
-            Console.WriteLine(parking["B021AD74"]?.Name);
+			Console.WriteLine(parking["B021AD74"]?.Name);
 			Console.WriteLine(parking["B021AD73"]?.Name);
+
+            foreach (var car in parking)
+            {
+                Console.WriteLine(car);
+            }
 
             Console.Write("Введите номер автомобиля: ");
 			var num = Console.ReadLine();
