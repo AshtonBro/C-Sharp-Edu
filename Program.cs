@@ -25,6 +25,14 @@ namespace AshtonBro.Code
 				Console.WriteLine(car);
 			}
 
+            Console.WriteLine(parking["B021AD74"]?.Name);
+			Console.WriteLine(parking["B021AD73"]?.Name);
+
+            Console.Write("Введите номер автомобиля: ");
+			var num = Console.ReadLine();
+			parking[1] = new Car() { Name = "BMW", Number = num };
+            Console.WriteLine(parking[1]);
+
 			Console.ReadLine();
 		}
 
@@ -34,7 +42,118 @@ namespace AshtonBro.Code
 /*
 <---------------------------- Индексаторы (Indexer) и Итераторы (yield). Интерфейс IEnumerable в C# --------------------------------------->
 
+class Car
+{
+    public string Name { get; set; }
+    public string Number { get; set; }
 
+    public override string ToString()
+    {
+        return $"Авто: {Name}, Номер: {Number}";
+    }
+}
+
+Сделали метод для доступа по индексу. parking["B021AD74"]?.Name передали в качестве параметра в [] скобка номер машины, в классе Parking оно пришло в индексатор,
+через LINQ ищем номер в на нашей парковке в массиве и выдаём пользователю имя авто если оно есть или NULL в другом случае
+
+class Parkink
+{
+    private List<Car> _cars = new List<Car>();
+    private const int MAX_CARS = 100;
+
+    public Car this[string number] // индексация, обращаемся к элементу по его индексу
+    {
+        get
+        {
+            var car = _cars.FirstOrDefault(c => c.Number == number);
+            return car;
+        }
+        //set
+        //{
+
+        //}
+    }
+
+    public Car this[int position]
+    {
+        get
+        {
+            if(position < _cars.Count)
+            {
+                return _cars[position];
+            }
+
+            return null;
+        }
+
+        set
+        {
+            if (position < _cars.Count)
+            {
+                _cars[position] = value;
+            }
+
+        }
+    }
+
+    public int Count => _cars.Count; // Доступ на чтение(быстрое свойство), позволяет объявить публичное свойство которое предоставляет доступ к закрытому свойству с правами только на чтение
+    public string Name { get; set; }
+    public int Add(Car car)
+    {
+        if(car == null)
+        {
+            throw new ArgumentNullException(nameof(car), "Car is NULL");
+        }
+
+        if(_cars.Count < MAX_CARS)
+        {
+            _cars.Add(car);
+            return _cars.Count - 1;
+        }
+
+        return -1;
+    }
+
+    public void GoOut(string number)
+    {
+        if(string.IsNullOrWhiteSpace(number))
+        {
+            throw new ArgumentNullException(nameof(number), "Number is NULL or empty");
+        }
+
+        var car = _cars.FirstOrDefault(c => c.Name == number);
+        if(car != null)
+        {
+            _cars.Remove(car);
+        }
+    }
+}
+
+public Car this[string number] // индексация, обращаемся к элементу по его индексу
+{
+    get
+    {
+        var car = _cars.FirstOrDefault(c => c.Number == number);
+        return car;
+    }
+    //set
+    //{
+
+    //}
+}
+
+
+public тип this[тип индекс] // индексация, обращаемся к элементу по его индексу
+{
+    get
+    {
+
+    }
+    set
+    {
+
+    }
+}
 
 <---------------------------- Методы расширения (Extension Method) в C# --------------------------------------->
 
