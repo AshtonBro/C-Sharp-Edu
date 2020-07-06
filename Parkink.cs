@@ -8,7 +8,43 @@ namespace AshtonBro.Code
     {
         private List<Car> _cars = new List<Car>();
         private const int MAX_CARS = 100;
-        public int Count => _cars.Count; // Доступ на чтение(быстрое свойство), позволяет обьявить публичное свойство которое предостваляет доступ к закрытому свойству с правами только на чтение
+
+        public Car this[string number] // индексация, обращаемся к элементу по его индексу
+        {
+            get
+            {
+                var car = _cars.FirstOrDefault(c => c.Number == number);
+                return car;
+            }
+            //set
+            //{
+
+            //}
+        }
+
+        public Car this[int position]
+        {
+            get
+            {
+                if(position < _cars.Count)
+                {
+                    return _cars[position];
+                }
+
+                return null;
+            }
+
+            set
+            {
+                if (position < _cars.Count)
+                {
+                    _cars[position] = value;
+                }
+
+            }
+        }
+
+        public int Count => _cars.Count; // Доступ на чтение(быстрое свойство), позволяет объявить публичное свойство которое предоставляет доступ к закрытому свойству с правами только на чтение
         public string Name { get; set; }
         public int Add(Car car)
         {
