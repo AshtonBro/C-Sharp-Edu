@@ -77,6 +77,16 @@ namespace AshtonBro.Code
             }
         }
 
+       public IEnumerator<int> GetNumbers(int max)
+        {
+            var current = 0;
+            for (int i = 0; i < max; i++)
+            {
+                current += 1;
+                yield return current;
+            }
+        }
+
         public IEnumerator<Car> GetEnumerator()
         {
             return _cars.GetEnumerator();
@@ -88,6 +98,7 @@ namespace AshtonBro.Code
         }
     }
 
+    
     public class ParkingEnumerator : IEnumerator
     {
         public object Current => throw new NotImplementedException();
