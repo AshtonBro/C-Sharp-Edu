@@ -24,13 +24,20 @@ namespace AshtonBro.Code
 				parking.Add(car);
 			}
 
+			foreach (var car in parking)
+			{
+				Console.WriteLine($"Парковка: {car}");
+			}
+
+			foreach (var car in parking.GetCarNames())
+            {
+                Console.WriteLine($"Name: {car}");
+            }
+
+
 			Console.WriteLine(parking["B021AD74"]?.Name);
 			Console.WriteLine(parking["B021AD73"]?.Name);
 
-            foreach (var car in parking)
-            {
-                Console.WriteLine(car);
-            }
 
             Console.Write("Введите номер автомобиля: ");
 			var num = Console.ReadLine();
@@ -48,6 +55,8 @@ namespace AshtonBro.Code
 Чтобы наш класс смог работать с циклом foreach нам нужно чтобы этот класс реализовывал interface IEnumerable
 Enumerator это Interface который возвращает нам коллекцию
 Iterator это переборщиц нашей коллекции
+
+Для того чтобы перебрать все элементы коллекции можно использовать yield
 
 class Car
 {
