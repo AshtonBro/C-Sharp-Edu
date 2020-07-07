@@ -77,25 +77,22 @@ namespace AshtonBro.Code
             }
         }
 
-       public IEnumerator<int> GetNumbers(int max)
+        public IEnumerator GetEnumerator()
         {
-            var current = 0;
-            for (int i = 0; i < max; i++)
+            foreach (var car in _cars)
             {
-                current += 1;
-                yield return current;
+                yield return car;
             }
         }
 
-        public IEnumerator<Car> GetEnumerator()
+        public IEnumerable GetCarNames()
         {
-            return _cars.GetEnumerator();
+            foreach (var car in _cars)
+            {
+                yield return car.Name;
+            }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _cars.GetEnumerator();
-        }
     }
 
     
