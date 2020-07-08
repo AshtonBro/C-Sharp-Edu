@@ -4,54 +4,13 @@ using AshtonBro.Code;
 
 namespace AshtonBro.Code
 {
-	class Car
-    {
-        public string Name { get; set; }
-    }
-
     class Program
     {
 		static void Main(string[] args)
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 
-			var i = 5;
-
-			var parking = new
-			{
-				Name = "BMW",
-				Number = "R435RT72",
-				Power = 234
-			};
-
-            Console.WriteLine(parking);
-            Console.WriteLine($"Name: {parking.Name} Number: {parking.Number} Power: {parking.Power}");
-
-			var car = new Car()
-			{
-				Name = "Toyota"
-			};
-
-			var parking2 = new
-			{
-				car.Name,
-				Power = 234
-			};
-
-            Console.WriteLine(parking2);
-
-
-			// инициация кортежей по разному определяет их тип, также у ссылочного типа есть возможность SET в отличии от value типа
-			Tuple<int, string> tuple = new Tuple<int, string>(5, "Hello"); // value type
-            Console.WriteLine(tuple.Item1);
-            Console.WriteLine(tuple.Item2);
-			 
-			var tuple2 = (2, "Hi"); // reference type
-            Console.WriteLine(tuple2);
-			Console.WriteLine(tuple2.Item1);
-			Console.WriteLine(tuple2.Item2);
-
-			Console.ReadLine();
+			
 		}
 	}
 }
@@ -59,7 +18,11 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- Анонимные типы (Anonymous Type) и кортежи (ValueTuple и Tuple) в C# --------------------------------------->
-Кортежи позволяют создавать наборы данных либо одного либо нескольких типов как в отличии от массивов, что массивы могут содеражать только одного типо, кортежи могут содержать различные типы
+
+TODO: Создать анонимный тип, Tuple и ValueTuple значения.
+TODO: ValueTuple использовать в качестве аргумента метода и в качестве возвращаемого значения
+
+Кортежи позволяют создавать наборы данных либо одного либо нескольких типов как в отличии от массивов, что массивы могут содержать только одного типо, кортежи могут содержать различные типы
 и их также можно передавать в методы
 
 Tuple<int, string> tuple = new Tuple<int, string>(5, "Hello");
