@@ -41,11 +41,15 @@ namespace AshtonBro.Code
             Console.WriteLine(parking2);
 
 
-			Tuple<int, string> tuple = new Tuple<int, string>(5, "Hello");
+			// инициация кортежей по разному определяет их тип, также у ссылочного типа есть возможность SET в отличии от value типа
+			Tuple<int, string> tuple = new Tuple<int, string>(5, "Hello"); // value type
             Console.WriteLine(tuple.Item1);
             Console.WriteLine(tuple.Item2);
-			
-
+			 
+			var tuple2 = (2, "Hi"); // reference type
+            Console.WriteLine(tuple2);
+			Console.WriteLine(tuple2.Item1);
+			Console.WriteLine(tuple2.Item2);
 
 			Console.ReadLine();
 		}
