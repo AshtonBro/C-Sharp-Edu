@@ -4,6 +4,11 @@ using AshtonBro.Code;
 
 namespace AshtonBro.Code
 {
+	class Car
+    {
+        public string Name { get; set; }
+    }
+
     class Program
     {
 		static void Main(string[] args)
@@ -19,8 +24,23 @@ namespace AshtonBro.Code
 				Power = 234
 			};
 
+            Console.WriteLine(parking);
+            Console.WriteLine($"Name: {parking.Name} Number: {parking.Number} Power: {parking.Power}");
 
+			var car = new Car()
+			{
+				Name = "Toyota"
+			};
 
+			var parking2 = new
+			{
+				car.Name,
+				Power = 234
+			};
+
+            Console.WriteLine(parking2);
+
+			Console.ReadLine();
 		}
 	}
 }
@@ -28,6 +48,7 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- Анонимные типы (Anonymous Type) и кортежи (ValueTuple и Tuple) в C# --------------------------------------->
+Анонимные типо это можно сказать контейнеры для хранения данных, данные с анонимных типов можно только прочитать (GET) записать нельзя
 
 var parking = new
 {
