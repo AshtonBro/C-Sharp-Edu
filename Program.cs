@@ -47,12 +47,26 @@ namespace AshtonBro.Code
             Console.WriteLine(tuple.Item2);
 			 
 			var tuple2 = (2, "Hi"); // reference type
+			var tuple3 = (Name: "Tomato", Energy: 20);
+			tuple3.Energy = 35;
             Console.WriteLine(tuple2);
 			Console.WriteLine(tuple2.Item1);
 			Console.WriteLine(tuple2.Item2);
 
+			var result = GetData();
+			Console.WriteLine($"Name: {result.Name} Number: {result.Number} Flag: {result.Flag}");
+
 			Console.ReadLine();
 		}
+
+		public static (int Number, string Name, bool Flag) GetData()
+        {
+			var number = 7874;
+			var name = Guid.NewGuid().ToString();
+			bool b = number > 500;
+
+			return (number, name, b);
+        }
 	}
 }
 
@@ -66,6 +80,33 @@ Tuple<int, string> tuple = new Tuple<int, string>(5, "Hello");
 Console.WriteLine(tuple.Item1);
 Console.WriteLine(tuple.Item2); 
 tuple.Item1 = 14; - также свойства tuple являются защищенные
+
+// инициация кортежей по разному определяет их тип, также у ссылочного типа есть возможность SET в отличии от value типа
+	Tuple<int, string> tuple = new Tuple<int, string>(5, "Hello"); // value type
+    Console.WriteLine(tuple.Item1);
+    Console.WriteLine(tuple.Item2);
+			 
+	var tuple2 = (2, "Hi"); // reference type
+	var tuple3 = (Name: "Tomato", Energy: 20);
+	tuple3.Energy = 35;
+    Console.WriteLine(tuple2);
+	Console.WriteLine(tuple2.Item1);
+	Console.WriteLine(tuple2.Item2);
+
+	var result = GetData();
+	Console.WriteLine($"Name: {result.Name} Number: {result.Number} Flag: {result.Flag}");
+
+	Console.ReadLine();
+}
+
+public static (int Number, string Name, bool Flag) GetData()
+{
+	var number = 7874;
+	var name = Guid.NewGuid().ToString();
+	bool b = number > 500;
+
+	return (number, name, b);
+}
 
 Анонимные типо это можно сказать контейнеры для хранения данных, данные с анонимных типов можно только прочитать (GET) записать нельзя
 
