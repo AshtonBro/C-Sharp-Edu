@@ -2,6 +2,7 @@
 
 namespace AshtonBro.Code
 {
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Constructor)] // Используем атрибут AttributeTargets что присвоить к кокой структуре относить атрибут через точно можно получить большой список структур
     class GeoAttribute : System.Attribute
     {
         public int X { get; set; }
