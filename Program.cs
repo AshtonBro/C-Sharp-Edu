@@ -9,38 +9,6 @@ namespace AshtonBro.Code
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 
-			var photo = new Photo("hello.png")
-			{
-				Path = @"C:\Program Files\hello.png"
-			};
-
-			var type = typeof(Photo);
-            var attributes = type.GetCustomAttributes(false); // получили наши атрибуты в виде массива объекта
-            foreach (var attr in attributes)
-            {
-                Console.WriteLine(attr);
-            }
-
-			var properties = type.GetProperties(); // возвращает коллекцию всех свойств класс
-            foreach (var prop in properties)
-            {
-				var attrs2 = prop.GetCustomAttributes(false);
-
-				if (attrs2.Any(a => a.GetType() == typeof(GeoAttribute))) // мы вывели только те свойства класса которые отмечены этим атрибутом 
-				{
-					Console.WriteLine(prop.PropertyType + " " + prop.Name);
-				} 
-
-				
-				var attrs = prop.GetCustomAttributes(false);
-
-                foreach (var a in attrs)
-                {
-                    Console.WriteLine(a);
-                }
-            }
-
-			Console.ReadLine();
 
 		}
 	}
