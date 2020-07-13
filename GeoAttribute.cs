@@ -14,5 +14,9 @@ namespace AshtonBro.Code
             X = x;
             Y = y;
         }
+        public override string ToString()
+        {
+            return $"[ОсьX: {X}; ОсьY: {Y};]";
+        }
     }
 }

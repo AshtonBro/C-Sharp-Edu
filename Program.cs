@@ -7,7 +7,18 @@ namespace AshtonBro.Code
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 
-			
+			var photo = new Photo("hello.png")
+			{
+				Path = @"C:\Program Files\hello.png"
+			};
+
+			var type = typeof(Photo);
+            var attributes = type.GetCustomAttributes(false); // получили наши атрибуты в виде массива объекта
+            foreach (var att in attributes)
+            {
+                Console.WriteLine(att);
+            }
+			Console.ReadLine();
 		}
 	}
 }
@@ -22,7 +33,7 @@ class GeoAttribute : System.Attribute
 Чаще всего атрибуту задают без параметров, для того что была возможность задавать свойства с помощью их имени и делаем объявление атрибута достаточно хорошо читаемый
 Если конструктор без параметров, то и атрибут мы можем создать пустой
 
-
+var type = type-of(Photo); // базовый класс type, который является контейнеров хранения информации о классе
 
 <---------------------------- Анонимные типы (Anonymous Type) и кортежи (ValueTuple и Tuple) в C# --------------------------------------->
 
