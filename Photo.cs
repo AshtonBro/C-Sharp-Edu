@@ -2,14 +2,15 @@
 
 namespace AshtonBro.Code
 {   
-    [Geo(10, 20)]
+    
     public class Photo
     {
+        [Geo(14, 35)]
         public string Name { get; set; }
         public string Path { get; set; }
         public Photo(string name)
         {
-            // Проверка
+            // Проверка входных параметров
             Name = name;
         }
     }

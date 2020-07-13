@@ -14,11 +14,19 @@ namespace AshtonBro.Code
 
 			var type = typeof(Photo);
             var attributes = type.GetCustomAttributes(false); // получили наши атрибуты в виде массива объекта
-            foreach (var att in attributes)
+            foreach (var attr in attributes)
             {
-                Console.WriteLine(att);
+                Console.WriteLine(attr);
             }
+
+			var properties = type.GetProperties(); // возвращает коллекцию всех свойств класс
+            foreach (var prop in properties)
+            {
+				Console.WriteLine(prop.PropertyType + " " + prop.Name);
+            }
+
 			Console.ReadLine();
+
 		}
 	}
 }
