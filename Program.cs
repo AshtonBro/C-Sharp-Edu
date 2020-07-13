@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+
 namespace AshtonBro.Code
 {
     class Program
@@ -22,8 +24,14 @@ namespace AshtonBro.Code
 			var properties = type.GetProperties(); // возвращает коллекцию всех свойств класс
             foreach (var prop in properties)
             {
-				Console.WriteLine(prop.PropertyType + " " + prop.Name);
+				var attrs2 = prop.GetCustomAttributes(false);
 
+				if (attrs2.Any(a => a.GetType() == typeof(GeoAttribute))) // мы вывели только те свойства класса которые отмечены этим атрибутом 
+				{
+					Console.WriteLine(prop.PropertyType + " " + prop.Name);
+				} 
+
+				
 				var attrs = prop.GetCustomAttributes(false);
 
                 foreach (var a in attrs)
