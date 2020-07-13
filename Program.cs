@@ -23,6 +23,13 @@ namespace AshtonBro.Code
             foreach (var prop in properties)
             {
 				Console.WriteLine(prop.PropertyType + " " + prop.Name);
+
+				var attrs = prop.GetCustomAttributes(false);
+
+                foreach (var a in attrs)
+                {
+                    Console.WriteLine(a);
+                }
             }
 
 			Console.ReadLine();
