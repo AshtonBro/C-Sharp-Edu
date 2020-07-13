@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using AshtonBro.Code;
-
 namespace AshtonBro.Code
 {
     class Program
@@ -18,6 +15,12 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- Атрибуты (Attribute) и Рефлексия (Reflection) .NET в C# --------------------------------------->
+Чтобы инициализировать Атрибут необходимо наследоваться от System.Attribute
+class GeoAttribute : System.Attribute
+{
+}
+Чаще всего атрибуту задают без параметров, для того что была возможность задавать свойства с помощью их имени и делаем объявление атрибута достаточно хорошо читаемый
+Если конструктор без параметров, то и атрибут мы можем создать пустой
 
 
 
