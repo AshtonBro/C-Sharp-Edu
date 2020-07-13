@@ -1,10 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AshtonBro.Code
 {
-    class GeoAttribute
+    class GeoAttribute : System.Attribute
     {
+        public int X { get; set; }
+        public int Y { get; set; }
+
+        public GeoAttribute() { }
+        public GeoAttribute(int x, int y)
+        {
+            // проверка входных данных
+            X = x;
+            Y = y;
+        }
     }
 }
