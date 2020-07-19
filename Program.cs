@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AshtonBro.Code
 {
@@ -8,7 +9,23 @@ namespace AshtonBro.Code
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 
+			var groups = new List<Group>();
+			var students = new List<Student>();
+            for (int i = 0; i < 10; i++)
+            {
+				groups.Add(new Group(i, "Group: " + i));
+			}
 
+			for(int i = 0; i < 300; i++)
+            {
+				var student = new Student(Guid.NewGuid().ToString().Substring(0, 5), i % 100)
+				{
+					Group = groups[i % 9]
+				};
+
+				students.Add(student);
+
+			}
 		}
 	}
 }
