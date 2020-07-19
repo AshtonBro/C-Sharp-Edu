@@ -6,6 +6,7 @@ namespace AshtonBro.Code
     {
         public string Name { get; }
         public int Age { get; }
+        public Group Group { get; set; }
         public Student(string name, int age)
         {
             // проверка входных параметров 
