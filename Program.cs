@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AshtonBro.Code
 {
@@ -26,6 +28,12 @@ namespace AshtonBro.Code
 				students.Add(student);
 
 			}
+			var binFormater = new BinaryFormatter();
+
+			using (var file = new FileStream("groups.bin", FileMode.OpenOrCreate))
+            {
+				binFormater.Serialize(file, groups);
+            }
 		}
 	}
 }
