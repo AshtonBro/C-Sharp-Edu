@@ -34,6 +34,21 @@ namespace AshtonBro.Code
             {
 				binFormater.Serialize(file, groups);
             }
+
+			using (var file = new FileStream("groups.bin", FileMode.OpenOrCreate))
+			{
+				var newGroups = binFormater.Deserialize(file) as List<Group>;
+
+				if (newGroups != null)
+                {
+                    foreach (var group in groups)
+                    {
+						Console.WriteLine(group);
+                    }
+                }
+			}
+
+			Console.ReadLine();
 		}
 	}
 }

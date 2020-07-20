@@ -4,8 +4,10 @@ using System.Text;
 
 namespace AshtonBro.Code
 {
+    [Serializable]
     class Group
     {
+        [NonSerialized]
         private Random rnd = new Random(DateTime.Now.Millisecond);
         public int Number { get; set; }
         public string Name { get; set; }
@@ -22,7 +24,7 @@ namespace AshtonBro.Code
         }
         public override string ToString()
         {
-            return Number.ToString(); 
+            return "Группа: " + Number.ToString(); 
         }
     }
 }

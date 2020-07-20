@@ -2,6 +2,7 @@
 
 namespace AshtonBro.Code
 {
+    [Serializable]
     class Student
     {
         public string Name { get; }
