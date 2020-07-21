@@ -12,6 +12,10 @@ namespace AshtonBro.Code
 {
     class Program
     {
+		// bin 769
+		// soap 4305
+		// xml 873
+		// json 226
 		static void Main(string[] args)
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
@@ -54,6 +58,8 @@ namespace AshtonBro.Code
                     }
                 }
 			}
+
+			Console.ReadLine();
 
 			var soapFormatter = new SoapFormatter();
 
@@ -101,7 +107,7 @@ namespace AshtonBro.Code
 
             var jsonFormatter = new DataContractJsonSerializer(typeof(List<Student>));
 
-			using (var file = new FileStream("students.json", FileMode.OpenOrCreate))
+			using (var file = new FileStream("students.json", FileMode.Create))
 			{
 				jsonFormatter.WriteObject(file, students);
 			}
@@ -132,6 +138,25 @@ namespace AshtonBro.Code
 
 <------ JSONFormater------>
 
+var jsonFormatter = new DataContractJsonSerializer(typeof(List<Student>));
+
+using (var file = new FileStream("students.json", FileMode.Create))
+{
+	jsonFormatter.WriteObject(file, students);
+}
+
+using (var file = new FileStream("students.json", FileMode.OpenOrCreate))
+{
+	var newStudents = jsonFormatter.ReadObject(file) as List<Student>;
+
+	if (newStudents != null)
+	{
+		foreach (var student in newStudents)
+		{
+			Console.WriteLine(student + " " + student.Group.GetPrivate());
+		}
+	}
+}
 
 <------XmlFormater------>
 

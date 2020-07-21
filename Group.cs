@@ -9,6 +9,7 @@ namespace AshtonBro.Code
     {
         [NonSerialized]
         private Random rnd = new Random(DateTime.Now.Millisecond);
+
         private int privateInt;
         public int Number { get; set; }
         public string Name { get; set; }
