@@ -14,7 +14,9 @@ namespace AshtonBro.Code
 
 
 /*
- 
+ <----------------------------CLR в .NET Framework на примере C#--------------------------------------->
+
+
 <---------------------------- Сериализация (serialization) объектов и работа с XML и JSON в C# --------------------------------------->
 
 TODO: В своей предметной области создать сериализаторы 4х типов и сохранить данные.
@@ -89,53 +91,53 @@ using (var file = new FileStream("groups.soap", FileMode.OpenOrCreate))
 <------BinaryFormatter------>
 
 class Program
-    {
-		static void Main(string[] args)
-		{
-			Console.ForegroundColor = ConsoleColor.Green;
+{
+	static void Main(string[] args)
+	{
+		Console.ForegroundColor = ConsoleColor.Green;
 
-			var groups = new List<Group>();
-			var students = new List<Student>();
-            for (int i = 0; i < 10; i++)
-            {
-				var group = new Group(i, "Group: " + i);
-				group.SetPrivate(i);
-				groups.Add(group);
-			}
-
-			for(int i = 0; i < 300; i++)
-            {
-				var student = new Student(Guid.NewGuid().ToString().Substring(0, 5), i % 100)
-				{
-					Group = groups[i % 9]
-				};
-
-				students.Add(student);
-
-			}
-			var binFormater = new BinaryFormatter();
-
-			using (var file = new FileStream("groups.bin", FileMode.OpenOrCreate))
-            {
-				binFormater.Serialize(file, groups);
-            }
-
-			using (var file = new FileStream("groups.bin", FileMode.OpenOrCreate))
-			{
-				var newGroups = binFormater.Deserialize(file) as List<Group>;
-
-				if (newGroups != null)
-                {
-                    foreach (var group in groups)
-                    {
-						Console.WriteLine(group);
-                    }
-                }
-			}
-
-			Console.ReadLine();
+		var groups = new List<Group>();
+		var students = new List<Student>();
+        for (int i = 0; i < 10; i++)
+        {
+			var group = new Group(i, "Group: " + i);
+			group.SetPrivate(i);
+			groups.Add(group);
 		}
+
+		for(int i = 0; i < 300; i++)
+        {
+			var student = new Student(Guid.NewGuid().ToString().Substring(0, 5), i % 100)
+			{
+				Group = groups[i % 9]
+			};
+
+			students.Add(student);
+
+		}
+		var binFormater = new BinaryFormatter();
+
+		using (var file = new FileStream("groups.bin", FileMode.OpenOrCreate))
+        {
+			binFormater.Serialize(file, groups);
+        }
+
+		using (var file = new FileStream("groups.bin", FileMode.OpenOrCreate))
+		{
+			var newGroups = binFormater.Deserialize(file) as List<Group>;
+
+			if (newGroups != null)
+            {
+                foreach (var group in groups)
+                {
+					Console.WriteLine(group);
+                }
+            }
+		}
+
+		Console.ReadLine();
 	}
+}
 
 for JSON
 [DataContract]
