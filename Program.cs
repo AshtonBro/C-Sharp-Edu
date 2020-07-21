@@ -1,131 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters.Soap;
-using System.Runtime.Serialization.Json;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 
 namespace AshtonBro.Code
 {
     class Program
     {
-		// bin 769
-		// soap 4305
-		// xml 873
-		// json 226
 		static void Main(string[] args)
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 
-			var groups = new List<Group>();
-			var students = new List<Student>();
-            for (int i = 0; i < 10; i++)
-            {
-				var group = new Group(i, "Group: " + i);
-				group.SetPrivate(i);
-				groups.Add(group);
-			}
-
-			for(int i = 0; i < 300; i++)
-            {
-				var student = new Student(Guid.NewGuid().ToString().Substring(0, 5), i % 100)
-				{
-					Group = groups[i % 9]
-				};
-
-				students.Add(student);
-
-			}
-			var binFormater = new BinaryFormatter();
-
-			using (var file = new FileStream("groups.bin", FileMode.OpenOrCreate))
-            {
-				binFormater.Serialize(file, groups);
-            }
-
-			using (var file = new FileStream("groups.bin", FileMode.OpenOrCreate))
-			{
-				var newGroups = binFormater.Deserialize(file) as List<Group>;
-
-				if (newGroups != null)
-                {
-                    foreach (var group in groups)
-                    {
-						Console.WriteLine(group);
-                    }
-                }
-			}
-
-			Console.ReadLine();
-
-			var soapFormatter = new SoapFormatter();
-
-			using (var file = new FileStream("groups.soap", FileMode.OpenOrCreate))
-			{
-				soapFormatter.Serialize(file, groups);
-			}
-
-			using (var file = new FileStream("groups.soap", FileMode.OpenOrCreate))
-			{
-				var newGroups = soapFormatter.Deserialize(file) as List<Group>;
-
-				if (newGroups != null)
-				{
-					foreach (var group in groups)
-					{
-						Console.WriteLine(group);
-					}
-				}
-			}
-
-			Console.ReadLine();
-
-            var xmlFormatter = new XmlSerializer(typeof(List<Group>));
-
-            using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
-            {
-                xmlFormatter.Serialize(file, groups);
-            }
-
-            using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
-            {
-                var newGroups = xmlFormatter.Deserialize(file) as List<Group>;
-
-                if (newGroups != null)
-                {
-                    foreach (var group in groups)
-                    {
-                        Console.WriteLine(group);
-                    }
-                }
-            }
-
-            Console.ReadLine();
-
-            var jsonFormatter = new DataContractJsonSerializer(typeof(List<Student>));
-
-			using (var file = new FileStream("students.json", FileMode.Create))
-			{
-				jsonFormatter.WriteObject(file, students);
-			}
-
-			using (var file = new FileStream("students.json", FileMode.OpenOrCreate))
-			{
-				var newStudents = jsonFormatter.ReadObject(file) as List<Student>;
-
-				if (newStudents != null)
-				{
-					foreach (var student in newStudents)
-					{
-						Console.WriteLine(student + " " + student.Group.GetPrivate());
-					}
-				}
-			}
-
-			Console.ReadLine();
 		}
 	}
 }
@@ -255,6 +137,29 @@ class Program
 			Console.ReadLine();
 		}
 	}
+
+for JSON
+[DataContract]
+class Student
+{
+    [DataMember]
+    public string Name { get; set; }
+    [DataMember]
+    public int Age { get; set; }
+    [DataMember]
+    public Group Group { get; set; }
+    public Student(string name, int age)
+    {
+        // проверка входных параметров 
+        Name = name;
+        Age = age;
+    }
+    public override string ToString()
+    {
+        return Name;
+    }
+}
+
 [Serializable]
 class Student
 {
@@ -273,36 +178,42 @@ class Student
     }
 }
 
- [Serializable]
-    class Group
-    {
-        [NonSerialized]
-        private Random rnd = new Random(DateTime.Now.Millisecond);
-        private int privateInt;
-        public int Number { get; set; }
-        public string Name { get; set; }
-        public Group() 
-        {
-            Number = rnd.Next(1, 10);
-            Name = "Group: " + rnd;
-        }
-         
-        public void SetPrivate(int i)
-        {
-            privateInt = i;
-        }
+[Serializable]
+class Group
+{
+    [NonSerialized]
+    private Random rnd = new Random(DateTime.Now.Millisecond);
 
-        public Group(int number, string name)
-        {
-            // проверка входных параметров
-            Number = number;
-            Name = name;
-        }
-        public override string ToString()
-        {
-            return privateInt.ToString(); //"Группа: " + Number.ToString(); 
-        }
+    private int privateInt;
+    public int Number { get; set; }
+    public string Name { get; set; }
+    public Group() 
+    {
+        Number = rnd.Next(1, 10);
+        Name = "Group: " + rnd;
     }
+         
+    public void SetPrivate(int i)
+    {
+        privateInt = i;
+    }
+
+    public int GetPrivate()
+    {
+        return privateInt;
+    }
+
+    public Group(int number, string name)
+    {
+        // проверка входных параметров
+        Number = number;
+        Name = name;
+    }
+    public override string ToString()
+    {
+        return "Группа: " + Number.ToString(); // privateInt.ToString();
+    }
+}
 
 
 <---------------------------- Атрибуты (Attribute) и Рефлексия (Reflection) .NET в C# --------------------------------------->
