@@ -136,6 +136,8 @@ namespace AshtonBro.Code
  
 <---------------------------- Сериализация (serialization) объектов и работа с XML и JSON в C# --------------------------------------->
 
+TODO: В своей предметной области создать сериализаторы 4х типов и сохранить данные.
+
 <------ JSONFormater------>
 
 var jsonFormatter = new DataContractJsonSerializer(typeof(List<Student>));
