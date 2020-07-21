@@ -31,7 +31,7 @@ namespace AshtonBro.Code
         }
         public override string ToString()
         {
-            return privateInt.ToString(); //"Группа: " + Number.ToString(); 
+            return "Группа: " + Number.ToString(); // privateInt.ToString();
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
+using System.Text.RegularExpressions;
+using System.Xml.Serialization;
 
 namespace AshtonBro.Code
 {
@@ -51,8 +54,6 @@ namespace AshtonBro.Code
                 }
 			}
 
-			Console.ReadLine();
-
 			var soapFormatter = new SoapFormatter();
 
 			using (var file = new FileStream("groups.soap", FileMode.OpenOrCreate))
@@ -75,7 +76,27 @@ namespace AshtonBro.Code
 
 			Console.ReadLine();
 
+			var xmlFormater = new XmlSerializer(typeof(List<Group>));
 
+			using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+			{
+				xmlFormater.Serialize(file, groups);
+			}
+
+			using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+			{
+				var newGroups = xmlFormater.Deserialize(file) as List<Group>;
+
+				if (newGroups != null)
+				{
+					foreach (var group in groups)
+					{
+						Console.WriteLine(group);
+					}
+				}
+			}
+
+			Console.ReadLine();
 		}
 	}
 }
@@ -87,6 +108,27 @@ namespace AshtonBro.Code
 <---------------------------- Сериализация (serialization) объектов и работа с XML и JSON в C# --------------------------------------->
 
 
+<------SoapFormatter------>
+
+var soapFormatter = new SoapFormatter();
+
+using (var file = new FileStream("groups.soap", FileMode.OpenOrCreate))
+{
+	soapFormatter.Serialize(file, groups);
+}
+
+using (var file = new FileStream("groups.soap", FileMode.OpenOrCreate))
+{
+	var newGroups = soapFormatter.Deserialize(file) as List<Group>;
+
+	if (newGroups != null)
+	{
+		foreach (var group in groups)
+		{
+			Console.WriteLine(group);
+		}
+	}
+}
 
 <------BinaryFormatter------>
 
