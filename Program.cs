@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
+using System.Runtime.Serialization.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
@@ -76,22 +77,44 @@ namespace AshtonBro.Code
 
 			Console.ReadLine();
 
-			var xmlFormater = new XmlSerializer(typeof(List<Group>));
+            var xmlFormatter = new XmlSerializer(typeof(List<Group>));
 
-			using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+            using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+            {
+                xmlFormatter.Serialize(file, groups);
+            }
+
+            using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+            {
+                var newGroups = xmlFormatter.Deserialize(file) as List<Group>;
+
+                if (newGroups != null)
+                {
+                    foreach (var group in groups)
+                    {
+                        Console.WriteLine(group);
+                    }
+                }
+            }
+
+            Console.ReadLine();
+
+            var jsonFormatter = new DataContractJsonSerializer(typeof(List<Student>));
+
+			using (var file = new FileStream("students.json", FileMode.OpenOrCreate))
 			{
-				xmlFormater.Serialize(file, groups);
+				jsonFormatter.WriteObject(file, students);
 			}
 
-			using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+			using (var file = new FileStream("students.json", FileMode.OpenOrCreate))
 			{
-				var newGroups = xmlFormater.Deserialize(file) as List<Group>;
+				var newStudents = jsonFormatter.ReadObject(file) as List<Student>;
 
-				if (newGroups != null)
+				if (newStudents != null)
 				{
-					foreach (var group in groups)
+					foreach (var student in newStudents)
 					{
-						Console.WriteLine(group);
+						Console.WriteLine(student + " " + student.Group.GetPrivate());
 					}
 				}
 			}
@@ -106,6 +129,31 @@ namespace AshtonBro.Code
 /*
  
 <---------------------------- Сериализация (serialization) объектов и работа с XML и JSON в C# --------------------------------------->
+
+<------ JSONFormater------>
+
+
+<------XmlFormater------>
+
+var xmlFormater = new XmlSerializer(typeof(List<Group>));
+
+using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+{
+	xmlFormater.Serialize(file, groups);
+}
+
+using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+{
+	var newGroups = xmlFormater.Deserialize(file) as List<Group>;
+
+	if (newGroups != null)
+	{
+		foreach (var group in groups)
+		{
+			Console.WriteLine(group);
+		}
+	}
+}
 
 
 <------SoapFormatter------>

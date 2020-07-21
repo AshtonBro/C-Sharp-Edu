@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace AshtonBro.Code
 {
-    [Serializable]
+    [DataContract]
     class Student
     {
-        public string Name { get; }
-        public int Age { get; }
+        [DataMember]
+        public string Name { get; set; }
+        [DataMember]
+        public int Age { get; set; }
+        [DataMember]
         public Group Group { get; set; }
         public Student(string name, int age)
         {

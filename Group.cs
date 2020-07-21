@@ -23,6 +23,11 @@ namespace AshtonBro.Code
             privateInt = i;
         }
 
+        public int GetPrivate()
+        {
+            return privateInt;
+        }
+
         public Group(int number, string name)
         {
             // проверка входных параметров
