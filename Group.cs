@@ -17,7 +17,7 @@ namespace AshtonBro.Code
             Number = rnd.Next(1, 10);
             Name = "Group: " + rnd;
         }
-
+         
         public void SetPrivate(int i)
         {
             privateInt = i;
