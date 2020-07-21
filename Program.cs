@@ -136,6 +136,11 @@ namespace AshtonBro.Code
  
 <---------------------------- Сериализация (serialization) объектов и работа с XML и JSON в C# --------------------------------------->
 
+// bin 769
+// soap 4305
+// xml 873
+// json 226
+
 <------ JSONFormater------>
 
 var jsonFormatter = new DataContractJsonSerializer(typeof(List<Student>));
