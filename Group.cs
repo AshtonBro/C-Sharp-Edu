@@ -9,6 +9,7 @@ namespace AshtonBro.Code
     {
         [NonSerialized]
         private Random rnd = new Random(DateTime.Now.Millisecond);
+        private int privateInt;
         public int Number { get; set; }
         public string Name { get; set; }
         public Group() 
@@ -16,6 +17,12 @@ namespace AshtonBro.Code
             Number = rnd.Next(1, 10);
             Name = "Group: " + rnd;
         }
+
+        public void SetPrivate(int i)
+        {
+            privateInt = i;
+        }
+
         public Group(int number, string name)
         {
             // проверка входных параметров
@@ -24,7 +31,7 @@ namespace AshtonBro.Code
         }
         public override string ToString()
         {
-            return "Группа: " + Number.ToString(); 
+            return privateInt.ToString(); //"Группа: " + Number.ToString(); 
         }
     }
 }

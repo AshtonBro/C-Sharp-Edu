@@ -15,7 +15,9 @@ namespace AshtonBro.Code
 			var students = new List<Student>();
             for (int i = 0; i < 10; i++)
             {
-				groups.Add(new Group(i, "Group: " + i));
+				var group = new Group(i, "Group: " + i);
+				group.SetPrivate(i);
+				groups.Add(group);
 			}
 
 			for(int i = 0; i < 300; i++)

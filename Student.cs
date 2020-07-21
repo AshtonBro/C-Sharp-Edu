@@ -11,7 +11,6 @@ namespace AshtonBro.Code
         public Student(string name, int age)
         {
             // проверка входных параметров 
-
             Name = name;
             Age = age;
         }
