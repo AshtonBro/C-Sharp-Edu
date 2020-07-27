@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 
 namespace AshtonBro.Code
 {
@@ -8,8 +9,21 @@ namespace AshtonBro.Code
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 
-			GC.Collect(); // чувак иди ка почисти нам память (внутри скообок можно указать номер поколения с которого можно произвести очистку)
+            Console.WriteLine(GC.GetTotalMemory(false)); // Проверяем память до заполнения
 
+            for (int i = 0; i < 10000; i++)
+            {
+				var obj = (object)i;
+				int j = (int)obj;
+            }
+
+			Console.WriteLine(GC.GetTotalMemory(false)); // проверяем память после заполнения
+
+			GC.Collect();
+
+			Console.WriteLine(GC.GetTotalMemory(false)); // проверяем память после очистки заполненной памяти
+
+			Console.ReadLine();
 		}
 	}
 }
@@ -25,7 +39,7 @@ Class													char
 
 Garbage Collection необходимо чтобы очищать кучу от выделенного места для ссылочного типа данных
 
-GC.Collect(2); // чувак иди ка почисти нам память (внутри скообок можно указать номер поколения с которого можно произвести очистку)
+GC.Collect(2); // чувак иди ка почисти нам память (внутри скобок можно указать номер поколения с которого можно произвести очистку)
 
 
 
