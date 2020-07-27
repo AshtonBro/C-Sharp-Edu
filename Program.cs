@@ -12,7 +12,6 @@ namespace AshtonBro.Code
         {
 			GC.Collect();
         }
-       
     }
 
     class Program
@@ -38,7 +37,7 @@ namespace AshtonBro.Code
 
             }
 
-				Console.WriteLine(GC.GetTotalMemory(false)); // проверяем память после очистки заполненной памяти
+			Console.WriteLine(GC.GetTotalMemory(false)); // проверяем память после очистки заполненной памяти
 
 			Console.ReadLine();
 		}
@@ -76,7 +75,7 @@ using (var c = new myClass())
 
 }
 
-	Console.WriteLine(GC.GetTotalMemory(false)); // проверяем память после очистки заполненной памяти
+Console.WriteLine(GC.GetTotalMemory(false)); // проверяем память после очистки заполненной памяти
 
 Console.ReadLine();
 
