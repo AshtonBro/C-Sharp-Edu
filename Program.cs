@@ -11,7 +11,14 @@ namespace AshtonBro.Code
 			public int X { get; set; }
 			public override bool Equals(object obj)
             {
-				return base.Equals(obj);
+				if (obj is Point point) // если obj является пойнтом, положит тип пойнт в X
+                {
+					return point.X == X;
+                }
+				else
+                {
+					return false;
+                }
             }
         }
 		static void Main(string[] args)
