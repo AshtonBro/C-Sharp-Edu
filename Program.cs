@@ -1,15 +1,41 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AshtonBro.Code
 {
     class Program
     {
+		class Point
+        {
+			public int X { get; set; }
+			public override bool Equals(object obj)
+            {
+				return base.Equals(obj);
+            }
+        }
 		static void Main(string[] args)
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 
 			object obj = new object();
+
+			int i = 5;
+			int j = 4;
+
+			// value type
+            Console.WriteLine(i.Equals(j)); // будут сравнены значения 5 и 4.
+
+			var oi = (object)i;
+
+			object oj = j;
+
+			var p1 = new Point() { X = 5 };
+			var p2 = new Point() { X = 5 };
+
+            Console.WriteLine(oi.Equals(oj));
+
+			Console.ReadLine();
 		}
 	}
 }
