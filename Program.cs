@@ -40,9 +40,15 @@ namespace AshtonBro.Code
 				return X.ToString() + " ToString Method";
             }
 
-			public Point Clone()
+            public Point Clone()
             {
-				return MemberwiseClone() as Point;
+                return MemberwiseClone() as Point;
+            }
+
+            public Point DeepClone()
+            {
+				var result = (Point)MemberwiseClone();
+				return result.Y = Y.DeepClone();
             }
 
 			public new Type GetType()
@@ -94,12 +100,15 @@ namespace AshtonBro.Code
 			pp2.X = 77;
 			pp2.Y = new Point() { X = 99 };
             Console.WriteLine(pp);
+            Console.WriteLine(pp.Y);
 
 			var pp3 = pp.Clone();
 			pp3.X = 99;
+			pp3.Y.X = 222;
             Console.WriteLine(pp);
-
-            Console.WriteLine();
+            Console.WriteLine(pp.Y);
+			Console.WriteLine(pp3.Y);
+			Console.WriteLine();
 
 			Console.ReadLine();
 		}
