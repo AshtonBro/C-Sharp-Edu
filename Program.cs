@@ -7,6 +7,24 @@ namespace AshtonBro.Code
 {
     class Program
     {
+		static void Main(string[] args)
+		{
+			Console.ForegroundColor = ConsoleColor.Green;
+
+		}
+	}
+}
+
+
+/*
+
+
+
+
+<---------------------------- Базовый тип Object в C#  --------------------------------------->
+
+ class Program
+    {
 		class myClass
         {
 
@@ -82,8 +100,8 @@ namespace AshtonBro.Code
             Console.WriteLine(new myClass().GetHashCode());
 			Console.WriteLine(p1.GetHashCode());
 
-            Console.WriteLine(i/*.ToString()*/); // value type
-            Console.WriteLine(p1/*.ToString()*/); // reference type
+            Console.WriteLine(i/*.ToString()); // value type
+            Console.WriteLine(p1/*.ToString()); // reference type
             
             Console.WriteLine(i.GetType());
             Console.WriteLine(oi.GetType());
@@ -99,7 +117,7 @@ namespace AshtonBro.Code
 			var pp2 = pp;
 			pp2.X = 77;
 			pp2.Y = new Point() { X = 99 };
-            Console.WriteLine(pp);
+			Console.WriteLine(pp);
             Console.WriteLine(pp.Y);
 
 			var pp3 = pp.Clone();
@@ -113,13 +131,6 @@ namespace AshtonBro.Code
 			Console.ReadLine();
 		}
 	}
-}
-
-
-/*
-
-<---------------------------- Базовый тип Object в C#  --------------------------------------->
- 
 
 
 <---------------------------- сборка мусора (Garbage Collection, GC) .NET в C# --------------------------------------->
