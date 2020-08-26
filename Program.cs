@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
 namespace AshtonBro.Code
@@ -31,11 +32,15 @@ namespace AshtonBro.Code
 				return X;
             }
 
-            public override string ToString()
-            {
-                return base.ToString();
+			public override string ToString()
+			{
+				return X.ToString() + " ToString Method";
             }
 
+			public new Type GetType()
+            {
+				return typeof(UInt16);
+            } 
         }
 		static void Main(string[] args)
 		{
@@ -62,7 +67,20 @@ namespace AshtonBro.Code
             Console.WriteLine(i.GetHashCode());
             Console.WriteLine(oj.GetHashCode());
             Console.WriteLine(new myClass().GetHashCode());
-			Console.WriteLine(p1.GetHashCode()) ;
+			Console.WriteLine(p1.GetHashCode());
+
+            Console.WriteLine(i/*.ToString()*/); // value type
+            Console.WriteLine(p1/*.ToString()*/); // reference type
+            
+            Console.WriteLine(i.GetType());
+            Console.WriteLine(oi.GetType());
+            Console.WriteLine(p1.GetType());
+
+            Console.WriteLine(typeof(Point) == p1.GetType());
+
+            Console.WriteLine(Object.Equals(5, 5));
+			Console.WriteLine(Object.ReferenceEquals(5, 5));
+            Console.WriteLine(Object.ReferenceEquals(p2, p2));
 
 			Console.ReadLine();
 		}
