@@ -6,6 +6,11 @@ namespace AshtonBro.Code
 {
     class Program
     {
+		class myClass
+        {
+
+        }
+
 		class Point
         {
 			public int X { get; set; }
@@ -20,6 +25,17 @@ namespace AshtonBro.Code
 					return false;
                 }
             }
+
+            public override int GetHashCode()
+            {
+				return X;
+            }
+
+            public override string ToString()
+            {
+                return base.ToString();
+            }
+
         }
 		static void Main(string[] args)
 		{
@@ -40,7 +56,13 @@ namespace AshtonBro.Code
 			var p1 = new Point() { X = 5 };
 			var p2 = new Point() { X = 5 };
 
-            Console.WriteLine(oi.Equals(oj));
+            Console.WriteLine(p1.Equals(p2));
+            Console.WriteLine(null == null);
+
+            Console.WriteLine(i.GetHashCode());
+            Console.WriteLine(oj.GetHashCode());
+            Console.WriteLine(new myClass().GetHashCode());
+			Console.WriteLine(p1.GetHashCode()) ;
 
 			Console.ReadLine();
 		}
