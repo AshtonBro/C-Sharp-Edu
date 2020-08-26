@@ -14,8 +14,11 @@ namespace AshtonBro.Code
 
 		class Point
         {
-			public int X { get; set; }
-			public override bool Equals(object obj)
+			public int X { get; set; } // value type
+			public myClass MyClass { get; set; } // Чтобы увидеть разницу при клонировании между value type и reference type
+            public Point Y { get; set; }
+
+            public override bool Equals(object obj)
             {
 				if (obj is Point point) // если obj является пойнтом, положит тип пойнт в X
                 {
@@ -37,6 +40,11 @@ namespace AshtonBro.Code
 				return X.ToString() + " ToString Method";
             }
 
+			public Point Clone()
+            {
+				return MemberwiseClone() as Point;
+            }
+
 			public new Type GetType()
             {
 				return typeof(UInt16);
@@ -51,7 +59,6 @@ namespace AshtonBro.Code
 			int i = 5;
 			int j = 4;
 
-			// value type
             Console.WriteLine(i.Equals(j)); // будут сравнены значения 5 и 4.
 
 			var oi = (object)i;
@@ -81,6 +88,18 @@ namespace AshtonBro.Code
             Console.WriteLine(Object.Equals(5, 5));
 			Console.WriteLine(Object.ReferenceEquals(5, 5));
             Console.WriteLine(Object.ReferenceEquals(p2, p2));
+
+			var pp = new Point() { X = 7, Y = new Point() };
+			var pp2 = pp;
+			pp2.X = 77;
+			pp2.Y = new Point() { X = 99 };
+            Console.WriteLine(pp);
+
+			var pp3 = pp.Clone();
+			pp3.X = 99;
+            Console.WriteLine(pp);
+
+            Console.WriteLine();
 
 			Console.ReadLine();
 		}
