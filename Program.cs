@@ -21,6 +21,21 @@ namespace AshtonBro.Code
 			discount_price = price - (price * discount);
             Console.WriteLine("Цена со скидкой: {0:C}", discount_price);
 
+			int i;
+            for (i = -5; i <= 5; i++)
+            {
+                Console.Write("Проверка " + i + ": ");
+
+				if (i < 0)
+				{
+					Console.WriteLine("Отрицательное число");
+				}
+				else
+                {
+					Console.WriteLine("Положительное число");
+				}
+            }
+
 			Console.ReadLine();
 
 		}
