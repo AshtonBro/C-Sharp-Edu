@@ -11,29 +11,6 @@ namespace AshtonBro.Code
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
 
-			decimal price;
-			decimal discount;
-			decimal discount_price;
-
-			// рассчитать цену со скидкой
-			price = 19.95m;
-			discount = 0.15m;
-			discount_price = price - (price * discount);
-            Console.WriteLine("Цена со скидкой: {0:C}", discount_price);
-
-			int i;
-            for (i = -5; i <= 5; i++)
-            {
-                Console.Write("Проверка " + i + ": ");
-
-				if (i < 0)
-				{
-					Console.WriteLine("Отрицательное число");
-				}
-				else
-                {
-					Console.WriteLine("Положительное число");
-				}
             }
 
 			Console.ReadLine();
