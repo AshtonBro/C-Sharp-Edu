@@ -8,9 +8,13 @@ namespace AshtonBro.Code
         {
             Console.ForegroundColor = ConsoleColor.Green;
 
-            
-           
+            Person person = new Person();
+            person.SetName("Evgenii");
+            Console.WriteLine(person.GetName());
 
+            Person person2 = new Person();
+            person2.SetName("Max");
+            Console.WriteLine(person.GetName());
 
             Console.ReadLine();
 
