@@ -1,26 +1,42 @@
 ﻿using System;
 
-namespace AhstonBro.Code
+namespace AshtonBro.Code
 {
     public class Person
     {
         // Fields
         private string _name;
-
+        private int _age;
 
         // Properties
-
-
-        // Method
-        public void SetName(string name)
+        public int Age
         {
-            _name = name;
+            get { return _age; }
+            set
+            {
+                if (value < 18)
+                {
+                    _age = -1;
+                }
+                else
+                {
+                    _age = value;
+                }
+            }
         }
 
         public string GetName()
         {
-            return "From GetName: " + _name;
+            return _name ?? "Empty";
         }
+
+        // Properties
+        public void SetName(string value)
+        {
+            _name = value;
+        }
+
+        // Method
 
         public void PrintInfo()
         {

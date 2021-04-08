@@ -9,12 +9,16 @@ namespace AshtonBro.Code
             Console.ForegroundColor = ConsoleColor.Green;
 
             Person person = new Person();
+            person.Age = 19;
             person.SetName("Evgenii");
             Console.WriteLine(person.GetName());
+            Console.WriteLine(person.Age);
 
             Person person2 = new Person();
+            person2.Age = 17;
             person2.SetName("Max");
-            Console.WriteLine(person.GetName());
+            Console.WriteLine(person2.GetName());
+            Console.WriteLine(person2.Age);
 
             Console.ReadLine();
 
@@ -25,8 +29,30 @@ namespace AshtonBro.Code
 
 /*
 
+ public class Person
+{
+    // Fields
+    private string _name;
 
 
+    // Properties
+
+    // Method
+    public void SetName(string name)
+    {
+        _name = name;
+    }
+
+    public string GetName()
+    {
+        return "From GetName: " + _name;
+    }
+
+    public void PrintInfo()
+    {
+        Console.WriteLine($"From PrintInfo: {_name}");
+    }
+}
 
 <---------------------------- Базовый тип Object в C#  --------------------------------------->
 

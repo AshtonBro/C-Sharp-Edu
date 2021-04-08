@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AhstonBro.Classes
+namespace AshtonBro.Code
 {
     public static class Printer
     {
