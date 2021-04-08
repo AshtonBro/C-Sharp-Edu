@@ -4,43 +4,42 @@ namespace AshtonBro.Code
 {
     public class Person
     {
+        //Constructor
+        public Person(string name, int age)
+        {
+            _name = name;
+            Age = age;
+        }
+        public Person(int age)
+        {
+            Age = age;
+        }
+
+        public Person() { }
+
         // Fields
         private string _name;
-        private int _age;
 
         // Properties
-        public int Age
-        {
-            get { return _age; }
-            set
-            {
-                if (value < 18)
-                {
-                    _age = -1;
-                }
-                else
-                {
-                    _age = value;
-                }
-            }
-        }
-
-        public string GetName()
-        {
-            return _name ?? "Empty";
-        }
-
-        // Properties
-        public void SetName(string value)
-        {
-            _name = value;
-        }
+        public string Name { get => _name; set => _name = value; }
+        public int Age { get; private set; }
 
         // Method
-
-        public void PrintInfo()
+        public string GetInfo()
         {
-            Console.WriteLine($"From PrintInfo: {_name}");
+            return Name + ": " + Age;
+        }
+    }
+
+    public static class Printer
+    {
+        public static void Printering(string value)
+        {
+            Console.WriteLine($"Print: {value}");
+        }
+        public static void Printering(int value)
+        {
+            Console.WriteLine($"Print: {value}");
         }
     }
 }
