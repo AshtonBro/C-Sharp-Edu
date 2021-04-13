@@ -25,7 +25,7 @@ namespace AshtonBro.Code
         {
             var photo = new Photo("hello.png")
             {
-                Path = @"C:\Program Files\hello.png"
+                Path = @"C:\Users\solov\OneDrive\Изображения\222.png"
             };
 
             var type = typeof(Photo);
