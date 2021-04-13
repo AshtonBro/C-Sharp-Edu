@@ -20,17 +20,6 @@ namespace AshtonBro.Code
 {
     class GarbageCollection
     {
-    }
-    class myClass : IDisposable
-    {
-        public myClass() { } // Конструктор
-        ~myClass() { } // Деструктор (Тут можно определить его поведение когда наш класс будет уничтожаться, особенно при работе с потоками) Деструктор вызывается системой 
-
-        public void Dispose()
-        {
-            GC.Collect();
-        }
-
         public static void RunDemo()
         {
             Console.WriteLine(GC.GetTotalMemory(false)); // Проверяем память до заполнения
@@ -54,5 +43,18 @@ namespace AshtonBro.Code
 
             Console.ReadLine();
         }
+    }
+
+    class myClass : IDisposable
+    {
+        public myClass() { } // Конструктор
+        ~myClass() { } // Деструктор (Тут можно определить его поведение когда наш класс будет уничтожаться, особенно при работе с потоками) Деструктор вызывается системой 
+
+        public void Dispose()
+        {
+            GC.Collect();
+        }
+
+       
     }
 }
