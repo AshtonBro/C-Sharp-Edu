@@ -36,7 +36,7 @@ namespace AshtonBro.Code
             Console.WriteLine(parking);
             Console.WriteLine($"Name: {parking.Name} Number: {parking.Number} Power: {parking.Power}");
 
-            var car = new Car()
+            var car = new Indexer()
             {
                 Name = "Toyota"
             };
