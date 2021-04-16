@@ -24,47 +24,49 @@ namespace AshtonBro.Code
         {
             return $"Авто: {Name}, Номер: {Number}";
         }
-    }
 
-    static void RunDemo()
-    {
-        Console.ForegroundColor = ConsoleColor.Green;
+        public static void RunDemo()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
 
-        var cars = new List<Indexer>()
+            var cars = new List<Indexer>()
             {
                 new Indexer() { Name = "Ford", Number = "A001AA01" },
                 new Indexer() { Name = "Toyota", Number = "B021AD74" },
                 new Indexer() { Name = "Shkoda", Number = "C231CA22" }
             };
 
-        var parking = new Parkink();
+            var parking = new Parkink();
 
-        foreach (var car in cars)
-        {
-            parking.Add(car);
+            foreach (var car in cars)
+            {
+                parking.Add(car);
+            }
+
+            foreach (var car in parking)
+            {
+                Console.WriteLine($"Парковка: {car}");
+            }
+
+            foreach (var car in parking.GetCarNames())
+            {
+                Console.WriteLine($"Name: {car}");
+            }
+
+            Console.WriteLine(parking["B021AD74"]?.Name);
+            Console.WriteLine(parking["B021AD73"]?.Name);
+
+
+            Console.Write("Введите номер автомобиля: ");
+            var num = Console.ReadLine();
+            parking[1] = new Indexer() { Name = "BMW", Number = num };
+            Console.WriteLine(parking[1]);
+
+            Console.ReadLine();
         }
 
-        foreach (var car in parking)
-        {
-            Console.WriteLine($"Парковка: {car}");
-        }
-
-        foreach (var car in parking.GetCarNames())
-        {
-            Console.WriteLine($"Name: {car}");
-        }
-
-        Console.WriteLine(parking["B021AD74"]?.Name);
-        Console.WriteLine(parking["B021AD73"]?.Name);
-
-
-        Console.Write("Введите номер автомобиля: ");
-        var num = Console.ReadLine();
-        parking[1] = new Indexer() { Name = "BMW", Number = num };
-        Console.WriteLine(parking[1]);
-
-        Console.ReadLine();
     }
+
 
     /*
        Сделали метод для доступа по индексу.parking["B021AD74"]?.Name передали в качестве параметра в [] скобка номер машины, в классе Parking оно пришло в индексатор,
