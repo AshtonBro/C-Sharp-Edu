@@ -9,6 +9,7 @@ namespace AshtonBro.Code
         {
             _name = name;
             Age = age;
+            IsAlive = true;
         }
         public Person(int age)
         {
@@ -19,6 +20,7 @@ namespace AshtonBro.Code
 
         // Fields
         private string _name;
+        public bool IsAlive { get; set; }
 
         // Properties
         public string Name { get => _name; set => _name = value; }
