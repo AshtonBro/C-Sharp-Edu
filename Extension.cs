@@ -13,8 +13,59 @@ using System.Text;
 // можно собрать все методы расширения в одном файле
 namespace AshtonBro.Code
 {
-    class Extension
+    public class Extension
     {
+        public static void RunDemo()
+        {
+            while (true)
+            {
+                Console.Write("Введите число: ");
+                var input = Console.ReadLine();
+
+                if (int.TryParse(input, out int result))
+                {
+                    if (result.IsEvenValue())
+                    {
+                        Console.WriteLine($"{result} - Четное.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{result} - Нечетное.");
+                    }
+
+                    int h = 182;
+                    h.IsDevidedValue(7);
+
+                    var list = new List<Road>();
+
+                }
+                else
+                {
+                    if (input.Contains("q"))
+                    {
+                        Console.WriteLine("Программа завершена");
+                        break;
+                    }
+
+                    Console.WriteLine("Введите корректное число");
+                }
+            }
+
+            Console.ReadLine();
+
+            var roads = new List<Road>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                var road = new Road();
+                road.CreateRandomRoad(1000, 10000);
+                roads.Add(road);
+            }
+
+            var roadsName = roads.ConvertToString();
+            Console.WriteLine(roadsName);
+            Console.ReadLine();
+        }
     }
 
     public static class Helper
