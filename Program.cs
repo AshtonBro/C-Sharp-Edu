@@ -14,6 +14,7 @@ namespace AshtonBro.Code
             AttributeReflection.RunDemo();
             Indexer.RunDemo();
             Extension.RunDemo();
+            Generic.RunDemo();
         }
     }
 }
