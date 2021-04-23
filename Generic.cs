@@ -90,6 +90,7 @@ namespace AshtonBro.Code
             throw new NotImplementedException();
         }
     }
+
     public class BathRoomInt : IRoom<int>
     {
         public int Object { get; private set; }
@@ -112,6 +113,22 @@ namespace AshtonBro.Code
         }
     }
 
+    public class Pit<T> : IRoom<T>
+    {
+        public T Object { get; private set; }
+
+        public T Place(T gameObject)
+        {
+            Object = gameObject;
+            return Object;
+        }
+
+        public Person Place(Person person)
+        {
+            person.IsAlive = false;
+            return person;
+        }
+    }
 
     public class Room<T>
     {
