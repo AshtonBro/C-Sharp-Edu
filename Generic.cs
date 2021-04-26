@@ -130,6 +130,8 @@ namespace AshtonBro.Code
         }
     }
 
+    // Ограничение обобщений where [параметр] : [тип данных, структуры или конкретный класс]
+    //public class Room<T> where T : Person
     public class Room<T>
     {
         private T[] _objects;
@@ -154,13 +156,18 @@ namespace AshtonBro.Code
         {
             for (int i = 0; i < _objects.Length; i++)
             {
-                if(_objects[i] == null)
+                if(_objects[i].Equals(default(T)))
                 {
                     _objects[i] = gameObject;
                     Count++;
                     break;
                 }
             }
+        }
+
+        public void Place<V>(V item) where V : Person
+        {
+            Console.WriteLine(item.Name);
         }
 
         public T Get(int index)
@@ -182,6 +189,11 @@ namespace AshtonBro.Code
         }
     }
 
+    // для интерфейсов синтаксис ограничения
+
+    // public class Comparer<TSource, TDestination>
+    // where TSource : Person
+    // where TDestination : Person
     public class Comparer<TSource, TDestination>
     {
 
