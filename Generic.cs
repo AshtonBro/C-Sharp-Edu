@@ -66,6 +66,9 @@ namespace AshtonBro.Code
         }
     }
 
+    //Ковариантность контрвариантность 
+    // Относится только к обобщенныеинтерфейсам
+
     public interface IRoom
     {
         void Place(object gameObject);
@@ -77,6 +80,19 @@ namespace AshtonBro.Code
         T Object { get; }
         T Place(T gameObject);
     }
+
+    //public interface IRoom<in T>
+    //{
+    //    T Object { set; }
+    //    void Place();
+    //}
+
+
+    //public interface IRoom<out T>
+    //{
+    //    T Object { get; }
+    //    void Place(T value);
+    //}
 
     public class BedRoom : IRoom
     {
@@ -198,4 +214,5 @@ namespace AshtonBro.Code
     {
 
     }
+
 }
