@@ -4,7 +4,7 @@ namespace AshtonBro.Code
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.ForegroundColor = ConsoleColor.Green;
 
@@ -16,15 +16,14 @@ namespace AshtonBro.Code
             Extension.RunDemo();
             Generic.RunDemo();
             Linq.RunDemo();
+            AsyncAwait.RunDemo();
         }
     }
 }
 
 /*
 
-
-
-<---------------------------- CLR в .NET Framework на примере C# --------------------------------------->
+<-------------------- CLR в .NET Framework на примере C# ------------------->
 
 Теоретическая часть CLR - Обзорный урок
 Command language runtime - это среда в которой выполняется ваш код
@@ -217,321 +216,16 @@ IL -> native -> Cash
     }
 
   
-<---------------------------- Асинхронность (async, await) и многопоточность (thread) в C# ---------------------------------------> 
-
-    TOD: 1 - В своей предметной области создать метод со сложными вычислениями
-    TOD: 1 - Сделать для этого метода обертку в виде async-метода
-    TOD: 1 - Переписать свой код в асинхронном варианте
-
-    TOD: 2 - Создать вручную поток (thread) 
-    TOD: 2 - Сделать для него повышенный приоритет
-    TOD: 2 - Запустить выполнение и попробовать завершить приложение
-
-    TOD: 3 - Использовать lock
-
-  class Program
-    {
-        public static object locker = new object();
-        static void Main(string[] args)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            var result = AsyncSaveFileTxt("myStream.txt");
-
-            Console.WriteLine(result);
-            Console.ReadLine();
-
-        }
-
-        static Task<bool> AsyncSaveFileTxt(string path)
-        {
-            var result = Task.Run(() => SaveFileTxt(path));
-            return result;
-        }
-
-        static bool SaveFileTxt(string path)
-        {
-            lock(locker)
-            {
-                var rnd = new Random();
-                var text = "";
-
-                for (int i = 0; i < 10000; i++)
-                {
-                    text += rnd.Next(i);
-                }
-
-                using (var sw = new StreamWriter(path, false, Encoding.UTF8))
-                {
-                    sw.WriteLine(text);
-                }
-
-                return true;
-            }
-        }
-
-    }
 
 
-    // Dead log
-    class Program
-    {
-        public static object locker = new object();
-        public static int i1 = 0;
-        public static int i2 = 0;
 
-        static void M1()
-        {
-            for (int i = 0; i <= i1; i++)
-            {
 
-            }
-        }
-
-        static void M2()
-        {
-            for (int i = 0; i >= i1; i--)
-            {
-
-            }
-        }
-
-        static void Main(string[] args)
-        {
-            Console.OutputEncoding = Encoding.Unicode;
-
-            var result = SaveFileAsync("stream.txt");
-            var input = Console.ReadLine();
-            Console.WriteLine(result.Result);
-            Console.ReadLine();
-        }
-
-        static async Task<bool> SaveFileAsync(string path)
-        {
-            var result = await Task.Run(() => SaveFile(path));
-            return result;
-        }
-
-        static bool SaveFile(string path)
-        {
-            lock (locker)
-            {
-                var rnd = new Random();
-                var text = "";
-                for (int i = 0; i < 50000; i++)
-                {
-                    text += rnd.Next();
-                }
-
-                using (var sw = new StreamWriter(path, false, Encoding.UTF8))
-                {
-                    sw.WriteLine();
-                }
-
-                return true;
-            }
-        }
-
-        static async Task DoWorkAsync()
-        {
-            Console.WriteLine("Begin async");
-            await Task.Run(() => DoWork(15)); // лямбда, анонимная конструкция
-            Console.WriteLine("End async");
-        }
-
-        static void DoWork(int max)
-        {
-            int j = 0;
-            for (int i = 0; i < max; i++)
-            {
-               Console.WriteLine("DoWork");
-            }
-        }
-
-        static void DoWork2(object max)
-        {
-
-            int j = 0;
-            for (int i = 0; i < (int)max; i++)
-            {
-                j++;
-
-                if (j % 10000 == 0)
-                {
-                    Console.WriteLine("DoWork2");
-                }
-            }
-        }
-
-    }
 
 
     // Сделали функцию записывающию в файл txt текст затем сделали её асинхронное
     // т.е. теперь можно работать в консоле пока наша функция выполняется в другом потоке
 
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.OutputEncoding = Encoding.Unicode;
-
-            var result = SaveFileAsync("stream.txt");
-            var input = Console.ReadLine();
-            Console.WriteLine(result.Result);
-            Console.ReadLine();
-        }
-
-        static async Task<bool> SaveFileAsync(string path)
-        {
-            var result = await Task.Run(() => SaveFile(path));
-            return result;
-        }
-
-        static bool SaveFile(string path)
-        {
-            var rnd = new Random();
-            var text = "";
-            for (int i = 0; i < 50000; i++)
-            {
-                text += rnd.Next();
-            }
-
-            using (var sw = new StreamWriter(path, false, Encoding.UTF8))
-            {
-                sw.WriteLine();
-            }
-
-            return true;
-        }
-
-        static async Task DoWorkAsync()
-        {
-            Console.WriteLine("Begin async");
-            await Task.Run(() => DoWork(15)); // лямбда, анонимная конструкция
-            Console.WriteLine("End async");
-        }
-
-        static void DoWork(int max)
-        {
-            int j = 0;
-            for (int i = 0; i < max; i++)
-            {
-               Console.WriteLine("DoWork");
-            }
-        }
-
-        static void DoWork2(object max)
-        {
-
-            int j = 0;
-            for (int i = 0; i < (int)max; i++)
-            {
-                j++;
-
-                if (j % 10000 == 0)
-                {
-                    Console.WriteLine("DoWork2");
-                }
-            }
-        }
-
-    }
-
-    // можем передавать параметр
-    static async Task DoWorkAsync()
-        {
-            Console.WriteLine("Begin async");
-            await Task.Run(() => DoWork(15)); // лямбда, анонимная конструкция
-            Console.WriteLine("End async");
-        }
-
-        static void DoWork(int max)
-        {
-            int j = 0;
-            for (int i = 0; i < max; i++)
-            {
-               Console.WriteLine("DoWork");
-            }
-        }
-
-    static void Main(string[] args)
-        {
-            Console.OutputEncoding = Encoding.Unicode;
-            Console.WriteLine("Before DoWorkAsync");
-            DoWorkAsync();
-            Console.WriteLine("After DoWorkAsync");
-
-            for (int i = 0; i < 10; i++)
-            {
-              Console.WriteLine("Main");
-            }
-
-            Console.WriteLine("End Main");
-            Console.ReadLine();
-        }
-
-        static async Task DoWorkAsync()
-        {
-            Console.WriteLine("Begin async");
-            await Task.Run(() => DoWork()); // лямбда, анонимная конструкция
-            Console.WriteLine("End async");
-        }
-
-        static void DoWork()
-        {
-            int j = 0;
-            for (int i = 0; i < 10; i++)
-            {
-               Console.WriteLine("DoWork");
-            }
-        }
-
-            Thread thread = new Thread(new ThreadStart(DoWork));
-            thread.Start();
-
-            Thread thread2 = new Thread(new ParameterizedThreadStart(DoWork2));
-            thread2.Start(int.MaxValue);
-
-            int j = 0;
-            for (int i = 0; i < int.MaxValue; i++)
-            {
-                j++;
-
-                if (j % 10000 == 0)
-                {
-                    Console.WriteLine("Main");
-                }
-            }
-
-
-        static void DoWork()
-        {
-            int j = 0;
-            for (int i = 0; i < 100; i++)
-            {
-                j++;
-
-                if(j % 10000 == 0)
-                {
-                    Console.WriteLine("DoWork");
-                }
-            }
-        }
-
-        static void DoWork2(object max)
-        {
-
-            int j = 0;
-            for (int i = 0; i < (int)max; i++)
-            {
-                j++;
-
-                if (j % 10000 == 0)
-                {
-                    Console.WriteLine("DoWork2");
-                }
-            }
-        }
-
+    
 
 
  <---------------------------- Делегаты (delegate) и события (event) в C# ---------------------------------------> 
