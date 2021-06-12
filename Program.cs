@@ -50,6 +50,8 @@ CLR - конкретная набор служб, набор библиотек,
 BCL - базовые классы
 FCL - framework class library (специализированные классы)
 
+
+
 (CLR)
 C#-----     just in time
 VB.Net-> IL	  ------>    native
